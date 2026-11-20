@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <radialGradient id="male-bg" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </radialGradient>
+    <linearGradient id="male-body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="50%" stop-color="#94a3b8" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+    <linearGradient id="male-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.1" />
+    </linearGradient>
+    <filter id="body-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="url(#male-bg)" />
+  <ellipse cx="300" cy="740" rx="160" ry="24" fill="#0f172a" opacity="0.08" />
+  <g filter="url(#body-shadow)">
+    <!-- Head -->
+    <ellipse cx="300" cy="110" rx="46" ry="58" fill="url(#male-body)" stroke="#64748b" stroke-width="2" />
+    <!-- Neck -->
+    <path d="M280 162 L320 162 L326 195 L274 195 Z" fill="url(#male-body)" />
+    <!-- Torso & Arms (Athletic Male) -->
+    <path d="M274 195 L326 195 L395 215 L430 380 L398 390 L368 275 L362 435 L375 700 L335 715 L300 485 L265 715 L225 700 L238 435 L232 275 L202 390 L170 380 L205 215 Z" fill="url(#male-body)" stroke="#475569" stroke-width="2" />
+    <!-- Chest / Abdomen Muscle Contour Accents -->
+    <path d="M255 240 Q300 255 345 240" fill="none" stroke="#475569" stroke-width="2" stroke-opacity="0.4" />
+    <path d="M270 295 Q300 310 330 295" fill="none" stroke="#475569" stroke-width="2" stroke-opacity="0.3" />
+    <path d="M300 245 L300 350" fill="none" stroke="#475569" stroke-width="2" stroke-opacity="0.3" />
+    <!-- Feet / Shoes -->
+    <path d="M225 700 L265 700 L260 742 L205 742 Q200 720 225 700 Z M335 700 L375 700 L395 720 Q370 742 340 742 L335 742 Z" fill="#475569" />
+  </g>
+  <text x="300" y="780" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#64748b">Male Model · Stylized Fit View</text>
+</svg>

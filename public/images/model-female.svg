@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="800" viewBox="0 0 600 800">
+  <defs>
+    <radialGradient id="fem-bg" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#faf5ff" />
+      <stop offset="100%" stop-color="#f1f5f9" />
+    </radialGradient>
+    <linearGradient id="fem-body" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="50%" stop-color="#a8b2c1" />
+      <stop offset="100%" stop-color="#64748b" />
+    </linearGradient>
+    <filter id="fem-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  <rect width="600" height="800" fill="url(#fem-bg)" />
+  <ellipse cx="300" cy="740" rx="150" ry="22" fill="#0f172a" opacity="0.08" />
+  <g filter="url(#fem-shadow)">
+    <!-- Head & Hair silhouette -->
+    <ellipse cx="300" cy="110" rx="42" ry="54" fill="url(#fem-body)" stroke="#64748b" stroke-width="2" />
+    <path d="M260 110 Q260 60 300 60 Q340 60 340 110 Q345 155 330 165 Q300 135 270 165 Q255 155 260 110 Z" fill="#64748b" opacity="0.6" />
+    <!-- Neck -->
+    <path d="M284 160 L316 160 L322 192 L278 192 Z" fill="url(#fem-body)" />
+    <!-- Torso & Arms (Female Silhouette - graceful waist & hips) -->
+    <path d="M278 192 L322 192 L382 210 L415 375 L386 385 L358 270 Q348 335 342 360 Q360 410 358 445 L366 700 L330 715 L300 495 L270 715 L234 700 L242 445 Q240 410 258 360 Q252 335 242 270 L214 385 L185 375 L218 210 Z" fill="url(#fem-body)" stroke="#475569" stroke-width="2" />
+    <!-- Torso Contour Curves -->
+    <path d="M265 240 Q300 255 335 240" fill="none" stroke="#475569" stroke-width="2" stroke-opacity="0.35" />
+    <path d="M275 330 Q300 340 325 330" fill="none" stroke="#475569" stroke-width="2" stroke-opacity="0.3" />
+    <!-- Feet / Heels -->
+    <path d="M234 700 L268 700 L260 742 L215 742 Q210 720 234 700 Z M332 700 L366 700 L385 720 Q360 742 340 742 L332 742 Z" fill="#475569" />
+  </g>
+  <text x="300" y="780" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="500" fill="#64748b">Female Model · Stylized Fit View</text>
+</svg>

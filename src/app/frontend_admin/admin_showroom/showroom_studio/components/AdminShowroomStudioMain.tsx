@@ -9,6 +9,11 @@ import { AdminShowroomStudioSizeGuide } from "@/app/frontend_admin/admin_showroo
 import { AdminShowroomStudioAssets } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioAssets";
 import { AdminShowroomStudioPreview } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioPreview";
 import { AdminShowroomStudioBackup } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioBackup";
+import {
+  detectGarmentCategory,
+  generateAutoCutoutSvg,
+} from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
+
 export function AdminShowroomStudioMain() {
   const t = useTranslations("studio");
   const { catalogue, preferences, save, error, ready, canEdit } =
@@ -17,6 +22,7 @@ export function AdminShowroomStudioMain() {
   const [colour, setColour] = useState("");
   const products = catalogue.products.filter((p) => p.status === "active");
   const product = products.find((p) => p.id === productId) ?? products[0];
+
   if (!ready)
     return (
       <div>
@@ -25,6 +31,7 @@ export function AdminShowroomStudioMain() {
       </div>
     );
   if (!product) return <p>{t("message054")}</p>;
+
   const variants = catalogue.variants.filter(
     (v) => v.productId === product.id && v.status === "active",
   );
@@ -36,6 +43,12 @@ export function AdminShowroomStudioMain() {
     measurements: [],
     overlays: {},
   };
+
+  const productCategory = detectGarmentCategory(
+    (product as { categoryId?: string }).categoryId,
+  );
+  const autoCutoutSrc = generateAutoCutoutSvg(productCategory, selected);
+
   return (
     <div className="space-y-8">
       <Link href="/frontend_admin/admin_showroom/showroom_catalogue">
@@ -95,7 +108,14 @@ export function AdminShowroomStudioMain() {
           }
         />
       )}
-      <AdminShowroomStudioPreview src={settings.overlays[selected]} />
+      <AdminShowroomStudioPreview
+        key={product.id + selected}
+        src={settings.overlays[selected]}
+        autoCutoutSrc={autoCutoutSrc}
+        productCategory={productCategory}
+        productName={product.name}
+        colour={selected}
+      />
       <AdminShowroomStudioSizeGuide
         canEdit={canEdit}
         key={product.id + JSON.stringify(settings.measurements)}
