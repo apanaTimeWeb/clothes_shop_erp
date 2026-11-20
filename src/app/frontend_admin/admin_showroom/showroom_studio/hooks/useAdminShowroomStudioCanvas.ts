@@ -2,6 +2,10 @@
 import { studioText as t } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioMessages";
 import { useEffect, useState, type RefObject } from "react";
 import { loadImage } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
+import {
+  DEFAULT_MODEL_TRANSFORM,
+  type ModelTransform,
+} from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 
 export function useAdminShowroomStudioCanvas(
   canvas: RefObject<HTMLCanvasElement | null>,
@@ -14,6 +18,7 @@ export function useAdminShowroomStudioCanvas(
   splitRatio = 1,
   blendLighting = true,
   sizeScale = 1,
+  modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM,
 ) {
   const [bg, setBg] = useState<{ source: string; image: HTMLImageElement } | null>(null);
   const [item, setItem] = useState<{ source: string; image: HTMLImageElement } | null>(null);
@@ -51,9 +56,19 @@ export function useAdminShowroomStudioCanvas(
     if (!background) return;
 
     const scale = Math.min(600 / background.width, 800 / background.height);
-    const bgX = (600 - background.width * scale) / 2;
-    const bgY = (800 - background.height * scale) / 2;
-    ctx.drawImage(background, bgX, bgY, background.width * scale, background.height * scale);
+    const baseW = background.width * scale;
+    const baseH = background.height * scale;
+    const effZoom = (modelTransform.zoom || 100) / 100;
+    const effW = baseW * effZoom * ((modelTransform.width || 100) / 100);
+    const effH = baseH * effZoom * ((modelTransform.height || 100) / 100);
+
+    ctx.save();
+    ctx.translate(300 + (modelTransform.x || 0), 400 + (modelTransform.y || 0));
+    if (modelTransform.rotation) {
+      ctx.rotate((modelTransform.rotation * Math.PI) / 180);
+    }
+    ctx.drawImage(background, -effW / 2, -effH / 2, effW, effH);
+    ctx.restore();
 
     if (garment && show) {
       const effW = pose.width * sizeScale, effH = pose.height * sizeScale;
@@ -112,7 +127,7 @@ export function useAdminShowroomStudioCanvas(
         ctx.fillStyle = "#1e3a8a";
       });
     }
-  }, [canvas, background, garment, pose, show, anchors, marking, splitRatio, blendLighting, sizeScale]);
+  }, [canvas, background, garment, pose, show, anchors, marking, splitRatio, blendLighting, sizeScale, modelTransform]);
 
   return {
     background,

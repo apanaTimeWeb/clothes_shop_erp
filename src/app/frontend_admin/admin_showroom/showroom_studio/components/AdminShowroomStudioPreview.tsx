@@ -4,11 +4,15 @@ import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState } from "react";
 import {
   downloadImage,
+  getStudioPreset,
+  PHOTO_PRESETS,
   type GarmentCategory,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 import { useAdminShowroomStudioCanvas } from "@/app/frontend_admin/admin_showroom/showroom_studio/hooks/useAdminShowroomStudioCanvas";
 import {
   AdminShowroomStudioTryOnControls,
+  DEFAULT_MODEL_TRANSFORM,
+  type ModelTransform,
   type StudioPose,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 import {
@@ -17,25 +21,6 @@ import {
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
 
 type Point = { x: number; y: number };
-
-const PRESETS: Record<GarmentCategory, StudioPose> = {
-  top: { x: 300, y: 310, width: 250, height: 280, rotation: 0 },
-  bottom: { x: 300, y: 550, width: 220, height: 340, rotation: 0 },
-  dress: { x: 300, y: 400, width: 270, height: 460, rotation: 0 },
-  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0 },
-};
-
-const PHOTO_PRESETS: Record<GarmentCategory, StudioPose> = {
-  top: { x: 300, y: 540, width: 330, height: 360, rotation: 0 },
-  bottom: { x: 300, y: 680, width: 280, height: 280, rotation: 0 },
-  dress: { x: 300, y: 560, width: 340, height: 450, rotation: 0 },
-  accessory: { x: 300, y: 220, width: 180, height: 110, rotation: 0 },
-};
-
-function getPreset(cat: GarmentCategory, model: string): StudioPose {
-  const isPhoto = model.includes("photo");
-  return (isPhoto ? PHOTO_PRESETS[cat] : PRESETS[cat]) ?? (isPhoto ? PHOTO_PRESETS.top : PRESETS.top);
-}
 
 interface AdminShowroomStudioPreviewProps {
   src?: string;
@@ -64,7 +49,9 @@ export function AdminShowroomStudioPreview({
   const [error, setError] = useState("");
 
   const [category, setCategory] = useState<GarmentCategory>(productCategory);
-  const [pose, setPose] = useState<StudioPose>(getPreset(productCategory, "mannequin"));
+  const [pose, setPose] = useState<StudioPose>(getStudioPreset(productCategory, "mannequin"));
+  const [modelTransform, setModelTransform] = useState<ModelTransform>(DEFAULT_MODEL_TRANSFORM);
+  const [activeTab, setActiveTab] = useState<"garment" | "model">("garment");
   const [sizeScale, setSizeScale] = useState(1.0);
   const [splitRatio, setSplitRatio] = useState(1.0);
   const [blendLighting, setBlendLighting] = useState(true);
@@ -75,7 +62,7 @@ export function AdminShowroomStudioPreview({
 
   useEffect(() => {
     setCategory(productCategory);
-    setPose(getPreset(productCategory, selectedModel));
+    setPose(getStudioPreset(productCategory, selectedModel));
     setAnchors([]);
     setMarking(false);
   }, [productCategory, selectedModel]);
@@ -94,14 +81,12 @@ export function AdminShowroomStudioPreview({
     splitRatio,
     blendLighting,
     sizeScale,
+    modelTransform,
   );
 
   function position(e: React.PointerEvent<HTMLCanvasElement>): Point {
     const r = e.currentTarget.getBoundingClientRect();
-    return {
-      x: ((e.clientX - r.left) * 600) / r.width,
-      y: ((e.clientY - r.top) * 800) / r.height,
-    };
+    return { x: ((e.clientX - r.left) * 600) / r.width, y: ((e.clientY - r.top) * 800) / r.height };
   }
 
   function mark(p: Point) {
@@ -112,26 +97,18 @@ export function AdminShowroomStudioPreview({
     const width = Math.hypot(b.x - a.x, b.y - a.y);
     const center = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
     const height = Math.hypot(end.x - center.x, end.y - center.y);
-    if (width < 20 || height < 20) {
-      setError(t("message060"));
-      setAnchors([]);
-      return;
-    }
+    if (width < 20 || height < 20) { setError(t("message060")); setAnchors([]); return; }
     setPose({
-      x: (center.x + end.x) / 2,
-      y: (center.y + end.y) / 2,
-      width: Math.min(600, width * 1.25),
-      height: Math.min(800, height * 1.15),
+      x: (center.x + end.x) / 2, y: (center.y + end.y) / 2,
+      width: Math.min(600, width * 1.25), height: Math.min(800, height * 1.15),
       rotation: (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI,
     });
-    setMarking(false);
-    setAnchors([]);
-    setError("");
+    setMarking(false); setAnchors([]); setError("");
   }
 
   function applyPreset(cat: GarmentCategory, modelId = selectedModel) {
     setCategory(cat);
-    setPose(getPreset(cat, modelId));
+    setPose(getStudioPreset(cat, modelId));
     setMarking(false);
     setAnchors([]);
   }
@@ -145,10 +122,10 @@ export function AdminShowroomStudioPreview({
 
       <AdminShowroomStudioModelSelect
         selectedModel={selectedModel}
-        onSelectModel={(id) => { setSelectedModel(id); applyPreset(category, id); }}
+        onSelectModel={(id) => { setSelectedModel(id); applyPreset(category, id); setModelTransform(DEFAULT_MODEL_TRANSFORM); }}
         photo={photo}
-        onPhotoLoaded={(d) => { setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); setAnchors([]); setMarking(false); }}
-        onClearPhoto={() => { setPhoto(""); applyPreset(category, selectedModel); }}
+        onPhotoLoaded={(d) => { setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); setModelTransform(DEFAULT_MODEL_TRANSFORM); setAnchors([]); setMarking(false); }}
+        onClearPhoto={() => { setPhoto(""); applyPreset(category, selectedModel); setModelTransform(DEFAULT_MODEL_TRANSFORM); }}
         busy={busy}
         setBusy={setBusy}
         onError={setError}
@@ -239,8 +216,11 @@ export function AdminShowroomStudioPreview({
             aria-label={t("message088")}
             className="w-full max-w-md touch-none rounded-xl border border-border bg-subtle shadow-inner"
             onPointerDown={(e) => {
-              if (marking) {
-                mark(position(e));
+              if (marking) { mark(position(e)); return; }
+              if (activeTab === "model") {
+                if (!background) return;
+                drag.current = position(e);
+                e.currentTarget.setPointerCapture(e.pointerId);
                 return;
               }
               if (!garment) return;
@@ -250,11 +230,19 @@ export function AdminShowroomStudioPreview({
             onPointerMove={(e) => {
               if (!drag.current) return;
               const p = position(e), old = drag.current;
-              setPose((v) => ({
-                ...v,
-                x: Math.max(0, Math.min(600, v.x + p.x - old.x)),
-                y: Math.max(0, Math.min(800, v.y + p.y - old.y)),
-              }));
+              if (activeTab === "model") {
+                setModelTransform((v) => ({
+                  ...v,
+                  x: Math.max(-300, Math.min(300, v.x + p.x - old.x)),
+                  y: Math.max(-400, Math.min(400, v.y + p.y - old.y)),
+                }));
+              } else {
+                setPose((v) => ({
+                  ...v,
+                  x: Math.max(0, Math.min(600, v.x + p.x - old.x)),
+                  y: Math.max(0, Math.min(800, v.y + p.y - old.y)),
+                }));
+              }
               drag.current = p;
             }}
             onPointerUp={() => { drag.current = null; }}
@@ -288,6 +276,11 @@ export function AdminShowroomStudioPreview({
             blendLighting={blendLighting}
             setBlendLighting={setBlendLighting}
             onReset={() => applyPreset(category)}
+            modelTransform={modelTransform}
+            setModelTransform={setModelTransform}
+            onResetModel={() => setModelTransform(DEFAULT_MODEL_TRANSFORM)}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
           />
         </div>
       </div>
