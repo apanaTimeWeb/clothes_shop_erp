@@ -29,6 +29,11 @@ interface AdminShowroomStudioPreviewProps {
   productCategory?: GarmentCategory;
   productName?: string;
   colour?: string;
+  products?: Array<{ id: string; name: string }>;
+  productId?: string;
+  onSelectProduct?: (id: string) => void;
+  colours?: string[];
+  onSelectColour?: (colour: string) => void;
 }
 
 export function AdminShowroomStudioPreview({
@@ -38,6 +43,11 @@ export function AdminShowroomStudioPreview({
   productCategory = "top",
   productName = "",
   colour = "",
+  products = [],
+  productId,
+  onSelectProduct,
+  colours = [],
+  onSelectColour,
 }: AdminShowroomStudioPreviewProps) {
   const t = useTranslations("studio");
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -266,21 +276,16 @@ export function AdminShowroomStudioPreview({
 
         <div className="lg:col-span-5">
           <AdminShowroomStudioTryOnControls
-            pose={pose}
-            setPose={setPose}
-            hasCutout={Boolean(effectiveSrc)}
-            sizeScale={sizeScale}
-            setSizeScale={setSizeScale}
-            splitRatio={splitRatio}
-            setSplitRatio={setSplitRatio}
-            blendLighting={blendLighting}
-            setBlendLighting={setBlendLighting}
+            pose={pose} setPose={setPose} hasCutout={Boolean(effectiveSrc)}
+            sizeScale={sizeScale} setSizeScale={setSizeScale}
+            splitRatio={splitRatio} setSplitRatio={setSplitRatio}
+            blendLighting={blendLighting} setBlendLighting={setBlendLighting}
             onReset={() => applyPreset(category)}
-            modelTransform={modelTransform}
-            setModelTransform={setModelTransform}
+            modelTransform={modelTransform} setModelTransform={setModelTransform}
             onResetModel={() => setModelTransform(DEFAULT_MODEL_TRANSFORM)}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            activeTab={activeTab} setActiveTab={setActiveTab}
+            products={products} productId={productId} onSelectProduct={onSelectProduct}
+            colours={colours} selectedColour={colour} onSelectColour={onSelectColour}
           />
         </div>
       </div>

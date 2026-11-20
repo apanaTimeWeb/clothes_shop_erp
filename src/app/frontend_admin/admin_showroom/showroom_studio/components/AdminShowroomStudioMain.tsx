@@ -130,6 +130,14 @@ export function AdminShowroomStudioMain() {
         productCategory={productCategory}
         productName={product.name}
         colour={selected}
+        products={products.map((p) => ({ id: p.id, name: p.name }))}
+        productId={product.id}
+        onSelectProduct={(id) => {
+          setProductId(id);
+          setColour("");
+        }}
+        colours={colours}
+        onSelectColour={(c) => setColour(c)}
       />
       <AdminShowroomStudioSizeGuide
         canEdit={canEdit}
