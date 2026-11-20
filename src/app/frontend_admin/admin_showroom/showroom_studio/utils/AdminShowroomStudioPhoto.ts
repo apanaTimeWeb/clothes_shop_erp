@@ -158,10 +158,10 @@ export const PRESETS: Record<GarmentCategory, StudioPose> = {
 };
 
 export const PHOTO_PRESETS: Record<GarmentCategory, StudioPose> = {
-  top: { x: 300, y: 540, width: 330, height: 360, rotation: 0 },
-  bottom: { x: 300, y: 680, width: 280, height: 280, rotation: 0 },
-  dress: { x: 300, y: 560, width: 340, height: 450, rotation: 0 },
-  accessory: { x: 300, y: 220, width: 180, height: 110, rotation: 0 },
+  top: { x: 300, y: 310, width: 240, height: 270, rotation: 0 },
+  bottom: { x: 300, y: 550, width: 210, height: 340, rotation: 0 },
+  dress: { x: 300, y: 410, width: 260, height: 450, rotation: 0 },
+  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0 },
 };
 
 export function getStudioPreset(cat: GarmentCategory, model: string): StudioPose {
