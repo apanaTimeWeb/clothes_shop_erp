@@ -224,7 +224,7 @@ export function AdminWorkspaceNavigationShell({
               <div className="min-h-96 rounded-xl bg-subtle p-8 motion-safe:animate-pulse">
                 {t("loading")}
               </div>
-            ) : mode === "Customer" && !path.includes("showroom_catalogue") ? (
+            ) : mode === "Customer" && !path.includes("showroom_catalogue") && !path.includes("showroom_studio") ? (
               <div className="rounded-xl bg-card p-10">
                 <Link href={ROUTES.showroom} className="text-lg underline">
                   {t("showroom")} →

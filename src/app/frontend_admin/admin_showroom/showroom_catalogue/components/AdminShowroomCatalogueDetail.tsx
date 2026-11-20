@@ -1,7 +1,8 @@
 "use client";
 import * as Dialog from "@radix-ui/react-dialog";
+import Link from "next/link";
 import { AdminShowroomCatalogueGallery } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/components/AdminShowroomCatalogueGallery";
-import { X, Plus } from "lucide-react";
+import { X, Plus, Sparkles } from "lucide-react";
 import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useForm } from "react-hook-form";
@@ -219,6 +220,13 @@ export function AdminShowroomCatalogueDetail({
                   <Plus size={18} />
                   {t("add")}
                 </Button>
+                <Link
+                  href={`/frontend_admin/admin_showroom/showroom_studio?product=${product.id}&colour=${encodeURIComponent(variant.colour)}`}
+                  className="mt-3 flex w-full min-h-11 items-center justify-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
+                >
+                  <Sparkles size={18} />
+                  Virtual Try-On & Style Preview
+                </Link>
               </form>
               <p className="mt-3 text-xs leading-5 text-secondary">
                 {!state.activeSessionId ? t("sessionNeeded") : t("notReserved")}

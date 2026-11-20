@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useAdminShowroomStudioData } from "@/app/frontend_admin/admin_showroom/showroom_studio/hooks/useAdminShowroomStudioData";
 import { AdminShowroomStudioAngles } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioAngles";
@@ -18,8 +19,16 @@ export function AdminShowroomStudioMain() {
   const t = useTranslations("studio");
   const { catalogue, preferences, save, error, ready, canEdit } =
     useAdminShowroomStudioData();
-  const [productId, setProductId] = useState("");
-  const [colour, setColour] = useState("");
+  const searchParams = useSearchParams();
+  const paramProduct = searchParams.get("product") || "";
+  const paramColour = searchParams.get("colour") || "";
+  const [productId, setProductId] = useState(paramProduct);
+  const [colour, setColour] = useState(paramColour);
+
+  useEffect(() => {
+    if (paramProduct) setProductId(paramProduct);
+    if (paramColour) setColour(paramColour);
+  }, [paramProduct, paramColour]);
   const products = catalogue.products.filter((p) => p.status === "active");
   const product = products.find((p) => p.id === productId) ?? products[0];
 
