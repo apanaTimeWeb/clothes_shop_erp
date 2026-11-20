@@ -114,3 +114,30 @@ export function generateAutoCutoutSvg(category: GarmentCategory, colour: string)
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
+
+export function resolveGarmentCutoutSrc(
+  categoryId: string,
+  colour: string,
+  productName?: string,
+  customOverlay?: string,
+): { src: string; isRealPhoto: boolean } {
+  if (customOverlay) return { src: customOverlay, isRealPhoto: false };
+  const normColour = colour.trim().toLowerCase();
+  const name = (productName || "").toLowerCase();
+
+  if (
+    (name.includes("polo") || name.includes("tee") || name.includes("t-shirt")) &&
+    (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))
+  ) {
+    return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
+  }
+  if (
+    (name.includes("shirt") || name.includes("oxford")) &&
+    (normColour.includes("blue") || normColour.includes("navy"))
+  ) {
+    return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
+  }
+
+  const category = detectGarmentCategory(categoryId);
+  return { src: generateAutoCutoutSvg(category, colour), isRealPhoto: false };
+}

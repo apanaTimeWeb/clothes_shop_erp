@@ -12,7 +12,7 @@ import { AdminShowroomStudioPreview } from "@/app/frontend_admin/admin_showroom/
 import { AdminShowroomStudioBackup } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioBackup";
 import {
   detectGarmentCategory,
-  generateAutoCutoutSvg,
+  resolveGarmentCutoutSrc,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 
 export function AdminShowroomStudioMain() {
@@ -56,7 +56,12 @@ export function AdminShowroomStudioMain() {
   const productCategory = detectGarmentCategory(
     (product as { categoryId?: string }).categoryId,
   );
-  const autoCutoutSrc = generateAutoCutoutSvg(productCategory, selected);
+  const { src: cutoutSrc, isRealPhoto } = resolveGarmentCutoutSrc(
+    (product as { categoryId?: string }).categoryId || "",
+    selected,
+    product.name,
+    settings.overlays[selected],
+  );
 
   return (
     <div className="space-y-8">
@@ -120,7 +125,8 @@ export function AdminShowroomStudioMain() {
       <AdminShowroomStudioPreview
         key={product.id + selected}
         src={settings.overlays[selected]}
-        autoCutoutSrc={autoCutoutSrc}
+        autoCutoutSrc={cutoutSrc}
+        isRealPhoto={isRealPhoto}
         productCategory={productCategory}
         productName={product.name}
         colour={selected}

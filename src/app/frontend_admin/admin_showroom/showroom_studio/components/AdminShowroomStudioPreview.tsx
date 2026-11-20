@@ -25,19 +25,35 @@ const PRESETS: Record<GarmentCategory, StudioPose> = {
   accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0 },
 };
 
-export function AdminShowroomStudioPreview({
-  src,
-  autoCutoutSrc,
-  productCategory = "top",
-  productName = "",
-  colour = "",
-}: {
+const PHOTO_PRESETS: Record<GarmentCategory, StudioPose> = {
+  top: { x: 300, y: 540, width: 330, height: 360, rotation: 0 },
+  bottom: { x: 300, y: 680, width: 280, height: 280, rotation: 0 },
+  dress: { x: 300, y: 560, width: 340, height: 450, rotation: 0 },
+  accessory: { x: 300, y: 220, width: 180, height: 110, rotation: 0 },
+};
+
+function getPreset(cat: GarmentCategory, model: string): StudioPose {
+  const isPhoto = model.includes("photo");
+  return (isPhoto ? PHOTO_PRESETS[cat] : PRESETS[cat]) ?? (isPhoto ? PHOTO_PRESETS.top : PRESETS.top);
+}
+
+interface AdminShowroomStudioPreviewProps {
   src?: string;
   autoCutoutSrc?: string;
+  isRealPhoto?: boolean;
   productCategory?: GarmentCategory;
   productName?: string;
   colour?: string;
-}) {
+}
+
+export function AdminShowroomStudioPreview({
+  src,
+  autoCutoutSrc,
+  isRealPhoto = false,
+  productCategory = "top",
+  productName = "",
+  colour = "",
+}: AdminShowroomStudioPreviewProps) {
   const t = useTranslations("studio");
   const canvas = useRef<HTMLCanvasElement>(null);
   const drag = useRef<Point | null>(null);
@@ -48,7 +64,7 @@ export function AdminShowroomStudioPreview({
   const [error, setError] = useState("");
 
   const [category, setCategory] = useState<GarmentCategory>(productCategory);
-  const [pose, setPose] = useState<StudioPose>(PRESETS[productCategory] ?? PRESETS.top);
+  const [pose, setPose] = useState<StudioPose>(getPreset(productCategory, "mannequin"));
   const [sizeScale, setSizeScale] = useState(1.0);
   const [splitRatio, setSplitRatio] = useState(1.0);
   const [blendLighting, setBlendLighting] = useState(true);
@@ -59,10 +75,10 @@ export function AdminShowroomStudioPreview({
 
   useEffect(() => {
     setCategory(productCategory);
-    setPose(PRESETS[productCategory] ?? PRESETS.top);
+    setPose(getPreset(productCategory, selectedModel));
     setAnchors([]);
     setMarking(false);
-  }, [productCategory]);
+  }, [productCategory, selectedModel]);
 
   const effectiveSrc = src || autoCutoutSrc;
   const currentBg = photo || STUDIO_MODELS.find((m) => m.id === selectedModel)?.path || "/images/style-mannequin.svg";
@@ -113,9 +129,9 @@ export function AdminShowroomStudioPreview({
     setError("");
   }
 
-  function applyPreset(cat: GarmentCategory) {
+  function applyPreset(cat: GarmentCategory, modelId = selectedModel) {
     setCategory(cat);
-    setPose(PRESETS[cat] ?? PRESETS.top);
+    setPose(getPreset(cat, modelId));
     setMarking(false);
     setAnchors([]);
   }
@@ -129,19 +145,10 @@ export function AdminShowroomStudioPreview({
 
       <AdminShowroomStudioModelSelect
         selectedModel={selectedModel}
-        onSelectModel={setSelectedModel}
+        onSelectModel={(id) => { setSelectedModel(id); applyPreset(category, id); }}
         photo={photo}
-        onPhotoLoaded={(data) => {
-          setPhoto(data);
-          setPose(PRESETS[category] ?? PRESETS.top);
-          setAnchors([]);
-          setMarking(false);
-        }}
-        onClearPhoto={() => {
-          setPhoto("");
-          setAnchors([]);
-          setMarking(false);
-        }}
+        onPhotoLoaded={(d) => { setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); setAnchors([]); setMarking(false); }}
+        onClearPhoto={() => { setPhoto(""); applyPreset(category, selectedModel); }}
         busy={busy}
         setBusy={setBusy}
         onError={setError}
@@ -156,6 +163,10 @@ export function AdminShowroomStudioPreview({
           {src ? (
             <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 dark:text-emerald-400">
               Staff Cutout Active
+            </span>
+          ) : isRealPhoto ? (
+            <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 font-medium text-indigo-600 dark:text-indigo-400">
+              Real Photo Cutout Active
             </span>
           ) : (
             <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-blue-600 dark:text-blue-400">
