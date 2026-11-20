@@ -1,0 +1,146 @@
+@import "tailwindcss" source(none);
+@source './';
+@source '../components';
+:root {
+  --primary: #263e50;
+  --primary-hover: #1b2c39;
+  --bg-page: #f7f8fa;
+  --bg-card: #fff;
+  --bg-subtle: #edf1f4;
+  --bg-sidebar: #182b3b;
+  --text-primary: #1c2b37;
+  --text-secondary: #62717e;
+  --text-on-primary: #fff;
+  --border: #e1e6ea;
+  --focus: #23766c;
+  --success: #146349;
+  --success-bg: #e2f2e9;
+  --warning: #7c5415;
+  --warning-bg: #fff2d7;
+  --danger: #af2839;
+  --danger-bg: #fce9eb;
+  --accent: #a6cab5;
+  --accent-text: #244c3a;
+  --muted-inverse: #b5c7d3;
+  --backdrop: rgba(16, 30, 42, 0.5);
+  --shadow-card: 0 2px 5px rgba(20, 40, 60, 0.025);
+  --shadow-dialog: 0 18px 70px rgba(20, 40, 60, 0.22);
+}
+@theme inline {
+  --color-brand: var(--primary);
+  --color-brand-hover: var(--primary-hover);
+  --color-page: var(--bg-page);
+  --color-card: var(--bg-card);
+  --color-subtle: var(--bg-subtle);
+  --color-sidebar: var(--bg-sidebar);
+  --color-primary: var(--text-primary);
+  --color-secondary: var(--text-secondary);
+  --color-on-primary: var(--text-on-primary);
+  --color-border: var(--border);
+  --color-focus: var(--focus);
+  --color-success: var(--success);
+  --color-success-bg: var(--success-bg);
+  --color-warning: var(--warning);
+  --color-warning-bg: var(--warning-bg);
+  --color-danger: var(--danger);
+  --color-danger-bg: var(--danger-bg);
+  --color-on-danger: var(--text-on-primary);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-muted-inverse: var(--muted-inverse);
+  --color-backdrop: var(--backdrop);
+  --shadow-card: var(--shadow-card);
+  --shadow-dialog: var(--shadow-dialog);
+}
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+  margin: 0;
+  font-size: 14px;
+}
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+button,
+a,
+select {
+  touch-action: manipulation;
+}
+button:not(:disabled),
+select {
+  cursor: pointer;
+}
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+input,
+select {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-card);
+  padding: 9px 12px;
+  max-width: 100%;
+  font: inherit;
+  color: inherit;
+}
+input[type="checkbox"] {
+  min-height: 20px;
+  width: 20px;
+  accent-color: var(--primary);
+}
+label {
+  font-size: 12px;
+  font-weight: 600;
+}
+input::placeholder {
+  color: var(--text-secondary);
+}
+h1,
+h2,
+h3,
+p {
+  overflow-wrap: anywhere;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+#print-receipt {
+  display: none;
+}
+@media print {
+  body > * {
+    display: none !important;
+  }
+  body > #print-receipt {
+    display: block !important;
+    color: black;
+    background: white;
+    padding: 30px;
+    font: 14px Arial;
+  }
+  #print-receipt table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #print-receipt td,
+  #print-receipt th {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  @page {
+    margin: 15mm;
+  }
+}

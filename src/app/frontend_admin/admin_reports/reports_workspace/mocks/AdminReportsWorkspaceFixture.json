@@ -1,0 +1,5633 @@
+{
+  "schemaVersion": 1,
+  "revision": 0,
+  "products": [
+    {
+      "id": "product-1",
+      "designCode": "TF-001",
+      "name": "Everyday Cotton Polo",
+      "departmentId": "Men",
+      "categoryId": "T-shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 89900,
+      "costPricePaise": 49445,
+      "description": "A fictional cotton t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-2",
+      "designCode": "TF-002",
+      "name": "City Terrycot Shirt",
+      "departmentId": "Men",
+      "categoryId": "Shirt",
+      "fabric": "Terrycot",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 109900,
+      "costPricePaise": 60445,
+      "description": "A fictional terrycot shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-3",
+      "designCode": "TF-003",
+      "name": "Weekday Formal Shirt",
+      "departmentId": "Men",
+      "categoryId": "Shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 129900,
+      "costPricePaise": 71445,
+      "description": "A fictional cotton shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-4",
+      "designCode": "TF-004",
+      "name": "Straight Denim",
+      "departmentId": "Men",
+      "categoryId": "Jeans",
+      "fabric": "Denim",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 179900,
+      "costPricePaise": 98945,
+      "description": "A fictional denim jeans for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-5",
+      "designCode": "TF-005",
+      "name": "Sundown Cotton Kurti",
+      "departmentId": "Women",
+      "categoryId": "Kurti",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 119900,
+      "costPricePaise": 65945,
+      "description": "A fictional cotton kurti for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-6",
+      "designCode": "TF-006",
+      "name": "Little Scarlet Dress",
+      "departmentId": "Girls",
+      "categoryId": "Dress",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 79900,
+      "costPricePaise": 43945,
+      "description": "A fictional cotton dress for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-7",
+      "designCode": "TF-007",
+      "name": "Everyday Socks · 3 Pair Pack",
+      "departmentId": "Accessories",
+      "categoryId": "Socks",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 29900,
+      "costPricePaise": 16445,
+      "description": "A fictional cotton socks for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-8",
+      "designCode": "TF-008",
+      "name": "Essential Crew Tee",
+      "departmentId": "Unisex",
+      "categoryId": "T-shirt",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 59900,
+      "costPricePaise": 32945,
+      "description": "A fictional cotton t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-9",
+      "designCode": "TF-009",
+      "name": "Weekend Oxford",
+      "departmentId": "Men",
+      "categoryId": "Shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 139900,
+      "costPricePaise": 76945,
+      "description": "A fictional cotton shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-10",
+      "designCode": "TF-010",
+      "name": "Relaxed Chinos",
+      "departmentId": "Men",
+      "categoryId": "Pants",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 159900,
+      "costPricePaise": 87945,
+      "description": "A fictional cotton pants for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-11",
+      "designCode": "TF-011",
+      "name": "Summer Linen Shirt",
+      "departmentId": "Men",
+      "categoryId": "Shirt",
+      "fabric": "Linen",
+      "sleeve": "Half",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 149900,
+      "costPricePaise": 82445,
+      "description": "A fictional linen shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-12",
+      "designCode": "TF-012",
+      "name": "Classic V Tee",
+      "departmentId": "Men",
+      "categoryId": "T-shirt",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "V Neck",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 64900,
+      "costPricePaise": 35695,
+      "description": "A fictional cotton t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-13",
+      "designCode": "TF-013",
+      "name": "Evening Kurta",
+      "departmentId": "Men",
+      "categoryId": "Kurta",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Mandarin",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 169900,
+      "costPricePaise": 93445,
+      "description": "A fictional cotton kurta for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-14",
+      "designCode": "TF-014",
+      "name": "Soft Knit Pullover",
+      "departmentId": "Unisex",
+      "categoryId": "Winterwear",
+      "fabric": "Wool Blend",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 189900,
+      "costPricePaise": 104445,
+      "description": "A fictional wool blend winterwear for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-15",
+      "designCode": "TF-015",
+      "name": "Urban Cargo",
+      "departmentId": "Men",
+      "categoryId": "Pants",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 179900,
+      "costPricePaise": 98945,
+      "description": "A fictional cotton pants for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-16",
+      "designCode": "TF-016",
+      "name": "Daily Stretch Denim",
+      "departmentId": "Women",
+      "categoryId": "Jeans",
+      "fabric": "Denim",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 169900,
+      "costPricePaise": 93445,
+      "description": "A fictional denim jeans for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-17",
+      "designCode": "TF-017",
+      "name": "Botanical Kurti",
+      "departmentId": "Women",
+      "categoryId": "Kurti",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 99900,
+      "costPricePaise": 54945,
+      "description": "A fictional cotton kurti for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-18",
+      "designCode": "TF-018",
+      "name": "Meadow Day Dress",
+      "departmentId": "Women",
+      "categoryId": "Dress",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 159900,
+      "costPricePaise": 87945,
+      "description": "A fictional cotton dress for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-19",
+      "designCode": "TF-019",
+      "name": "Heritage Saree",
+      "departmentId": "Women",
+      "categoryId": "Saree",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 229900,
+      "costPricePaise": 126445,
+      "description": "A fictional cotton saree for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-20",
+      "designCode": "TF-020",
+      "name": "Festive Drape",
+      "departmentId": "Women",
+      "categoryId": "Saree",
+      "fabric": "Silk Blend",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 299900,
+      "costPricePaise": 164945,
+      "description": "A fictional silk blend saree for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-21",
+      "designCode": "TF-021",
+      "name": "Coordinated Comfort",
+      "departmentId": "Women",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 199900,
+      "costPricePaise": 109945,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-22",
+      "designCode": "TF-022",
+      "name": "Studio Trousers",
+      "departmentId": "Women",
+      "categoryId": "Pants",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 129900,
+      "costPricePaise": 71445,
+      "description": "A fictional cotton pants for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-23",
+      "designCode": "TF-023",
+      "name": "Soft Cardigan",
+      "departmentId": "Women",
+      "categoryId": "Winterwear",
+      "fabric": "Wool Blend",
+      "sleeve": "Full",
+      "collar": "V Neck",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 179900,
+      "costPricePaise": 98945,
+      "description": "A fictional wool blend winterwear for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-24",
+      "designCode": "TF-024",
+      "name": "Everyday Cotton Polo",
+      "departmentId": "Boys",
+      "categoryId": "T-shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 69900,
+      "costPricePaise": 38445,
+      "description": "A fictional cotton t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-25",
+      "designCode": "TF-025",
+      "name": "Playground Set",
+      "departmentId": "Boys",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 89900,
+      "costPricePaise": 49445,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-26",
+      "designCode": "TF-026",
+      "name": "Junior Denim",
+      "departmentId": "Boys",
+      "categoryId": "Jeans",
+      "fabric": "Denim",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 109900,
+      "costPricePaise": 60445,
+      "description": "A fictional denim jeans for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-27",
+      "designCode": "TF-027",
+      "name": "Adventure Shirt",
+      "departmentId": "Boys",
+      "categoryId": "Shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 79900,
+      "costPricePaise": 43945,
+      "description": "A fictional cotton shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-28",
+      "designCode": "TF-028",
+      "name": "Twirl Day Dress",
+      "departmentId": "Girls",
+      "categoryId": "Dress",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 99900,
+      "costPricePaise": 54945,
+      "description": "A fictional cotton dress for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-29",
+      "designCode": "TF-029",
+      "name": "Little Blossom Set",
+      "departmentId": "Girls",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 89900,
+      "costPricePaise": 49445,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-30",
+      "designCode": "TF-030",
+      "name": "Junior Knit",
+      "departmentId": "Girls",
+      "categoryId": "Winterwear",
+      "fabric": "Wool Blend",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 119900,
+      "costPricePaise": 65945,
+      "description": "A fictional wool blend winterwear for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-31",
+      "designCode": "TF-031",
+      "name": "Tiny Cloud Romper",
+      "departmentId": "Baby/Toddler",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Half",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 59900,
+      "costPricePaise": 32945,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-32",
+      "designCode": "TF-032",
+      "name": "First Steps Set",
+      "departmentId": "Baby/Toddler",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 69900,
+      "costPricePaise": 38445,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-33",
+      "designCode": "TF-033",
+      "name": "Tiny Warm Layers",
+      "departmentId": "Baby/Toddler",
+      "categoryId": "Winterwear",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 89900,
+      "costPricePaise": 49445,
+      "description": "A fictional cotton winterwear for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-34",
+      "designCode": "TF-034",
+      "name": "Pocket Squares · 3 Pack",
+      "departmentId": "Accessories",
+      "categoryId": "Handkerchief",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 24900,
+      "costPricePaise": 13695,
+      "description": "A fictional cotton handkerchief for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-35",
+      "designCode": "TF-035",
+      "name": "Everyday Belt",
+      "departmentId": "Accessories",
+      "categoryId": "Belt",
+      "fabric": "Synthetic",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 49900,
+      "costPricePaise": 27445,
+      "description": "A fictional synthetic belt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-36",
+      "designCode": "TF-036",
+      "name": "Weekend Cap",
+      "departmentId": "Accessories",
+      "categoryId": "Cap",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 39900,
+      "costPricePaise": 21945,
+      "description": "A fictional cotton cap for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-37",
+      "designCode": "TF-037",
+      "name": "Rib Socks · Single Pair",
+      "departmentId": "Accessories",
+      "categoryId": "Socks",
+      "fabric": "Cotton",
+      "sleeve": "None",
+      "collar": "None",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 14900,
+      "costPricePaise": 8195,
+      "description": "A fictional cotton socks for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-38",
+      "designCode": "TF-038",
+      "name": "Easy Lounge Tee",
+      "departmentId": "Unisex",
+      "categoryId": "T-shirt",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Round",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 74900,
+      "costPricePaise": 41195,
+      "description": "A fictional cotton t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-39",
+      "designCode": "TF-039",
+      "name": "Relaxed Terrycot Polo",
+      "departmentId": "Men",
+      "categoryId": "T-shirt",
+      "fabric": "Terrycot",
+      "sleeve": "Full",
+      "collar": "Collar",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 79900,
+      "costPricePaise": 43945,
+      "description": "A fictional terrycot t-shirt for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    },
+    {
+      "id": "product-40",
+      "designCode": "TF-040",
+      "name": "Heritage Kurta Set",
+      "departmentId": "Women",
+      "categoryId": "Set",
+      "fabric": "Cotton",
+      "sleeve": "Full",
+      "collar": "Mandarin",
+      "fit": "Regular",
+      "pattern": "Solid",
+      "status": "active",
+      "defaultPricePaise": 249900,
+      "costPricePaise": 137445,
+      "description": "A fictional cotton set for the demo collection. Colour and size availability are tracked separately.",
+      "createdAt": "2026-11-01T10:00:00Z"
+    }
+  ],
+  "variants": [
+    {
+      "id": "variant-1-0-0",
+      "productId": "product-1",
+      "sku": "TF001-1-S",
+      "colour": "Black",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-0-1",
+      "productId": "product-1",
+      "sku": "TF001-1-M",
+      "colour": "Black",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-0-2",
+      "productId": "product-1",
+      "sku": "TF001-1-L",
+      "colour": "Black",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-0-3",
+      "productId": "product-1",
+      "sku": "TF001-1-XL",
+      "colour": "Black",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-1-0",
+      "productId": "product-1",
+      "sku": "TF001-2-S",
+      "colour": "Navy",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-1-1",
+      "productId": "product-1",
+      "sku": "TF001-2-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-1-2",
+      "productId": "product-1",
+      "sku": "TF001-2-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-1-3",
+      "productId": "product-1",
+      "sku": "TF001-2-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-2-0",
+      "productId": "product-1",
+      "sku": "TF001-3-S",
+      "colour": "Olive",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-2-1",
+      "productId": "product-1",
+      "sku": "TF001-3-M",
+      "colour": "Olive",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-2-2",
+      "productId": "product-1",
+      "sku": "TF001-3-L",
+      "colour": "Olive",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-1-2-3",
+      "productId": "product-1",
+      "sku": "TF001-3-XL",
+      "colour": "Olive",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-0-0",
+      "productId": "product-2",
+      "sku": "TF002-1-38",
+      "colour": "White",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-0-1",
+      "productId": "product-2",
+      "sku": "TF002-1-40",
+      "colour": "White",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-0-2",
+      "productId": "product-2",
+      "sku": "TF002-1-42",
+      "colour": "White",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-0-3",
+      "productId": "product-2",
+      "sku": "TF002-1-44",
+      "colour": "White",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-1-0",
+      "productId": "product-2",
+      "sku": "TF002-2-38",
+      "colour": "Blue",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-1-1",
+      "productId": "product-2",
+      "sku": "TF002-2-40",
+      "colour": "Blue",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-1-2",
+      "productId": "product-2",
+      "sku": "TF002-2-42",
+      "colour": "Blue",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-1-3",
+      "productId": "product-2",
+      "sku": "TF002-2-44",
+      "colour": "Blue",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-2-0",
+      "productId": "product-2",
+      "sku": "TF002-3-38",
+      "colour": "Black",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-2-1",
+      "productId": "product-2",
+      "sku": "TF002-3-40",
+      "colour": "Black",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-2-2",
+      "productId": "product-2",
+      "sku": "TF002-3-42",
+      "colour": "Black",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-2-2-3",
+      "productId": "product-2",
+      "sku": "TF002-3-44",
+      "colour": "Black",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-0-0",
+      "productId": "product-3",
+      "sku": "TF003-1-38",
+      "colour": "White",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-0-1",
+      "productId": "product-3",
+      "sku": "TF003-1-40",
+      "colour": "White",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-0-2",
+      "productId": "product-3",
+      "sku": "TF003-1-42",
+      "colour": "White",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-0-3",
+      "productId": "product-3",
+      "sku": "TF003-1-44",
+      "colour": "White",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-1-0",
+      "productId": "product-3",
+      "sku": "TF003-2-38",
+      "colour": "Blue",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-1-1",
+      "productId": "product-3",
+      "sku": "TF003-2-40",
+      "colour": "Blue",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-1-2",
+      "productId": "product-3",
+      "sku": "TF003-2-42",
+      "colour": "Blue",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-1-3",
+      "productId": "product-3",
+      "sku": "TF003-2-44",
+      "colour": "Blue",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-2-0",
+      "productId": "product-3",
+      "sku": "TF003-3-38",
+      "colour": "Pink",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-2-1",
+      "productId": "product-3",
+      "sku": "TF003-3-40",
+      "colour": "Pink",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-2-2",
+      "productId": "product-3",
+      "sku": "TF003-3-42",
+      "colour": "Pink",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-3-2-3",
+      "productId": "product-3",
+      "sku": "TF003-3-44",
+      "colour": "Pink",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-0-0",
+      "productId": "product-4",
+      "sku": "TF004-1-30",
+      "colour": "Dark Blue",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-0-1",
+      "productId": "product-4",
+      "sku": "TF004-1-32",
+      "colour": "Dark Blue",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-0-2",
+      "productId": "product-4",
+      "sku": "TF004-1-34",
+      "colour": "Dark Blue",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-0-3",
+      "productId": "product-4",
+      "sku": "TF004-1-36",
+      "colour": "Dark Blue",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-1-0",
+      "productId": "product-4",
+      "sku": "TF004-2-30",
+      "colour": "Black",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-1-1",
+      "productId": "product-4",
+      "sku": "TF004-2-32",
+      "colour": "Black",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-1-2",
+      "productId": "product-4",
+      "sku": "TF004-2-34",
+      "colour": "Black",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-4-1-3",
+      "productId": "product-4",
+      "sku": "TF004-2-36",
+      "colour": "Black",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-0-0",
+      "productId": "product-5",
+      "sku": "TF005-1-M",
+      "colour": "Sage",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-0-1",
+      "productId": "product-5",
+      "sku": "TF005-1-L",
+      "colour": "Sage",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-0-2",
+      "productId": "product-5",
+      "sku": "TF005-1-XL",
+      "colour": "Sage",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-0-3",
+      "productId": "product-5",
+      "sku": "TF005-1-XXL",
+      "colour": "Sage",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-1-0",
+      "productId": "product-5",
+      "sku": "TF005-2-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-1-1",
+      "productId": "product-5",
+      "sku": "TF005-2-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-1-2",
+      "productId": "product-5",
+      "sku": "TF005-2-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-1-3",
+      "productId": "product-5",
+      "sku": "TF005-2-XXL",
+      "colour": "Navy",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-2-0",
+      "productId": "product-5",
+      "sku": "TF005-3-M",
+      "colour": "Pink",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-2-1",
+      "productId": "product-5",
+      "sku": "TF005-3-L",
+      "colour": "Pink",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-2-2",
+      "productId": "product-5",
+      "sku": "TF005-3-XL",
+      "colour": "Pink",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-5-2-3",
+      "productId": "product-5",
+      "sku": "TF005-3-XXL",
+      "colour": "Pink",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-0-0",
+      "productId": "product-6",
+      "sku": "TF006-1-4Y",
+      "colour": "Red",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-0-1",
+      "productId": "product-6",
+      "sku": "TF006-1-6Y",
+      "colour": "Red",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-0-2",
+      "productId": "product-6",
+      "sku": "TF006-1-8Y",
+      "colour": "Red",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-1-0",
+      "productId": "product-6",
+      "sku": "TF006-2-4Y",
+      "colour": "Pink",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-1-1",
+      "productId": "product-6",
+      "sku": "TF006-2-6Y",
+      "colour": "Pink",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-6-1-2",
+      "productId": "product-6",
+      "sku": "TF006-2-8Y",
+      "colour": "Pink",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-7-0-0",
+      "productId": "product-7",
+      "sku": "TF007-1-Free",
+      "colour": "Black",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "3-pair pack",
+      "status": "active"
+    },
+    {
+      "id": "variant-7-1-0",
+      "productId": "product-7",
+      "sku": "TF007-2-Free",
+      "colour": "White",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "3-pair pack",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-0-0",
+      "productId": "product-8",
+      "sku": "TF008-1-S",
+      "colour": "Cream",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-0-1",
+      "productId": "product-8",
+      "sku": "TF008-1-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-0-2",
+      "productId": "product-8",
+      "sku": "TF008-1-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-0-3",
+      "productId": "product-8",
+      "sku": "TF008-1-XL",
+      "colour": "Cream",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-1-0",
+      "productId": "product-8",
+      "sku": "TF008-2-S",
+      "colour": "Black",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-1-1",
+      "productId": "product-8",
+      "sku": "TF008-2-M",
+      "colour": "Black",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-1-2",
+      "productId": "product-8",
+      "sku": "TF008-2-L",
+      "colour": "Black",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-1-3",
+      "productId": "product-8",
+      "sku": "TF008-2-XL",
+      "colour": "Black",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-2-0",
+      "productId": "product-8",
+      "sku": "TF008-3-S",
+      "colour": "Olive",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-2-1",
+      "productId": "product-8",
+      "sku": "TF008-3-M",
+      "colour": "Olive",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-2-2",
+      "productId": "product-8",
+      "sku": "TF008-3-L",
+      "colour": "Olive",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-8-2-3",
+      "productId": "product-8",
+      "sku": "TF008-3-XL",
+      "colour": "Olive",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-0-0",
+      "productId": "product-9",
+      "sku": "TF009-1-38",
+      "colour": "Blue",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-0-1",
+      "productId": "product-9",
+      "sku": "TF009-1-40",
+      "colour": "Blue",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-0-2",
+      "productId": "product-9",
+      "sku": "TF009-1-42",
+      "colour": "Blue",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-0-3",
+      "productId": "product-9",
+      "sku": "TF009-1-44",
+      "colour": "Blue",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-1-0",
+      "productId": "product-9",
+      "sku": "TF009-2-38",
+      "colour": "White",
+      "sizeCode": "38",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-1-1",
+      "productId": "product-9",
+      "sku": "TF009-2-40",
+      "colour": "White",
+      "sizeCode": "40",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-1-2",
+      "productId": "product-9",
+      "sku": "TF009-2-42",
+      "colour": "White",
+      "sizeCode": "42",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-9-1-3",
+      "productId": "product-9",
+      "sku": "TF009-2-44",
+      "colour": "White",
+      "sizeCode": "44",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-0-0",
+      "productId": "product-10",
+      "sku": "TF010-1-30",
+      "colour": "Beige",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-0-1",
+      "productId": "product-10",
+      "sku": "TF010-1-32",
+      "colour": "Beige",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-0-2",
+      "productId": "product-10",
+      "sku": "TF010-1-34",
+      "colour": "Beige",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-0-3",
+      "productId": "product-10",
+      "sku": "TF010-1-36",
+      "colour": "Beige",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-1-0",
+      "productId": "product-10",
+      "sku": "TF010-2-30",
+      "colour": "Olive",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-1-1",
+      "productId": "product-10",
+      "sku": "TF010-2-32",
+      "colour": "Olive",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-1-2",
+      "productId": "product-10",
+      "sku": "TF010-2-34",
+      "colour": "Olive",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-10-1-3",
+      "productId": "product-10",
+      "sku": "TF010-2-36",
+      "colour": "Olive",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-0-0",
+      "productId": "product-11",
+      "sku": "TF011-1-S",
+      "colour": "Cream",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-0-1",
+      "productId": "product-11",
+      "sku": "TF011-1-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-0-2",
+      "productId": "product-11",
+      "sku": "TF011-1-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-0-3",
+      "productId": "product-11",
+      "sku": "TF011-1-XL",
+      "colour": "Cream",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-1-0",
+      "productId": "product-11",
+      "sku": "TF011-2-S",
+      "colour": "Sage",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-1-1",
+      "productId": "product-11",
+      "sku": "TF011-2-M",
+      "colour": "Sage",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-1-2",
+      "productId": "product-11",
+      "sku": "TF011-2-L",
+      "colour": "Sage",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-11-1-3",
+      "productId": "product-11",
+      "sku": "TF011-2-XL",
+      "colour": "Sage",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-0-0",
+      "productId": "product-12",
+      "sku": "TF012-1-S",
+      "colour": "Navy",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-0-1",
+      "productId": "product-12",
+      "sku": "TF012-1-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-0-2",
+      "productId": "product-12",
+      "sku": "TF012-1-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-0-3",
+      "productId": "product-12",
+      "sku": "TF012-1-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-1-0",
+      "productId": "product-12",
+      "sku": "TF012-2-S",
+      "colour": "Grey",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-1-1",
+      "productId": "product-12",
+      "sku": "TF012-2-M",
+      "colour": "Grey",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-1-2",
+      "productId": "product-12",
+      "sku": "TF012-2-L",
+      "colour": "Grey",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-12-1-3",
+      "productId": "product-12",
+      "sku": "TF012-2-XL",
+      "colour": "Grey",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-0-0",
+      "productId": "product-13",
+      "sku": "TF013-1-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-0-1",
+      "productId": "product-13",
+      "sku": "TF013-1-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-0-2",
+      "productId": "product-13",
+      "sku": "TF013-1-XL",
+      "colour": "Cream",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-1-0",
+      "productId": "product-13",
+      "sku": "TF013-2-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-1-1",
+      "productId": "product-13",
+      "sku": "TF013-2-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-13-1-2",
+      "productId": "product-13",
+      "sku": "TF013-2-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-0-0",
+      "productId": "product-14",
+      "sku": "TF014-1-S",
+      "colour": "Grey",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-0-1",
+      "productId": "product-14",
+      "sku": "TF014-1-M",
+      "colour": "Grey",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-0-2",
+      "productId": "product-14",
+      "sku": "TF014-1-L",
+      "colour": "Grey",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-0-3",
+      "productId": "product-14",
+      "sku": "TF014-1-XL",
+      "colour": "Grey",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-1-0",
+      "productId": "product-14",
+      "sku": "TF014-2-S",
+      "colour": "Navy",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-1-1",
+      "productId": "product-14",
+      "sku": "TF014-2-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-1-2",
+      "productId": "product-14",
+      "sku": "TF014-2-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-14-1-3",
+      "productId": "product-14",
+      "sku": "TF014-2-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-0-0",
+      "productId": "product-15",
+      "sku": "TF015-1-30",
+      "colour": "Olive",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-0-1",
+      "productId": "product-15",
+      "sku": "TF015-1-32",
+      "colour": "Olive",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-0-2",
+      "productId": "product-15",
+      "sku": "TF015-1-34",
+      "colour": "Olive",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-0-3",
+      "productId": "product-15",
+      "sku": "TF015-1-36",
+      "colour": "Olive",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-1-0",
+      "productId": "product-15",
+      "sku": "TF015-2-30",
+      "colour": "Black",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-1-1",
+      "productId": "product-15",
+      "sku": "TF015-2-32",
+      "colour": "Black",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-1-2",
+      "productId": "product-15",
+      "sku": "TF015-2-34",
+      "colour": "Black",
+      "sizeCode": "34",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-15-1-3",
+      "productId": "product-15",
+      "sku": "TF015-2-36",
+      "colour": "Black",
+      "sizeCode": "36",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-0-0",
+      "productId": "product-16",
+      "sku": "TF016-1-26",
+      "colour": "Dark Blue",
+      "sizeCode": "26",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-0-1",
+      "productId": "product-16",
+      "sku": "TF016-1-28",
+      "colour": "Dark Blue",
+      "sizeCode": "28",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-0-2",
+      "productId": "product-16",
+      "sku": "TF016-1-30",
+      "colour": "Dark Blue",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-0-3",
+      "productId": "product-16",
+      "sku": "TF016-1-32",
+      "colour": "Dark Blue",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-1-0",
+      "productId": "product-16",
+      "sku": "TF016-2-26",
+      "colour": "Black",
+      "sizeCode": "26",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-1-1",
+      "productId": "product-16",
+      "sku": "TF016-2-28",
+      "colour": "Black",
+      "sizeCode": "28",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-1-2",
+      "productId": "product-16",
+      "sku": "TF016-2-30",
+      "colour": "Black",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-16-1-3",
+      "productId": "product-16",
+      "sku": "TF016-2-32",
+      "colour": "Black",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-0-0",
+      "productId": "product-17",
+      "sku": "TF017-1-M",
+      "colour": "Pink",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-0-1",
+      "productId": "product-17",
+      "sku": "TF017-1-L",
+      "colour": "Pink",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-0-2",
+      "productId": "product-17",
+      "sku": "TF017-1-XL",
+      "colour": "Pink",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-0-3",
+      "productId": "product-17",
+      "sku": "TF017-1-XXL",
+      "colour": "Pink",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-1-0",
+      "productId": "product-17",
+      "sku": "TF017-2-M",
+      "colour": "Sage",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-1-1",
+      "productId": "product-17",
+      "sku": "TF017-2-L",
+      "colour": "Sage",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-1-2",
+      "productId": "product-17",
+      "sku": "TF017-2-XL",
+      "colour": "Sage",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-17-1-3",
+      "productId": "product-17",
+      "sku": "TF017-2-XXL",
+      "colour": "Sage",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-0-0",
+      "productId": "product-18",
+      "sku": "TF018-1-S",
+      "colour": "Cream",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-0-1",
+      "productId": "product-18",
+      "sku": "TF018-1-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-0-2",
+      "productId": "product-18",
+      "sku": "TF018-1-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-1-0",
+      "productId": "product-18",
+      "sku": "TF018-2-S",
+      "colour": "Sage",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-1-1",
+      "productId": "product-18",
+      "sku": "TF018-2-M",
+      "colour": "Sage",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-18-1-2",
+      "productId": "product-18",
+      "sku": "TF018-2-L",
+      "colour": "Sage",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-19-0-0",
+      "productId": "product-19",
+      "sku": "TF019-1-Free",
+      "colour": "Red",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-19-1-0",
+      "productId": "product-19",
+      "sku": "TF019-2-Free",
+      "colour": "Navy",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-20-0-0",
+      "productId": "product-20",
+      "sku": "TF020-1-Free",
+      "colour": "Pink",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-20-1-0",
+      "productId": "product-20",
+      "sku": "TF020-2-Free",
+      "colour": "Cream",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-0-0",
+      "productId": "product-21",
+      "sku": "TF021-1-S",
+      "colour": "Beige",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-0-1",
+      "productId": "product-21",
+      "sku": "TF021-1-M",
+      "colour": "Beige",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-0-2",
+      "productId": "product-21",
+      "sku": "TF021-1-L",
+      "colour": "Beige",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-0-3",
+      "productId": "product-21",
+      "sku": "TF021-1-XL",
+      "colour": "Beige",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-1-0",
+      "productId": "product-21",
+      "sku": "TF021-2-S",
+      "colour": "Sage",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-1-1",
+      "productId": "product-21",
+      "sku": "TF021-2-M",
+      "colour": "Sage",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-1-2",
+      "productId": "product-21",
+      "sku": "TF021-2-L",
+      "colour": "Sage",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-21-1-3",
+      "productId": "product-21",
+      "sku": "TF021-2-XL",
+      "colour": "Sage",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-0-0",
+      "productId": "product-22",
+      "sku": "TF022-1-26",
+      "colour": "Black",
+      "sizeCode": "26",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-0-1",
+      "productId": "product-22",
+      "sku": "TF022-1-28",
+      "colour": "Black",
+      "sizeCode": "28",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-0-2",
+      "productId": "product-22",
+      "sku": "TF022-1-30",
+      "colour": "Black",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-0-3",
+      "productId": "product-22",
+      "sku": "TF022-1-32",
+      "colour": "Black",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-1-0",
+      "productId": "product-22",
+      "sku": "TF022-2-26",
+      "colour": "Beige",
+      "sizeCode": "26",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-1-1",
+      "productId": "product-22",
+      "sku": "TF022-2-28",
+      "colour": "Beige",
+      "sizeCode": "28",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-1-2",
+      "productId": "product-22",
+      "sku": "TF022-2-30",
+      "colour": "Beige",
+      "sizeCode": "30",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-22-1-3",
+      "productId": "product-22",
+      "sku": "TF022-2-32",
+      "colour": "Beige",
+      "sizeCode": "32",
+      "sizeSystem": "numeric",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-0-0",
+      "productId": "product-23",
+      "sku": "TF023-1-S",
+      "colour": "Pink",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-0-1",
+      "productId": "product-23",
+      "sku": "TF023-1-M",
+      "colour": "Pink",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-0-2",
+      "productId": "product-23",
+      "sku": "TF023-1-L",
+      "colour": "Pink",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-1-0",
+      "productId": "product-23",
+      "sku": "TF023-2-S",
+      "colour": "Cream",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-1-1",
+      "productId": "product-23",
+      "sku": "TF023-2-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-23-1-2",
+      "productId": "product-23",
+      "sku": "TF023-2-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-0-0",
+      "productId": "product-24",
+      "sku": "TF024-1-4Y",
+      "colour": "Navy",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-0-1",
+      "productId": "product-24",
+      "sku": "TF024-1-6Y",
+      "colour": "Navy",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-0-2",
+      "productId": "product-24",
+      "sku": "TF024-1-8Y",
+      "colour": "Navy",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-0-3",
+      "productId": "product-24",
+      "sku": "TF024-1-10Y",
+      "colour": "Navy",
+      "sizeCode": "10Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-1-0",
+      "productId": "product-24",
+      "sku": "TF024-2-4Y",
+      "colour": "Red",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-1-1",
+      "productId": "product-24",
+      "sku": "TF024-2-6Y",
+      "colour": "Red",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-1-2",
+      "productId": "product-24",
+      "sku": "TF024-2-8Y",
+      "colour": "Red",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-24-1-3",
+      "productId": "product-24",
+      "sku": "TF024-2-10Y",
+      "colour": "Red",
+      "sizeCode": "10Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-0-0",
+      "productId": "product-25",
+      "sku": "TF025-1-4Y",
+      "colour": "Blue",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-0-1",
+      "productId": "product-25",
+      "sku": "TF025-1-6Y",
+      "colour": "Blue",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-0-2",
+      "productId": "product-25",
+      "sku": "TF025-1-8Y",
+      "colour": "Blue",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-1-0",
+      "productId": "product-25",
+      "sku": "TF025-2-4Y",
+      "colour": "Olive",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-1-1",
+      "productId": "product-25",
+      "sku": "TF025-2-6Y",
+      "colour": "Olive",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-25-1-2",
+      "productId": "product-25",
+      "sku": "TF025-2-8Y",
+      "colour": "Olive",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-0-0",
+      "productId": "product-26",
+      "sku": "TF026-1-4Y",
+      "colour": "Dark Blue",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-0-1",
+      "productId": "product-26",
+      "sku": "TF026-1-6Y",
+      "colour": "Dark Blue",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-0-2",
+      "productId": "product-26",
+      "sku": "TF026-1-8Y",
+      "colour": "Dark Blue",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-1-0",
+      "productId": "product-26",
+      "sku": "TF026-2-4Y",
+      "colour": "Black",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-1-1",
+      "productId": "product-26",
+      "sku": "TF026-2-6Y",
+      "colour": "Black",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-26-1-2",
+      "productId": "product-26",
+      "sku": "TF026-2-8Y",
+      "colour": "Black",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-0-0",
+      "productId": "product-27",
+      "sku": "TF027-1-4Y",
+      "colour": "White",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-0-1",
+      "productId": "product-27",
+      "sku": "TF027-1-6Y",
+      "colour": "White",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-0-2",
+      "productId": "product-27",
+      "sku": "TF027-1-8Y",
+      "colour": "White",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-1-0",
+      "productId": "product-27",
+      "sku": "TF027-2-4Y",
+      "colour": "Blue",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-1-1",
+      "productId": "product-27",
+      "sku": "TF027-2-6Y",
+      "colour": "Blue",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-27-1-2",
+      "productId": "product-27",
+      "sku": "TF027-2-8Y",
+      "colour": "Blue",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-0-0",
+      "productId": "product-28",
+      "sku": "TF028-1-4Y",
+      "colour": "Red",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-0-1",
+      "productId": "product-28",
+      "sku": "TF028-1-6Y",
+      "colour": "Red",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-0-2",
+      "productId": "product-28",
+      "sku": "TF028-1-8Y",
+      "colour": "Red",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-1-0",
+      "productId": "product-28",
+      "sku": "TF028-2-4Y",
+      "colour": "Cream",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-1-1",
+      "productId": "product-28",
+      "sku": "TF028-2-6Y",
+      "colour": "Cream",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-28-1-2",
+      "productId": "product-28",
+      "sku": "TF028-2-8Y",
+      "colour": "Cream",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-0-0",
+      "productId": "product-29",
+      "sku": "TF029-1-4Y",
+      "colour": "Pink",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-0-1",
+      "productId": "product-29",
+      "sku": "TF029-1-6Y",
+      "colour": "Pink",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-0-2",
+      "productId": "product-29",
+      "sku": "TF029-1-8Y",
+      "colour": "Pink",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-1-0",
+      "productId": "product-29",
+      "sku": "TF029-2-4Y",
+      "colour": "Sage",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-1-1",
+      "productId": "product-29",
+      "sku": "TF029-2-6Y",
+      "colour": "Sage",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-29-1-2",
+      "productId": "product-29",
+      "sku": "TF029-2-8Y",
+      "colour": "Sage",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-0-0",
+      "productId": "product-30",
+      "sku": "TF030-1-4Y",
+      "colour": "Pink",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-0-1",
+      "productId": "product-30",
+      "sku": "TF030-1-6Y",
+      "colour": "Pink",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-0-2",
+      "productId": "product-30",
+      "sku": "TF030-1-8Y",
+      "colour": "Pink",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-1-0",
+      "productId": "product-30",
+      "sku": "TF030-2-4Y",
+      "colour": "Grey",
+      "sizeCode": "4Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-1-1",
+      "productId": "product-30",
+      "sku": "TF030-2-6Y",
+      "colour": "Grey",
+      "sizeCode": "6Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-30-1-2",
+      "productId": "product-30",
+      "sku": "TF030-2-8Y",
+      "colour": "Grey",
+      "sizeCode": "8Y",
+      "sizeSystem": "age",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-0-0",
+      "productId": "product-31",
+      "sku": "TF031-1-0–6M",
+      "colour": "Cream",
+      "sizeCode": "0–6M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-0-1",
+      "productId": "product-31",
+      "sku": "TF031-1-6–12M",
+      "colour": "Cream",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-0-2",
+      "productId": "product-31",
+      "sku": "TF031-1-12–18M",
+      "colour": "Cream",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-1-0",
+      "productId": "product-31",
+      "sku": "TF031-2-0–6M",
+      "colour": "Sage",
+      "sizeCode": "0–6M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-1-1",
+      "productId": "product-31",
+      "sku": "TF031-2-6–12M",
+      "colour": "Sage",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-31-1-2",
+      "productId": "product-31",
+      "sku": "TF031-2-12–18M",
+      "colour": "Sage",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-0-0",
+      "productId": "product-32",
+      "sku": "TF032-1-6–12M",
+      "colour": "Blue",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-0-1",
+      "productId": "product-32",
+      "sku": "TF032-1-12–18M",
+      "colour": "Blue",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-0-2",
+      "productId": "product-32",
+      "sku": "TF032-1-18–24M",
+      "colour": "Blue",
+      "sizeCode": "18–24M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-1-0",
+      "productId": "product-32",
+      "sku": "TF032-2-6–12M",
+      "colour": "Pink",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-1-1",
+      "productId": "product-32",
+      "sku": "TF032-2-12–18M",
+      "colour": "Pink",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-32-1-2",
+      "productId": "product-32",
+      "sku": "TF032-2-18–24M",
+      "colour": "Pink",
+      "sizeCode": "18–24M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-33-0-0",
+      "productId": "product-33",
+      "sku": "TF033-1-6–12M",
+      "colour": "Cream",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-33-0-1",
+      "productId": "product-33",
+      "sku": "TF033-1-12–18M",
+      "colour": "Cream",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-33-1-0",
+      "productId": "product-33",
+      "sku": "TF033-2-6–12M",
+      "colour": "Grey",
+      "sizeCode": "6–12M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-33-1-1",
+      "productId": "product-33",
+      "sku": "TF033-2-12–18M",
+      "colour": "Grey",
+      "sizeCode": "12–18M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-34-0-0",
+      "productId": "product-34",
+      "sku": "TF034-1-Free",
+      "colour": "White",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "3-piece pack",
+      "status": "active"
+    },
+    {
+      "id": "variant-34-1-0",
+      "productId": "product-34",
+      "sku": "TF034-2-Free",
+      "colour": "Blue",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "3-piece pack",
+      "status": "active"
+    },
+    {
+      "id": "variant-35-0-0",
+      "productId": "product-35",
+      "sku": "TF035-1-M",
+      "colour": "Black",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-35-0-1",
+      "productId": "product-35",
+      "sku": "TF035-1-L",
+      "colour": "Black",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-35-1-0",
+      "productId": "product-35",
+      "sku": "TF035-2-M",
+      "colour": "Brown",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-35-1-1",
+      "productId": "product-35",
+      "sku": "TF035-2-L",
+      "colour": "Brown",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-36-0-0",
+      "productId": "product-36",
+      "sku": "TF036-1-Free",
+      "colour": "Navy",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-36-1-0",
+      "productId": "product-36",
+      "sku": "TF036-2-Free",
+      "colour": "Beige",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-37-0-0",
+      "productId": "product-37",
+      "sku": "TF037-1-Free",
+      "colour": "Black",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "pair",
+      "status": "active"
+    },
+    {
+      "id": "variant-37-1-0",
+      "productId": "product-37",
+      "sku": "TF037-2-Free",
+      "colour": "Grey",
+      "sizeCode": "Free",
+      "sizeSystem": "letter",
+      "packUnit": "pair",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-0-0",
+      "productId": "product-38",
+      "sku": "TF038-1-S",
+      "colour": "Cream",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-0-1",
+      "productId": "product-38",
+      "sku": "TF038-1-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-0-2",
+      "productId": "product-38",
+      "sku": "TF038-1-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-0-3",
+      "productId": "product-38",
+      "sku": "TF038-1-XL",
+      "colour": "Cream",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-1-0",
+      "productId": "product-38",
+      "sku": "TF038-2-S",
+      "colour": "Olive",
+      "sizeCode": "S",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-1-1",
+      "productId": "product-38",
+      "sku": "TF038-2-M",
+      "colour": "Olive",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-1-2",
+      "productId": "product-38",
+      "sku": "TF038-2-L",
+      "colour": "Olive",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-38-1-3",
+      "productId": "product-38",
+      "sku": "TF038-2-XL",
+      "colour": "Olive",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-0-0",
+      "productId": "product-39",
+      "sku": "TF039-1-M",
+      "colour": "Black",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-0-1",
+      "productId": "product-39",
+      "sku": "TF039-1-L",
+      "colour": "Black",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-0-2",
+      "productId": "product-39",
+      "sku": "TF039-1-XL",
+      "colour": "Black",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-1-0",
+      "productId": "product-39",
+      "sku": "TF039-2-M",
+      "colour": "Navy",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-1-1",
+      "productId": "product-39",
+      "sku": "TF039-2-L",
+      "colour": "Navy",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-39-1-2",
+      "productId": "product-39",
+      "sku": "TF039-2-XL",
+      "colour": "Navy",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-0-0",
+      "productId": "product-40",
+      "sku": "TF040-1-M",
+      "colour": "Red",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-0-1",
+      "productId": "product-40",
+      "sku": "TF040-1-L",
+      "colour": "Red",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-0-2",
+      "productId": "product-40",
+      "sku": "TF040-1-XL",
+      "colour": "Red",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-0-3",
+      "productId": "product-40",
+      "sku": "TF040-1-XXL",
+      "colour": "Red",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-1-0",
+      "productId": "product-40",
+      "sku": "TF040-2-M",
+      "colour": "Cream",
+      "sizeCode": "M",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-1-1",
+      "productId": "product-40",
+      "sku": "TF040-2-L",
+      "colour": "Cream",
+      "sizeCode": "L",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-1-2",
+      "productId": "product-40",
+      "sku": "TF040-2-XL",
+      "colour": "Cream",
+      "sizeCode": "XL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    },
+    {
+      "id": "variant-40-1-3",
+      "productId": "product-40",
+      "sku": "TF040-2-XXL",
+      "colour": "Cream",
+      "sizeCode": "XXL",
+      "sizeSystem": "letter",
+      "packUnit": "piece",
+      "status": "active"
+    }
+  ],
+  "inventoryBalances": [
+    {
+      "variantId": "variant-1-0-0",
+      "locationId": "loc-1",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-0-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-0-2",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-0-3",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-0-3",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-1-0",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-1-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-1-2",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-1-3",
+      "locationId": "loc-1",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-2-0",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-2-1",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-2-2",
+      "locationId": "loc-1",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-1-2-3",
+      "locationId": "loc-1",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-0-0",
+      "locationId": "loc-2",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-0-1",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-0-2",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-0-3",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-1-0",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-1-1",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-1-2",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-1-3",
+      "locationId": "loc-2",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-2-0",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-2-1",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-2-2",
+      "locationId": "loc-2",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-2-2-3",
+      "locationId": "loc-2",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-0-0",
+      "locationId": "loc-3",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-0-1",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-0-2",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-0-3",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-1-0",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-1-1",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-1-2",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-1-3",
+      "locationId": "loc-3",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-2-0",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-2-1",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-2-2",
+      "locationId": "loc-3",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-3-2-3",
+      "locationId": "loc-3",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-0-0",
+      "locationId": "loc-4",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-0-1",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-0-2",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-0-3",
+      "locationId": "loc-4",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-1-0",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-1-1",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-1-2",
+      "locationId": "loc-4",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-4-1-3",
+      "locationId": "loc-4",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-0-0",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-0-1",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-0-2",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-0-3",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-1-0",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-1-1",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-1-2",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-1-3",
+      "locationId": "loc-5",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-2-0",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-2-1",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-2-2",
+      "locationId": "loc-5",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-5-2-3",
+      "locationId": "loc-5",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-0-0",
+      "locationId": "loc-6",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-0-1",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-0-2",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-1-0",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-1-1",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-6-1-2",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-7-0-0",
+      "locationId": "loc-7",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-7-1-0",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-0-0",
+      "locationId": "loc-8",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-0-1",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-0-2",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-0-3",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-1-0",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-1-1",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-1-2",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-1-3",
+      "locationId": "loc-8",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-2-0",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-2-1",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-2-2",
+      "locationId": "loc-8",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-8-2-3",
+      "locationId": "loc-8",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-0-0",
+      "locationId": "loc-1",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-0-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-0-2",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-0-3",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-1-0",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-1-1",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-1-2",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-9-1-3",
+      "locationId": "loc-1",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-0-0",
+      "locationId": "loc-2",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-0-1",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-0-2",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-0-3",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-1-0",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-1-1",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-1-2",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-10-1-3",
+      "locationId": "loc-2",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-0-0",
+      "locationId": "loc-3",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-0-1",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-0-2",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-0-3",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-1-0",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-1-1",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-1-2",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-11-1-3",
+      "locationId": "loc-3",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-0-0",
+      "locationId": "loc-4",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-0-1",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-0-2",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-0-3",
+      "locationId": "loc-4",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-1-0",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-1-1",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-1-2",
+      "locationId": "loc-4",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-12-1-3",
+      "locationId": "loc-4",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-0-0",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-0-1",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-0-2",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-1-0",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-1-1",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-13-1-2",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-0-0",
+      "locationId": "loc-6",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-0-1",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-0-2",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-0-3",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-1-0",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-1-1",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-1-2",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-14-1-3",
+      "locationId": "loc-6",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-0-0",
+      "locationId": "loc-7",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-0-1",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-0-2",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-0-3",
+      "locationId": "loc-7",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-1-0",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-1-1",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-1-2",
+      "locationId": "loc-7",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-15-1-3",
+      "locationId": "loc-7",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-0-0",
+      "locationId": "loc-8",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-0-1",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-0-2",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-0-3",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-1-0",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-1-1",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-1-2",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-16-1-3",
+      "locationId": "loc-8",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-0-0",
+      "locationId": "loc-1",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-0-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-0-2",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-0-3",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-1-0",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-1-1",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-1-2",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-17-1-3",
+      "locationId": "loc-1",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-0-0",
+      "locationId": "loc-2",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-0-1",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-0-2",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-1-0",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-1-1",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-18-1-2",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-19-0-0",
+      "locationId": "loc-3",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-19-1-0",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-20-0-0",
+      "locationId": "loc-4",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-20-1-0",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-0-0",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-0-1",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-0-2",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-0-3",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-1-0",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-1-1",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-1-2",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-21-1-3",
+      "locationId": "loc-5",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-0-0",
+      "locationId": "loc-6",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-0-1",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-0-2",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-0-3",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-1-0",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-1-1",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-1-2",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-22-1-3",
+      "locationId": "loc-6",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-0-0",
+      "locationId": "loc-7",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-0-1",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-0-2",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-1-0",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-1-1",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-23-1-2",
+      "locationId": "loc-7",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-0-0",
+      "locationId": "loc-8",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-0-1",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-0-2",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-0-3",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-1-0",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-1-1",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-1-2",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-24-1-3",
+      "locationId": "loc-8",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-0-0",
+      "locationId": "loc-1",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-0-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-0-2",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-1-0",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-1-1",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-25-1-2",
+      "locationId": "loc-1",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-0-0",
+      "locationId": "loc-2",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-0-1",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-0-2",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-1-0",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-1-1",
+      "locationId": "loc-2",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-26-1-2",
+      "locationId": "loc-2",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-0-0",
+      "locationId": "loc-3",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-0-1",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-0-2",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-1-0",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-1-1",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-27-1-2",
+      "locationId": "loc-3",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-0-0",
+      "locationId": "loc-4",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-0-1",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-0-2",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-1-0",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-1-1",
+      "locationId": "loc-4",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-28-1-2",
+      "locationId": "loc-4",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-0-0",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-0-1",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-0-2",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-1-0",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-1-1",
+      "locationId": "loc-5",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-29-1-2",
+      "locationId": "loc-5",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-0-0",
+      "locationId": "loc-6",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-0-1",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-0-2",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-1-0",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-1-1",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-30-1-2",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-0-0",
+      "locationId": "loc-7",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-0-1",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-0-2",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-1-0",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-1-1",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-31-1-2",
+      "locationId": "loc-7",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-0-0",
+      "locationId": "loc-8",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-0-1",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-0-2",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-1-0",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-1-1",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-32-1-2",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-33-0-0",
+      "locationId": "loc-1",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-33-0-1",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-33-1-0",
+      "locationId": "loc-1",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-33-1-1",
+      "locationId": "loc-1",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-34-0-0",
+      "locationId": "loc-2",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-34-1-0",
+      "locationId": "loc-2",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-35-0-0",
+      "locationId": "loc-3",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-35-0-1",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-35-1-0",
+      "locationId": "loc-3",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-35-1-1",
+      "locationId": "loc-3",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-36-0-0",
+      "locationId": "loc-4",
+      "onHand": 3,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-36-1-0",
+      "locationId": "loc-4",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-37-0-0",
+      "locationId": "loc-5",
+      "onHand": 4,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-37-1-0",
+      "locationId": "loc-5",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-0-0",
+      "locationId": "loc-6",
+      "onHand": 5,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-0-1",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-0-2",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-0-3",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-1-0",
+      "locationId": "loc-6",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-1-1",
+      "locationId": "loc-6",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-1-2",
+      "locationId": "loc-6",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-38-1-3",
+      "locationId": "loc-6",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-0-0",
+      "locationId": "loc-7",
+      "onHand": 6,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-0-1",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-0-2",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-1-0",
+      "locationId": "loc-7",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-1-1",
+      "locationId": "loc-7",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-39-1-2",
+      "locationId": "loc-7",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-0-0",
+      "locationId": "loc-8",
+      "onHand": 7,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-0-1",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-0-2",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-0-3",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-1-0",
+      "locationId": "loc-8",
+      "onHand": 0,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-1-1",
+      "locationId": "loc-8",
+      "onHand": 1,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-1-2",
+      "locationId": "loc-8",
+      "onHand": 2,
+      "nonSellable": 0
+    },
+    {
+      "variantId": "variant-40-1-3",
+      "locationId": "loc-8",
+      "onHand": 3,
+      "nonSellable": 0
+    }
+  ],
+  "images": [
+    {
+      "productId": "product-1",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-2",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-3",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-4",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-5",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-6",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-7",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/accessories-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-8",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-9",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-10",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-11",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-12",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-13",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-14",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-15",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-16",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-17",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-18",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-19",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-20",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-21",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-22",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-23",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-24",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-25",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-26",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/trousers-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-27",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-28",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/dress-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-29",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-30",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-31",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-32",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-33",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-34",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/accessories-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-35",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/accessories-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-36",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/accessories-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-37",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/accessories-0.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-38",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-1.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-39",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-2.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    },
+    {
+      "productId": "product-40",
+      "angle": "front",
+      "kind": "placeholder",
+      "srcOrAssetKey": "/images/shirt-3.svg",
+      "label": "Illustrative placeholder — not a product photograph"
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc-1",
+      "rack": "A",
+      "shelf": "1",
+      "box": "1",
+      "active": true
+    },
+    {
+      "id": "loc-2",
+      "rack": "A",
+      "shelf": "2",
+      "box": "2",
+      "active": true
+    },
+    {
+      "id": "loc-3",
+      "rack": "A",
+      "shelf": "1",
+      "box": "3",
+      "active": true
+    },
+    {
+      "id": "loc-4",
+      "rack": "A",
+      "shelf": "2",
+      "box": "4",
+      "active": true
+    },
+    {
+      "id": "loc-5",
+      "rack": "B",
+      "shelf": "1",
+      "box": "5",
+      "active": true
+    },
+    {
+      "id": "loc-6",
+      "rack": "B",
+      "shelf": "2",
+      "box": "6",
+      "active": true
+    },
+    {
+      "id": "loc-7",
+      "rack": "B",
+      "shelf": "1",
+      "box": "7",
+      "active": true
+    },
+    {
+      "id": "loc-8",
+      "rack": "B",
+      "shelf": "2",
+      "box": "8",
+      "active": true
+    }
+  ],
+  "departments": [
+    "Men",
+    "Women",
+    "Girls",
+    "Accessories",
+    "Unisex",
+    "Boys",
+    "Baby/Toddler"
+  ],
+  "categories": [
+    "T-shirt",
+    "Shirt",
+    "Jeans",
+    "Kurti",
+    "Dress",
+    "Socks",
+    "Pants",
+    "Kurta",
+    "Winterwear",
+    "Saree",
+    "Set",
+    "Handkerchief",
+    "Belt",
+    "Cap"
+  ],
+  "sessions": [
+    {
+      "id": "example-1",
+      "name": "Example sale 1",
+      "status": "closed",
+      "at": "2026-11-10T10:00:00.000Z"
+    },
+    {
+      "id": "example-2",
+      "name": "Example sale 2",
+      "status": "closed",
+      "at": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "example-3",
+      "name": "Example draft 1",
+      "status": "open",
+      "at": "2026-11-12T10:00:00.000Z"
+    },
+    {
+      "id": "example-4",
+      "name": "Example draft 2",
+      "status": "open",
+      "at": "2026-11-13T10:00:00.000Z"
+    }
+  ],
+  "shortlistItems": [],
+  "pickItems": [
+    {
+      "id": "example-5",
+      "sessionId": "example-1",
+      "variantId": "variant-1-0-2",
+      "locationId": "loc-1",
+      "qty": 1,
+      "status": "purchased",
+      "retrievedAt": "2026-11-10T10:00:00.000Z"
+    },
+    {
+      "id": "example-6",
+      "sessionId": "example-2",
+      "variantId": "variant-1-1-1",
+      "locationId": "loc-1",
+      "qty": 1,
+      "status": "purchased",
+      "retrievedAt": "2026-11-11T10:00:00.000Z"
+    },
+    {
+      "id": "example-7",
+      "sessionId": "example-3",
+      "variantId": "variant-1-1-2",
+      "locationId": "loc-1",
+      "qty": 1,
+      "status": "retrieved",
+      "retrievedAt": "2026-11-12T10:00:00.000Z"
+    },
+    {
+      "id": "example-8",
+      "sessionId": "example-4",
+      "variantId": "variant-1-1-3",
+      "locationId": "loc-1",
+      "qty": 1,
+      "status": "retrieved",
+      "retrievedAt": "2026-11-13T10:00:00.000Z"
+    }
+  ],
+  "returnToBoxTasks": [],
+  "draftBills": [
+    {
+      "id": "example-9",
+      "sessionId": "example-1",
+      "status": "completed",
+      "at": "2026-11-10T10:00:00.000Z",
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "payment": "Cash",
+      "lines": [
+        {
+          "pickId": "example-5",
+          "variantId": "variant-1-0-2",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900
+        }
+      ],
+      "saleId": "example-13"
+    },
+    {
+      "id": "example-10",
+      "sessionId": "example-2",
+      "status": "completed",
+      "at": "2026-11-11T10:00:00.000Z",
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "payment": "Cash",
+      "lines": [
+        {
+          "pickId": "example-6",
+          "variantId": "variant-1-1-1",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900
+        }
+      ],
+      "saleId": "example-14"
+    },
+    {
+      "id": "example-11",
+      "sessionId": "example-3",
+      "status": "draft",
+      "at": "2026-11-12T10:00:00.000Z",
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "payment": "Cash",
+      "lines": [
+        {
+          "pickId": "example-7",
+          "variantId": "variant-1-1-2",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900
+        }
+      ]
+    },
+    {
+      "id": "example-12",
+      "sessionId": "example-4",
+      "status": "draft",
+      "at": "2026-11-13T10:00:00.000Z",
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "payment": "Cash",
+      "lines": [
+        {
+          "pickId": "example-8",
+          "variantId": "variant-1-1-3",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900
+        }
+      ]
+    }
+  ],
+  "sales": [
+    {
+      "id": "example-13",
+      "billId": "example-9",
+      "sessionId": "example-1",
+      "number": "DEMO-00001",
+      "at": "2026-11-10T10:00:00.000Z",
+      "shopName": "Thread & Form",
+      "payment": "Cash",
+      "subtotalPaise": 89900,
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "taxPaise": 0,
+      "totalPaise": 89900,
+      "lines": [
+        {
+          "pickId": "example-5",
+          "variantId": "variant-1-0-2",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900,
+          "sku": "TF001-1-L",
+          "name": "Everyday Cotton Polo",
+          "colour": "Black",
+          "sizeCode": "L",
+          "packUnit": "piece",
+          "costPaise": 49445,
+          "productId": "product-1",
+          "category": "T-shirt",
+          "department": "Men"
+        }
+      ]
+    },
+    {
+      "id": "example-14",
+      "billId": "example-10",
+      "sessionId": "example-2",
+      "number": "DEMO-00002",
+      "at": "2026-11-11T10:00:00.000Z",
+      "shopName": "Thread & Form",
+      "payment": "Cash",
+      "subtotalPaise": 89900,
+      "discountPaise": 0,
+      "taxPercent": 0,
+      "taxPaise": 0,
+      "totalPaise": 89900,
+      "lines": [
+        {
+          "pickId": "example-6",
+          "variantId": "variant-1-1-1",
+          "locationId": "loc-1",
+          "qty": 1,
+          "pricePaise": 89900,
+          "sku": "TF001-2-M",
+          "name": "Everyday Cotton Polo",
+          "colour": "Navy",
+          "sizeCode": "M",
+          "packUnit": "piece",
+          "costPaise": 49445,
+          "productId": "product-1",
+          "category": "T-shirt",
+          "department": "Men"
+        }
+      ]
+    }
+  ],
+  "payments": [
+    {
+      "id": "example-15",
+      "saleId": "example-13",
+      "amountPaise": 89900,
+      "label": "Cash",
+      "at": "2026-11-10T10:00:00.000Z"
+    },
+    {
+      "id": "example-16",
+      "saleId": "example-14",
+      "amountPaise": 89900,
+      "label": "Cash",
+      "at": "2026-11-11T10:00:00.000Z"
+    }
+  ],
+  "saleReturns": [],
+  "stockMovements": [
+    {
+      "id": "example-17",
+      "variantId": "variant-1-0-2",
+      "qtyDelta": -1,
+      "locationId": "loc-1",
+      "reason": "sale",
+      "referenceId": "example-13",
+      "at": "2026-11-10T10:00:00.000Z"
+    },
+    {
+      "id": "example-18",
+      "variantId": "variant-1-1-1",
+      "qtyDelta": -1,
+      "locationId": "loc-1",
+      "reason": "sale",
+      "referenceId": "example-14",
+      "at": "2026-11-11T10:00:00.000Z"
+    }
+  ],
+  "settings": {
+    "shopName": "Thread & Form",
+    "taxPercent": 0,
+    "lowStockThreshold": 2,
+    "timeZone": "Asia/Kolkata"
+  },
+  "activeSessionId": null
+}

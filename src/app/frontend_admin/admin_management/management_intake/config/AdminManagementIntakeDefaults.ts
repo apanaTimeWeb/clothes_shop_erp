@@ -1,0 +1,18 @@
+export const intakeDefaults = {
+  designCode: "",
+  name: "",
+  departmentId: "Men",
+  categoryId: "T-shirt",
+  fabric: "Cotton",
+  sleeve: "Full",
+  collar: "Round",
+  fit: "Regular",
+  pattern: "Solid",
+  description: "",
+  defaultPricePaise: "499",
+  costPricePaise: "200",
+  colours: "Black, White",
+  sizes: "S, M, L, XL",
+  sizeSystem: "Alpha",
+  packUnit: "piece",
+};
