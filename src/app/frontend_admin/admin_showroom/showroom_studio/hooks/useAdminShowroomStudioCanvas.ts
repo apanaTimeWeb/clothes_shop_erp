@@ -69,27 +69,8 @@ export function useAdminShowroomStudioCanvas(
       ctx.save();
       ctx.translate(pose.x, pose.y);
       ctx.rotate((pose.rotation * Math.PI) / 180);
-      ctx.shadowColor = "rgba(15, 23, 42, 0.35)";
-      ctx.shadowBlur = 16;
-      ctx.shadowOffsetY = 7;
       ctx.drawImage(garment, -effW / 2, -effH / 2, effW, effH);
       ctx.restore();
-
-      if (blendLighting) {
-        ctx.save();
-        ctx.translate(pose.x, pose.y);
-        ctx.rotate((pose.rotation * Math.PI) / 180);
-        const grad = ctx.createLinearGradient(-effW / 2, 0, effW / 2, 0);
-        grad.addColorStop(0, "rgba(0, 0, 0, 0.16)");
-        grad.addColorStop(0.25, "rgba(255, 255, 255, 0.08)");
-        grad.addColorStop(0.5, "rgba(255, 255, 255, 0.16)");
-        grad.addColorStop(0.75, "rgba(255, 255, 255, 0.08)");
-        grad.addColorStop(1, "rgba(0, 0, 0, 0.2)");
-        ctx.globalCompositeOperation = "source-atop";
-        ctx.fillStyle = grad;
-        ctx.fillRect(-effW / 2, -effH / 2, effW, effH);
-        ctx.restore();
-      }
       ctx.restore();
 
       if (splitRatio < 0.999 && splitRatio > 0.001) {

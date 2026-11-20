@@ -95,17 +95,22 @@ export function getGarmentColorPalette(colour: string) {
 
 export function generateAutoCutoutSvg(category: GarmentCategory, colour: string): string {
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
-  let garmentSvg = "";
+  let mainPath = "";
+  let details = "";
   if (category === "bottom") {
-    garmentSvg = `<path d="M131 67 L229 67 L236 152 L228 297 L184 297 L178 164 L171 297 L126 297 L122 151Z" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M133 83 H227 M178 86 V155 M130 282 H169 M185 282 H229"/></g>`;
+    mainPath = "M131 67 L229 67 L236 152 L228 297 L184 297 L178 164 L171 297 L126 297 L122 151Z";
+    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M133 83 H227 M178 86 V155 M130 282 H169 M185 282 H229"/></g>`;
   } else if (category === "dress") {
-    garmentSvg = `<path d="M150 67 Q180 83 210 67 L237 113 L213 128 L204 108 L200 153 L249 281 Q180 307 111 281 L160 153 L156 108 L147 128 L123 113Z" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M159 153 Q180 162 201 153 M139 268 Q180 283 222 268"/></g>`;
+    mainPath = "M150 67 Q180 83 210 67 L237 113 L213 128 L204 108 L200 153 L249 281 Q180 307 111 281 L160 153 L156 108 L147 128 L123 113Z";
+    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M159 153 Q180 162 201 153 M139 268 Q180 283 222 268"/></g>`;
   } else if (category === "accessory") {
-    garmentSvg = `<path d="M131 100 L171 100 L171 209 Q172 226 146 239 L111 250 Q85 258 78 238 Q73 220 95 211 L131 194Z M194 83 L234 83 L234 192 Q235 209 209 222 L174 233 Q148 241 141 221 Q136 203 158 194 L194 177Z" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M131 111 H171 M194 94 H234"/></g>`;
+    mainPath = "M131 100 L171 100 L171 209 Q172 226 146 239 L111 250 Q85 258 78 238 Q73 220 95 211 L131 194Z M194 83 L234 83 L234 192 Q235 209 209 222 L174 233 Q148 241 141 221 Q136 203 158 194 L194 177Z";
+    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M131 111 H171 M194 94 H234"/></g>`;
   } else {
-    garmentSvg = `<path d="M119 83 L155 63 Q180 82 205 63 L241 83 L278 143 L239 165 L226 140 L230 289 Q180 301 130 289 L134 140 L121 165 L82 143Z" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M138 279 Q180 288 222 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
+    mainPath = "M119 83 L155 63 Q180 82 205 63 L241 83 L278 143 L239 165 L226 140 L230 289 Q180 301 130 289 L134 140 L121 165 L82 143Z";
+    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M138 279 Q180 288 222 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
   }
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.25"/></filter></defs>${garmentSvg}</svg>`;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
