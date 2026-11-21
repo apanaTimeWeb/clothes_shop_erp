@@ -65,26 +65,14 @@ export function detectGarmentCategory(categoryId?: string): GarmentCategory {
 }
 
 const COLOR_MAP: Record<string, { primary: string; secondary: string; stroke: string }> = {
-  black: { primary: "#18181b", secondary: "#09090b", stroke: "#27272a" },
-  navy: { primary: "#1e3a8a", secondary: "#172554", stroke: "#1d4ed8" },
-  olive: { primary: "#4d7c0f", secondary: "#365314", stroke: "#65a30d" },
-  white: { primary: "#f8fafc", secondary: "#e2e8f0", stroke: "#cbd5e1" },
-  blue: { primary: "#2563eb", secondary: "#1d4ed8", stroke: "#3b82f6" },
-  pink: { primary: "#ec4899", secondary: "#be185d", stroke: "#f472b6" },
-  "dark blue": { primary: "#1e293b", secondary: "#0f172a", stroke: "#334155" },
-  sage: { primary: "#84a98c", secondary: "#52796f", stroke: "#a3b18a" },
-  red: { primary: "#dc2626", secondary: "#991b1b", stroke: "#ef4444" },
-  cream: { primary: "#fef3c7", secondary: "#fde68a", stroke: "#f59e0b" },
-  beige: { primary: "#d4b996", secondary: "#b59a78", stroke: "#a3876a" },
-  grey: { primary: "#64748b", secondary: "#475569", stroke: "#94a3b8" },
-  brown: { primary: "#78350f", secondary: "#451a03", stroke: "#92400e" },
-  charcoal: { primary: "#27272a", secondary: "#18181b", stroke: "#3f3f46" },
-  green: { primary: "#15803d", secondary: "#14532d", stroke: "#16a34a" },
-  yellow: { primary: "#eab308", secondary: "#ca8a04", stroke: "#facc15" },
-  orange: { primary: "#ea580c", secondary: "#c2410c", stroke: "#f97316" },
-  purple: { primary: "#7e22ce", secondary: "#581c87", stroke: "#9333ea" },
-  maroon: { primary: "#831843", secondary: "#500724", stroke: "#9d174d" },
-  khaki: { primary: "#c3b091", secondary: "#a8977b", stroke: "#8d7e67" },
+  black: { primary: "#18181b", secondary: "#09090b", stroke: "#27272a" }, navy: { primary: "#1e3a8a", secondary: "#172554", stroke: "#1d4ed8" },
+  olive: { primary: "#4d7c0f", secondary: "#365314", stroke: "#65a30d" }, white: { primary: "#f8fafc", secondary: "#e2e8f0", stroke: "#cbd5e1" },
+  blue: { primary: "#2563eb", secondary: "#1d4ed8", stroke: "#3b82f6" }, pink: { primary: "#ec4899", secondary: "#be185d", stroke: "#f472b6" },
+  "dark blue": { primary: "#1e293b", secondary: "#0f172a", stroke: "#334155" }, sage: { primary: "#84a98c", secondary: "#52796f", stroke: "#a3b18a" },
+  red: { primary: "#dc2626", secondary: "#991b1b", stroke: "#ef4444" }, cream: { primary: "#fef3c7", secondary: "#fde68a", stroke: "#f59e0b" },
+  beige: { primary: "#d4b996", secondary: "#b59a78", stroke: "#a3876a" }, grey: { primary: "#64748b", secondary: "#475569", stroke: "#94a3b8" },
+  charcoal: { primary: "#27272a", secondary: "#18181b", stroke: "#3f3f46" }, green: { primary: "#15803d", secondary: "#14532d", stroke: "#16a34a" },
+  khaki: { primary: "#c3b091", secondary: "#a8977b", stroke: "#8d7e67" }, indigo: { primary: "#1e3a8a", secondary: "#172554", stroke: "#2563eb" },
 };
 
 export function getGarmentColorPalette(colour: string) {
@@ -154,16 +142,22 @@ export interface WornGarmentItem {
 }
 
 export const STORE_CATALOG_ITEMS: StoreGarmentItem[] = [
-  { id: "top-linen-shirt", name: "Casual Linen Shirt", category: "top", style: "shirt", defaultColour: "Blue", colours: ["Blue", "Navy", "White", "Olive"] },
-  { id: "top-crew-tshirt", name: "Cotton Crewneck T-Shirt", category: "top", style: "tshirt", defaultColour: "Black", colours: ["Black", "White", "Charcoal", "Red"] },
-  { id: "top-oxford-shirt", name: "Classic Oxford Shirt", category: "top", style: "shirt", defaultColour: "White", colours: ["White", "Blue", "Pink", "Cream"] },
-  { id: "top-polo-tshirt", name: "Slim Fit Polo T-Shirt", category: "top", style: "tshirt", defaultColour: "Navy", colours: ["Navy", "Olive", "Black", "Red"] },
-  { id: "bot-straight-denim", name: "Straight Denim Jeans", category: "bottom", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue", "Black", "Grey"] },
-  { id: "bot-relaxed-chinos", name: "Relaxed Chinos Pant", category: "bottom", style: "trouser", defaultColour: "Beige", colours: ["Beige", "Khaki", "Navy", "Olive", "Black"] },
-  { id: "bot-urban-cargo", name: "Urban Utility Cargo", category: "bottom", style: "cargo", defaultColour: "Olive", colours: ["Olive", "Black", "Khaki", "Grey"] },
-  { id: "bot-daily-denim", name: "Daily Stretch Denim", category: "bottom", style: "jeans", defaultColour: "Dark Blue", colours: ["Dark Blue", "Blue", "Black"] },
-  { id: "bot-formal-trouser", name: "Studio Formal Trouser", category: "bottom", style: "trouser", defaultColour: "Black", colours: ["Black", "Charcoal", "Navy", "Grey"] },
-  { id: "bot-casual-shorts", name: "Casual Half Pant / Shorts", category: "bottom", style: "shorts", defaultColour: "Khaki", colours: ["Khaki", "Navy", "Grey", "Blue", "Olive"] },
+  { id: "top-crew-tshirt", name: "Cotton Crewneck T-Shirt", category: "top", style: "tshirt", defaultColour: "Black", colours: ["Black", "Charcoal", "Dark Blue"] },
+  { id: "top-heavy-tee", name: "Heavyweight White Tee", category: "top", style: "tshirt", defaultColour: "White", colours: ["White", "Cream"] },
+  { id: "top-street-tee", name: "90s Oversized Graphic Tee", category: "top", style: "tshirt", defaultColour: "Charcoal", colours: ["Charcoal", "Black"] },
+  { id: "top-polo-navy", name: "Slim Fit Pique Polo", category: "top", style: "tshirt", defaultColour: "Navy", colours: ["Navy", "Blue", "Black"] },
+  { id: "top-linen-shirt", name: "Casual Linen Shirt", category: "top", style: "shirt", defaultColour: "Blue", colours: ["Blue", "Navy"] },
+  { id: "top-oxford-shirt", name: "Classic Oxford Button-Down", category: "top", style: "shirt", defaultColour: "White", colours: ["White", "Blue", "Cream"] },
+  { id: "top-resort-shirt", name: "Camp Collar Resort Shirt", category: "top", style: "shirt", defaultColour: "Black", colours: ["Black", "Charcoal"] },
+  { id: "top-flannel-shirt", name: "Vintage Plaid Flannel Shirt", category: "top", style: "shirt", defaultColour: "Red", colours: ["Red", "Navy"] },
+  { id: "bot-baggy-jeans", name: "90s Vintage Baggy Jeans", category: "bottom", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue"] },
+  { id: "bot-straight-denim", name: "Straight Denim Jeans", category: "bottom", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue", "Black"] },
+  { id: "bot-black-denim", name: "Washed Charcoal Black Jeans", category: "bottom", style: "jeans", defaultColour: "Black", colours: ["Black", "Charcoal"] },
+  { id: "bot-tactical-jogger", name: "Tactical Cargo Joggers", category: "bottom", style: "cargo", defaultColour: "Olive", colours: ["Olive", "Khaki", "Black"] },
+  { id: "bot-fleece-jogger", name: "Essential Fleece Joggers", category: "bottom", style: "cargo", defaultColour: "Grey", colours: ["Grey", "Charcoal"] },
+  { id: "bot-relaxed-chinos", name: "Relaxed Khaki Chinos Pant", category: "bottom", style: "trouser", defaultColour: "Beige", colours: ["Beige", "Khaki", "Navy"] },
+  { id: "bot-casual-shorts", name: "Summer Chino Shorts", category: "bottom", style: "shorts", defaultColour: "Khaki", colours: ["Khaki", "Navy", "Olive"] },
+  { id: "bot-formal-trouser", name: "Studio Formal Trouser", category: "bottom", style: "trouser", defaultColour: "Black", colours: ["Black", "Charcoal", "Navy"] },
 ];
 
 export const STORE_BOTTOMS: StoreBottomItem[] = STORE_CATALOG_ITEMS
@@ -191,17 +185,21 @@ export function generateBottomCutoutSvg(style: BottomStyle, colour: string, defo
 
 export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: string, customOverlay?: string, deform?: GarmentDeform): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
-  const normColour = colour.trim().toLowerCase(), normStyle = (style || "jeans").toLowerCase();
+  const c = colour.trim().toLowerCase(), s = (style || "jeans").toLowerCase();
   const hasManualDeform = deform && (
-    Math.abs(deform.legFlare) > 15 ||
-    Math.abs(deform.legLength - 100) > 15 ||
-    Math.abs(deform.waistStretch - 100) > 15
+    Math.abs(deform.legFlare) > 15 || Math.abs(deform.legLength - 100) > 15 || Math.abs(deform.waistStretch - 100) > 15
   );
-  if (!hasManualDeform && (normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
-    return { src: "/images/real-jeans-blue.png", isRealPhoto: true };
+  if (!hasManualDeform) {
+    if (s.includes("short") || s.includes("half")) return { src: "/images/real-shorts-khaki.png", isRealPhoto: true };
+    if (s.includes("baggy") || (s.includes("jean") && (c.includes("light") || c.includes("vintage")))) return { src: "/images/real-baggy-jeans.png", isRealPhoto: true };
+    if (c.includes("black") || c.includes("charcoal")) return { src: "/images/real-jeans-black.png", isRealPhoto: true };
+    if (c.includes("olive") || (s.includes("cargo") && !c.includes("grey"))) return { src: "/images/real-joggers-olive.png", isRealPhoto: true };
+    if (c.includes("grey") || s.includes("fleece") || s.includes("sweat")) return { src: "/images/real-joggers-grey.png", isRealPhoto: true };
+    if (c.includes("beige") || c.includes("khaki") || s.includes("chino")) return { src: "/images/real-chinos-beige.png", isRealPhoto: true };
+    if (s.includes("jean") || s.includes("denim") || c.includes("blue") || c.includes("navy")) return { src: "/images/real-jeans-blue.png", isRealPhoto: true };
   }
-  const s: BottomStyle = normStyle.includes("short") || normStyle.includes("half") ? "shorts" : normStyle.includes("cargo") ? "cargo" : normStyle.includes("trouser") || normStyle.includes("chino") ? "trouser" : "jeans";
-  return { src: generateBottomCutoutSvg(s, colour, deform), isRealPhoto: false };
+  const bStyle: BottomStyle = s.includes("short") ? "shorts" : s.includes("cargo") ? "cargo" : s.includes("trouser") || s.includes("chino") ? "trouser" : "jeans";
+  return { src: generateBottomCutoutSvg(bStyle, colour, deform), isRealPhoto: false };
 }
 
 export function generateAutoCutoutSvg(category: GarmentCategory, colour: string, deform?: GarmentDeform, style?: string): string {
@@ -245,22 +243,22 @@ export function resolveGarmentCutoutSrc(
   categoryId: string, colour: string, productName?: string, customOverlay?: string, deform?: GarmentDeform, style?: string,
 ): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
-  const normColour = colour.trim().toLowerCase(), category = detectGarmentCategory(categoryId);
-  const st = (style || productName || "").toLowerCase();
-  const isTshirt = st.includes("tshirt") || st.includes("polo") || st.includes("t-shirt") || st.includes("crewneck");
+  const c = colour.trim().toLowerCase(), category = detectGarmentCategory(categoryId);
+  const st = `${style || ""} ${productName || ""}`.toLowerCase();
+  const isTshirt = st.includes("tshirt") || st.includes("polo") || st.includes("t-shirt") || st.includes("crew") || st.includes("tee");
   const hasManualDeform = deform && (
-    Math.abs(deform.leftArmAngle) > 22 ||
-    Math.abs(deform.rightArmAngle) > 22 ||
-    Math.abs(deform.sleeveLength - 100) > 18 ||
-    Math.abs(deform.chestStretch - 100) > 18
+    Math.abs(deform.leftArmAngle) > 22 || Math.abs(deform.rightArmAngle) > 22 ||
+    Math.abs(deform.sleeveLength - 100) > 18 || Math.abs(deform.chestStretch - 100) > 18
   );
   if (!hasManualDeform && category === "top") {
-    if (isTshirt && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
-      return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
-    }
-    if (!isTshirt && (normColour.includes("blue") || normColour.includes("navy"))) {
-      return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
-    }
+    if (st.includes("polo")) return { src: "/images/real-polo-navy.png", isRealPhoto: true };
+    if (st.includes("flannel") || st.includes("plaid") || (st.includes("shirt") && c.includes("red"))) return { src: "/images/real-shirt-flannel.png", isRealPhoto: true };
+    if (st.includes("resort") || (st.includes("shirt") && (c.includes("black") || c.includes("charcoal")))) return { src: "/images/real-shirt-black.png", isRealPhoto: true };
+    if (st.includes("shirt") && (c.includes("white") || c.includes("oxford") || c.includes("cream"))) return { src: "/images/real-shirt-white.png", isRealPhoto: true };
+    if (isTshirt && (st.includes("oversize") || st.includes("graphic") || c.includes("charcoal"))) return { src: "/images/real-tshirt-oversized.png", isRealPhoto: true };
+    if (isTshirt && (c.includes("white") || c.includes("cream"))) return { src: "/images/real-tshirt-white.png", isRealPhoto: true };
+    if (isTshirt && (c.includes("black") || c.includes("dark"))) return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
+    if (!isTshirt && (c.includes("blue") || c.includes("navy") || st.includes("linen"))) return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
   }
   return { src: generateAutoCutoutSvg(category, colour, deform, isTshirt ? "tshirt" : "shirt"), isRealPhoto: false };
 }

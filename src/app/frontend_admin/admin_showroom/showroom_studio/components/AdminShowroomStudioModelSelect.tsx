@@ -6,7 +6,11 @@ import { readPhoto } from "@/app/frontend_admin/admin_showroom/showroom_studio/u
 
 export const STUDIO_MODELS = [
   { id: "mannequin", label: "Mannequin", path: "/images/style-mannequin.svg" },
-  { id: "male-photo", label: "Male (Real Full Body)", path: "/images/model-male-photo.jpg" },
+  { id: "male-photo", label: "Male (Studio Standing)", path: "/images/model-male-photo.jpg" },
+  { id: "male-athletic", label: "Male (Athletic)", path: "/images/model-male-athletic.jpg" },
+  { id: "male-streetwear", label: "Male (Streetwear)", path: "/images/model-male-streetwear.jpg" },
+  { id: "male-formal", label: "Male (Formal)", path: "/images/model-male-formal.jpg" },
+  { id: "male-casual", label: "Male (Casual Standing)", path: "/images/model-male-casual.jpg" },
   { id: "female-photo", label: "Female (Real Full Body)", path: "/images/model-female-photo.jpg" },
   { id: "male", label: "Male (Silhouette)", path: "/images/model-male.svg" },
   { id: "female", label: "Female (Silhouette)", path: "/images/model-female.svg" },

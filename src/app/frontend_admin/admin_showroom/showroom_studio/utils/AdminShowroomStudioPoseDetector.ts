@@ -188,11 +188,12 @@ export function autoAlignGarmentToSkeleton(
   const lA = p27.x <= p28.x ? p27 : p28, rA = p27.x <= p28.x ? p28 : p27;
 
   if (category === "top") {
-    const isT = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo");
-    const isRShirt = (imageSrc || "").includes("real-shirt"), isRTshirt = (imageSrc || "").includes("real-tshirt");
-    const collarR = isRShirt ? 0.217 : isRTshirt ? 0.192 : 0.185;
-    const hemR = isRShirt ? 0.948 : isRTshirt ? 0.998 : isT ? 0.77 : 0.82;
-    const aspect = isRShirt ? 1.0 : isRTshirt ? 1.0 : 1.0;
+    const isT = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo") || (style || "").toLowerCase().includes("tee");
+    const isRShirt = (imageSrc || "").includes("real-shirt");
+    const isRTshirt = (imageSrc || "").includes("real-tshirt") || (imageSrc || "").includes("real-polo");
+    const collarR = isRShirt ? 0.20 : isRTshirt ? 0.18 : 0.185;
+    const hemR = isRShirt ? 0.94 : isRTshirt ? 0.96 : isT ? 0.77 : 0.82;
+    const aspect = 1.0;
 
     const sY = (lS.y + rS.y) / 2, hY = (lH.y + rH.y) / 2;
     const targetCollarY = sY - (isT ? 6 : 8), targetHemY = hY + (isT ? 12 : 20);
@@ -212,14 +213,15 @@ export function autoAlignGarmentToSkeleton(
   }
 
   // category === "bottom"
-  const isShorts = (style || "").toLowerCase().includes("short") || (style || "").toLowerCase().includes("half");
-  const isRJeans = (imageSrc || "").includes("real-jeans");
-  const waistR = isRJeans ? 0.0 : 0.186;
-  const hemR = isRJeans ? 1.0 : isShorts ? 0.556 : 0.825;
-  const aspect = isRJeans ? 0.75 : 1.0;
+  const isShorts = (style || "").toLowerCase().includes("short") || (style || "").toLowerCase().includes("half") || (imageSrc || "").includes("shorts");
+  const isRealBottom = (imageSrc || "").includes("real-");
+  const isRealFullPants = isRealBottom && !isShorts;
+  const waistR = isRealFullPants ? 0.0 : isShorts ? 0.15 : 0.186;
+  const hemR = isRealFullPants ? 1.0 : isShorts ? 0.88 : 0.825;
+  const aspect = isRealFullPants ? 0.75 : 1.0;
 
   const hipY = (lH.y + rH.y) / 2, aY = (lA.y + rA.y) / 2, kY = hipY + legLength * 0.48;
-  const targetWaistY = hipY, targetHemY = isShorts ? kY + 12 : aY + 5;
+  const targetWaistY = hipY, targetHemY = isShorts ? kY + 16 : aY + 5;
   const targetH = Math.max(120, targetHemY - targetWaistY);
   const pH = Math.round(targetH / Math.max(0.3, hemR - waistR)), pW = Math.round(pH * aspect);
   const centerY = (targetWaistY - Math.round(waistR * pH)) + Math.round(pH / 2);
