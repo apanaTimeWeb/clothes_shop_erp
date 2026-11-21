@@ -41,14 +41,11 @@ export function AdminShowroomStudioPreview({
 
   const [selectedModel, setSelectedModel] = useState<string>(() => cachedModel);
   const [photo, setPhoto] = useState<string>(() => cachedPhoto);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false), [error, setError] = useState("");
   const [modelTransform, setModelTransform] = useState<ModelTransform>(() => cachedModelTransform);
   const [activeTab, setActiveTab] = useState<"rack" | "garment" | "model">("rack");
-  const [splitRatio, setSplitRatio] = useState(1.0);
-  const [blendLighting, setBlendLighting] = useState(true);
-  const [tuckedIn, setTuckedIn] = useState(false);
-  const [show, setShow] = useState(true);
+  const [splitRatio, setSplitRatio] = useState(1.0), [blendLighting, setBlendLighting] = useState(true);
+  const [tuckedIn, setTuckedIn] = useState(false), [show, setShow] = useState(true);
 
   const [trialRack, setTrialRack] = useState<StoreGarmentItem[]>(() => [
     STORE_CATALOG_ITEMS[0], STORE_CATALOG_ITEMS[1], STORE_CATALOG_ITEMS[4], STORE_CATALOG_ITEMS[9],
@@ -72,8 +69,7 @@ export function AdminShowroomStudioPreview({
   ]);
 
   const [activeInstanceId, setActiveInstanceId] = useState<string>("worn-init-top");
-  const [anchors, setAnchors] = useState<Point[]>([]);
-  const [marking, setMarking] = useState(false);
+  const [anchors, setAnchors] = useState<Point[]>([]), [marking, setMarking] = useState(false);
 
   const currentBg = photo || STUDIO_MODELS.find((m) => m.id === selectedModel)?.path || "/images/style-mannequin.svg";
   const { background, renderError } = useAdminShowroomStudioCanvas(
@@ -158,7 +154,7 @@ export function AdminShowroomStudioPreview({
         busy={busy} setBusy={setBusy} onError={setError}
       />
 
-      {/* Currently Wearing on Body with Cut Icon ✖ */}
+      {/* Currently Wearing on Body with Clean Highlight (No black background) */}
       <div className="rounded-xl border border-border bg-subtle/70 p-3 flex flex-wrap items-center justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-semibold text-foreground">Wearing on Body ({wornGarments.length}):</span>
@@ -169,7 +165,9 @@ export function AdminShowroomStudioPreview({
               <div
                 key={w.instanceId} onClick={() => { setActiveInstanceId(w.instanceId); setActiveTab("garment"); }}
                 className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium cursor-pointer transition-all ${
-                  activeInstanceId === w.instanceId ? "border border-primary bg-primary text-primary-foreground shadow-sm" : "border border-border bg-card text-foreground hover:bg-muted"
+                  activeInstanceId === w.instanceId
+                    ? "border-2 border-blue-600 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200 font-semibold shadow-sm"
+                    : "border border-border bg-card text-foreground hover:bg-muted"
                 }`}
               >
                 <span>{w.category === "top" ? "👕" : "👖"}</span>
@@ -198,7 +196,7 @@ export function AdminShowroomStudioPreview({
         </Button>
         <Button onClick={() => { if (activeGarment) updateActivePose(getStudioPreset(activeGarment.category, selectedModel)); }}>{t("message077")}</Button>
         <label className="ml-auto flex items-center gap-1.5 text-xs text-foreground">
-          <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} className="rounded border-border accent-primary" />
+          <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} className="rounded border-border accent-blue-600" />
           <span>Show Garments</span>
         </label>
       </div>

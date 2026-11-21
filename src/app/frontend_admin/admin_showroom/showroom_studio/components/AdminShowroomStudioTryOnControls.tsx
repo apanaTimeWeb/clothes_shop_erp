@@ -32,12 +32,9 @@ const SIZES = [
   { label: "XXL", scale: 1.18, desc: "Oversized" },
 ];
 const MODEL_FIELDS = [
-  { field: "zoom", label: "Zoom", min: 40, max: 250, unit: "%" },
-  { field: "rotation", label: "Straighten", min: -90, max: 90, unit: "°" },
-  { field: "width", label: "Width Scale", min: 50, max: 180, unit: "%" },
-  { field: "height", label: "Height Scale", min: 50, max: 180, unit: "%" },
-  { field: "x", label: "Pan X", min: -300, max: 300, unit: "px" },
-  { field: "y", label: "Pan Y", min: -400, max: 400, unit: "px" },
+  { field: "zoom", label: "Zoom", min: 40, max: 250, unit: "%" }, { field: "rotation", label: "Straighten", min: -90, max: 90, unit: "°" },
+  { field: "width", label: "Width", min: 50, max: 180, unit: "%" }, { field: "height", label: "Height", min: 50, max: 180, unit: "%" },
+  { field: "x", label: "Pan X", min: -300, max: 300, unit: "px" }, { field: "y", label: "Pan Y", min: -400, max: 400, unit: "px" },
 ] as const;
 
 export function AdminShowroomStudioTryOnControls({
@@ -55,8 +52,8 @@ export function AdminShowroomStudioTryOnControls({
         {(["rack", "garment", "model"] as const).map((tab) => (
           <button
             key={tab} type="button" onClick={() => setActiveTab(tab)}
-            className={`flex-1 rounded-md py-1.5 text-xs font-medium transition-all ${
-              activeTab === tab ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            className={`flex-1 rounded-md py-1.5 text-xs font-semibold transition-all ${
+              activeTab === tab ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {tab === "rack" ? `🛍️ Trial Rack (${trialRack.length})` : tab === "garment" ? `👗 Active Fit (${wornGarments.length})` : "👤 Model / Photo"}
@@ -72,9 +69,7 @@ export function AdminShowroomStudioTryOnControls({
           </div>
           <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
             {trialRack.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-border p-3 text-center text-xs text-muted-foreground">
-                Your Trial Rack is empty. Add items from the Store Catalogue below!
-              </p>
+              <p className="rounded-lg border border-dashed border-border p-3 text-center text-xs text-muted-foreground">Your Trial Rack is empty.</p>
             ) : (
               trialRack.map((item) => {
                 const isWorn = wornGarments.some((w) => w.catalogId === item.id);
@@ -87,24 +82,19 @@ export function AdminShowroomStudioTryOnControls({
                       e.dataTransfer.effectAllowed = "copy";
                     }}
                     className={`flex items-center justify-between rounded-lg border p-2 text-xs transition-all ${
-                      isWorn ? "border-primary/50 bg-primary/5" : "border-border bg-subtle hover:bg-muted"
+                      isWorn ? "border-blue-400/50 bg-blue-50/50 dark:bg-blue-950/20" : "border-border bg-subtle hover:bg-muted"
                     }`}
                   >
                     <div className="flex items-center gap-2 truncate cursor-grab active:cursor-grabbing">
                       <span>{item.category === "top" ? "👕" : "👖"}</span>
-                      <div className="truncate">
-                        <span className="font-medium text-foreground block truncate">{item.name}</span>
-                        <span className="text-[10px] text-muted-foreground">{item.style} • {item.defaultColour}</span>
-                      </div>
+                      <div className="truncate"><span className="font-medium text-foreground block truncate">{item.name}</span><span className="text-[10px] text-muted-foreground">{item.style} • {item.defaultColour}</span></div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
-                      <Button className="min-h-7 px-2 py-0.5 text-[11px]" onClick={() => onEquipItem(item)}>
-                        {isWorn ? "Wearing" : "+ Try On"}
-                      </Button>
                       <button
-                        type="button" title="Remove from Trial Rack" onClick={() => onRemoveFromTrial(item.id)}
-                        className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-danger"
-                      >✕</button>
+                        type="button" onClick={() => onEquipItem(item)}
+                        className={`rounded-md px-2.5 py-1 text-[11px] font-semibold transition-all ${isWorn ? "border border-blue-500/40 bg-blue-100/70 text-blue-700" : "bg-blue-600 text-white shadow-sm hover:bg-blue-700 active:scale-95"}`}
+                      >{isWorn ? "✓ Wearing" : "+ Try On"}</button>
+                      <button type="button" title="Remove" onClick={() => onRemoveFromTrial(item.id)} className="rounded p-1 text-muted-foreground hover:text-danger">✕</button>
                     </div>
                   </div>
                 );
@@ -118,10 +108,9 @@ export function AdminShowroomStudioTryOnControls({
                 {storeNotTrial.map((s) => (
                   <button
                     key={s.id} type="button" onClick={() => onAddToTrial(s)}
-                    className="flex items-center justify-between rounded-lg border border-border bg-subtle px-2 py-1.5 text-left text-xs hover:border-primary hover:bg-primary/5"
+                    className="flex items-center justify-between rounded-lg border border-border bg-subtle px-2 py-1.5 text-left text-xs hover:border-blue-500 hover:bg-blue-50/40"
                   >
-                    <span className="truncate">{s.category === "top" ? "👕" : "👖"} {s.name}</span>
-                    <span className="text-primary font-bold text-sm shrink-0 ml-1">+</span>
+                    <span className="truncate">{s.category === "top" ? "👕" : "👖"} {s.name}</span><span className="text-blue-600 font-bold ml-1">+</span>
                   </button>
                 ))}
               </div>
@@ -135,7 +124,7 @@ export function AdminShowroomStudioTryOnControls({
           {wornGarments.length === 0 ? (
             <div className="rounded-lg border border-dashed border-border p-5 text-center space-y-2">
               <p className="text-xs text-muted-foreground">No garments are currently worn on the model body.</p>
-              <Button onClick={() => setActiveTab("rack")}>Go to Trial Rack</Button>
+              <button type="button" onClick={() => setActiveTab("rack")} className="rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700">Go to Trial Rack</button>
             </div>
           ) : (
             <>
@@ -146,11 +135,9 @@ export function AdminShowroomStudioTryOnControls({
                     <button
                       key={w.instanceId} type="button" onClick={() => setActiveInstanceId(w.instanceId)}
                       className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
-                        activeInstanceId === w.instanceId ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground"
+                        activeInstanceId === w.instanceId ? "border-2 border-blue-600 bg-blue-50 text-blue-700 font-semibold shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"
                       }`}
-                    >
-                      <span>{w.category === "top" ? "👕" : "👖"} {w.name}</span>
-                    </button>
+                    ><span>{w.category === "top" ? "👕" : "👖"} {w.name}</span></button>
                   ))}
                 </div>
               </div>
@@ -168,11 +155,10 @@ export function AdminShowroomStudioTryOnControls({
                         return (
                           <button
                             key={c} type="button" onClick={() => onUpdateActiveColour(c)}
-                            className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-all ${isSel ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"}`}
-                          >
-                            <span className="h-2 w-2 rounded-full border border-black/20" style={{ backgroundColor: p.primary }} />
-                            <span>{c}</span>
-                          </button>
+                            className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-all ${
+                              isSel ? "border-2 border-blue-600 bg-blue-50 text-blue-800 font-semibold shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"
+                            }`}
+                          ><span className="h-2 w-2 rounded-full border border-black/20" style={{ backgroundColor: p.primary }} /><span>{c}</span></button>
                         );
                       })}
                     </div>
@@ -187,7 +173,7 @@ export function AdminShowroomStudioTryOnControls({
                       {SIZES.map((s) => (
                         <button
                           key={s.label} type="button" onClick={() => onUpdateActiveScale(s.scale)}
-                          className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${activeGarment.scale === s.scale ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"}`}
+                          className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${activeGarment.scale === s.scale ? "border-2 border-blue-600 bg-blue-50 text-blue-700 font-bold shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"}`}
                         >{s.label}</button>
                       ))}
                     </div>
@@ -210,7 +196,7 @@ export function AdminShowroomStudioTryOnControls({
                             max={f === "rotation" ? 180 : f === "y" || f === "height" ? 800 : 600}
                             value={activeGarment.pose[f]}
                             onChange={(e) => onUpdateActivePose((p) => ({ ...p, [f]: Number(e.target.value) }))}
-                            className="mt-1 w-full cursor-pointer accent-primary"
+                            className="mt-1 w-full cursor-pointer accent-blue-600"
                           />
                         </label>
                       ))}
@@ -220,9 +206,7 @@ export function AdminShowroomStudioTryOnControls({
                   <button
                     type="button" onClick={() => onRemoveWorn(activeGarment.instanceId)}
                     className="mt-2 w-full rounded-lg border border-danger/40 bg-danger/10 py-1.5 text-xs font-medium text-danger hover:bg-danger/20 transition-all"
-                  >
-                    ✖ Take Off {activeGarment.name} from Body
-                  </button>
+                  >✖ Take Off {activeGarment.name} from Body</button>
                 </>
               )}
             </>
@@ -240,13 +224,12 @@ export function AdminShowroomStudioTryOnControls({
             {MODEL_FIELDS.map(({ field, label, min, max, unit }) => (
               <label key={field} className="flex flex-col text-xs text-foreground">
                 <span className="flex justify-between">
-                  <span>{label}</span>
-                  <span className="font-mono text-muted-foreground">{Math.round(modelTransform[field])}{unit}</span>
+                  <span>{label}</span><span className="font-mono text-muted-foreground">{Math.round(modelTransform[field])}{unit}</span>
                 </span>
                 <input
                   type="range" min={min} max={max} value={modelTransform[field]}
                   onChange={(e) => setModelTransform({ ...modelTransform, [field]: Number(e.target.value) })}
-                  className="mt-1 w-full cursor-pointer accent-primary"
+                  className="mt-1 w-full cursor-pointer accent-blue-600"
                 />
               </label>
             ))}
@@ -259,18 +242,18 @@ export function AdminShowroomStudioTryOnControls({
         <div className="flex rounded-lg border border-border bg-subtle p-0.5 text-xs">
           <button
             type="button" onClick={() => setTuckedIn(false)}
-            className={`rounded px-2.5 py-1 font-medium transition-all ${!tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+            className={`rounded px-2.5 py-1 font-semibold transition-all ${!tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground hover:text-foreground"}`}
           >Untucked</button>
           <button
             type="button" onClick={() => setTuckedIn(true)}
-            className={`rounded px-2.5 py-1 font-medium transition-all ${tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+            className={`rounded px-2.5 py-1 font-semibold transition-all ${tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground hover:text-foreground"}`}
           >Tucked In</button>
         </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
         <label className="flex cursor-pointer items-center gap-2 text-foreground">
-          <input type="checkbox" checked={blendLighting} onChange={(e) => setBlendLighting(e.target.checked)} className="rounded border-border accent-primary" />
+          <input type="checkbox" checked={blendLighting} onChange={(e) => setBlendLighting(e.target.checked)} className="rounded border-border accent-blue-600" />
           <span>Realistic 2.5D Lighting & Body Contour</span>
         </label>
       </div>
@@ -279,7 +262,7 @@ export function AdminShowroomStudioTryOnControls({
         <div className="flex items-center justify-between text-sm">
           <label htmlFor="split-slider" className="font-medium text-foreground">Before / After:</label>
           <div className="flex items-center gap-2">
-            <button type="button" onClick={() => setSplitRatio(splitRatio < 0.99 ? 1.0 : 0.5)} className="text-xs text-primary underline hover:opacity-80">
+            <button type="button" onClick={() => setSplitRatio(splitRatio < 0.99 ? 1.0 : 0.5)} className="text-xs text-blue-600 font-semibold hover:underline">
               {splitRatio < 0.99 ? "Full" : "50/50"}
             </button>
             <span className="text-xs text-muted-foreground">{Math.round(splitRatio * 100)}%</span>
@@ -287,7 +270,7 @@ export function AdminShowroomStudioTryOnControls({
         </div>
         <input
           id="split-slider" type="range" min={0} max={100} value={Math.round(splitRatio * 100)}
-          onChange={(e) => setSplitRatio(Number(e.target.value) / 100)} className="w-full cursor-pointer accent-primary"
+          onChange={(e) => setSplitRatio(Number(e.target.value) / 100)} className="w-full cursor-pointer accent-blue-600"
         />
       </div>
     </div>
