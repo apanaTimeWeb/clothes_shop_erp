@@ -99,14 +99,60 @@ export function getGarmentColorPalette(colour: string) {
   return COLOR_MAP[key] ?? { primary: "#64748b", secondary: "#475569", stroke: "#334155" };
 }
 
+export type BottomStyle = "jeans" | "trouser" | "cargo" | "shorts";
+
+export interface StoreBottomItem {
+  id: string;
+  name: string;
+  style: BottomStyle;
+  defaultColour: string;
+  colours: string[];
+}
+
+export const STORE_BOTTOMS: StoreBottomItem[] = [
+  { id: "straight-denim", name: "Straight Denim Jeans", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue", "Black", "Grey"] },
+  { id: "relaxed-chinos", name: "Relaxed Chinos Pant", style: "trouser", defaultColour: "Beige", colours: ["Beige", "Khaki", "Navy", "Olive", "Black"] },
+  { id: "urban-cargo", name: "Urban Utility Cargo", style: "cargo", defaultColour: "Olive", colours: ["Olive", "Black", "Khaki", "Grey"] },
+  { id: "daily-stretch-denim", name: "Daily Stretch Denim", style: "jeans", defaultColour: "Dark Blue", colours: ["Dark Blue", "Blue", "Black"] },
+  { id: "studio-trousers", name: "Studio Formal Trouser", style: "trouser", defaultColour: "Black", colours: ["Black", "Charcoal", "Navy", "Grey"] },
+  { id: "casual-shorts", name: "Casual Half Pant / Shorts", style: "shorts", defaultColour: "Khaki", colours: ["Khaki", "Navy", "Grey", "Blue", "Olive"] },
+];
+
+export function generateBottomCutoutSvg(style: BottomStyle, colour: string): string {
+  const { primary, secondary, stroke } = getGarmentColorPalette(colour);
+  const isShorts = style === "shorts";
+  const bottomY = isShorts ? 200 : 297;
+  const crotchY = isShorts ? 148 : 164;
+  const mainPath = `M131 67 L229 67 L236 150 L228 ${bottomY} L184 ${bottomY} L178 ${crotchY} L171 ${bottomY} L126 ${bottomY} L122 150Z`;
+  let details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.38" stroke-width="2"><path d="M133 83 H227 M178 86 V150 M128 ${bottomY - 12} H169 M185 ${bottomY - 12} H228"/></g>`;
+  if (style === "cargo") {
+    details += `<rect x="114" y="145" width="16" height="34" rx="3" fill="url(#cloth)" stroke="${stroke}" stroke-width="1.5"/><rect x="230" y="145" width="16" height="34" rx="3" fill="url(#cloth)" stroke="${stroke}" stroke-width="1.5"/><path d="M114 153 H130 M230 153 H246" stroke="${stroke}" stroke-width="1.5"/>`;
+  } else if (style === "trouser") {
+    details += `<line x1="152" y1="88" x2="150" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/><line x1="208" y1="88" x2="210" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/>`;
+  } else if (style === "jeans") {
+    details += `<path d="M132 108 Q150 118 168 83 M228 108 Q210 118 192 83" fill="none" stroke="#eab308" stroke-width="1.5" stroke-opacity="0.65"/><circle cx="134" cy="106" r="2" fill="#ca8a04"/><circle cx="226" cy="106" r="2" fill="#ca8a04"/>`;
+  }
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
+  return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+}
+
+export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: string, customOverlay?: string): { src: string; isRealPhoto: boolean } {
+  if (customOverlay) return { src: customOverlay, isRealPhoto: false };
+  const normColour = colour.trim().toLowerCase();
+  const normStyle = (style || "jeans").toLowerCase();
+  if ((normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
+    return { src: "/images/real-jeans-blue.png", isRealPhoto: true };
+  }
+  const s: BottomStyle = normStyle.includes("short") || normStyle.includes("half") ? "shorts" : normStyle.includes("cargo") ? "cargo" : normStyle.includes("trouser") || normStyle.includes("chino") ? "trouser" : "jeans";
+  return { src: generateBottomCutoutSvg(s, colour), isRealPhoto: false };
+}
+
 export function generateAutoCutoutSvg(category: GarmentCategory, colour: string): string {
+  if (category === "bottom") return generateBottomCutoutSvg("trouser", colour);
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
   let mainPath = "";
   let details = "";
-  if (category === "bottom") {
-    mainPath = "M131 67 L229 67 L236 152 L228 297 L184 297 L178 164 L171 297 L126 297 L122 151Z";
-    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M133 83 H227 M178 86 V155 M130 282 H169 M185 282 H229"/></g>`;
-  } else if (category === "dress") {
+  if (category === "dress") {
     mainPath = "M150 67 Q180 83 210 67 L237 113 L213 128 L204 108 L200 153 L249 281 Q180 307 111 281 L160 153 L156 108 L147 128 L123 113Z";
     details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M159 153 Q180 162 201 153 M139 268 Q180 283 222 268"/></g>`;
   } else if (category === "accessory") {
@@ -116,7 +162,6 @@ export function generateAutoCutoutSvg(category: GarmentCategory, colour: string)
     mainPath = "M119 83 L155 63 Q180 82 205 63 L241 83 L278 143 L239 165 L226 140 L230 289 Q180 301 130 289 L134 140 L121 165 L82 143Z";
     details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M138 279 Q180 288 222 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
   }
-
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
