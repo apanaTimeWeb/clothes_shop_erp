@@ -45,8 +45,8 @@ export function AdminShowroomStudioPreview({
 
   const [wornGarments, setWornGarments] = useState<WornGarmentItem[]>(() => {
     const initSkel = getPresetSkeleton(cachedModel);
-    const { pose: topPose, deform: topDef } = autoAlignGarmentToSkeleton("top", initSkel, getStudioPreset("top", cachedModel));
-    const { pose: botPose, deform: botDef } = autoAlignGarmentToSkeleton("bottom", initSkel, getStudioPreset("bottom", cachedModel));
+    const { pose: topPose, deform: topDef } = autoAlignGarmentToSkeleton("top", initSkel, getStudioPreset("top", cachedModel), "shirt");
+    const { pose: botPose, deform: botDef } = autoAlignGarmentToSkeleton("bottom", initSkel, getStudioPreset("bottom", cachedModel), "jeans");
     return [
       {
         instanceId: "worn-init-top", catalogId: STORE_CATALOG_ITEMS[0].id,
@@ -83,7 +83,7 @@ export function AdminShowroomStudioPreview({
     const style = item.style || (cat === "bottom" ? "jeans" : "shirt");
     const c = chosenColour || item.defaultColour || (cat === "bottom" ? "Blue" : "Black");
     const skel = skeleton || getPresetSkeleton(selectedModel);
-    const { pose: snapPose, deform: snapDeform } = autoAlignGarmentToSkeleton(cat, skel, getStudioPreset(cat, selectedModel));
+    const { pose: snapPose, deform: snapDeform } = autoAlignGarmentToSkeleton(cat, skel, getStudioPreset(cat, selectedModel), style);
     const { src: cutoutSrc } = resolveGarmentItemCutoutSrc(cat, style, c, item.name, undefined, snapDeform);
     const newId = `worn-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
     setWornGarments((prev) => [...prev, { instanceId: newId, catalogId: item.id || newId, name: item.name, category: cat, colour: c, style, src: cutoutSrc, pose: snapPose, scale: 1.0 }]);
@@ -123,7 +123,7 @@ export function AdminShowroomStudioPreview({
       setBusy(true);
       const skel = await detectModelPose(background || canvas.current || new Image(), selectedModel);
       setSkeleton(skel); setShowSkeleton(true);
-      const { pose: alignedPose, deform: alignedDeform } = autoAlignGarmentToSkeleton(activeGarment.category, skel, activeGarment.pose);
+      const { pose: alignedPose, deform: alignedDeform } = autoAlignGarmentToSkeleton(activeGarment.category, skel, activeGarment.pose, activeGarment.style);
       const { src: newSrc } = resolveGarmentItemCutoutSrc(activeGarment.category, activeGarment.style, activeGarment.colour, activeGarment.name, undefined, alignedDeform);
       setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, src: newSrc, pose: alignedPose } : w)));
     } catch {

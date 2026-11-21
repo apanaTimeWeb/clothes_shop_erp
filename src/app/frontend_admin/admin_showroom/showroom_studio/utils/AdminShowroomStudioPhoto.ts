@@ -200,13 +200,12 @@ export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: stri
   return { src: generateBottomCutoutSvg(s, colour, deform), isRealPhoto: false };
 }
 
-export function generateAutoCutoutSvg(category: GarmentCategory, colour: string, deform?: GarmentDeform): string {
+export function generateAutoCutoutSvg(category: GarmentCategory, colour: string, deform?: GarmentDeform, style?: string): string {
   if (category === "bottom") return generateBottomCutoutSvg("trouser", colour, deform);
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
   const def = deform ?? DEFAULT_DEFORM, cOff = ((def.chestStretch || 100) - 100) * 0.4, sLen = (def.sleeveLength || 100) / 100;
-  const lDeg = (def.leftArmAngle || 0) * (Math.PI / 180), rDeg = (def.rightArmAngle || 0) * (Math.PI / 180);
-  const lHandX = Math.round(82 - Math.sin(lDeg) * 32 * sLen), lHandY = Math.round(143 + Math.cos(lDeg) * 32 * sLen);
-  const rHandX = Math.round(278 + Math.sin(rDeg) * 32 * sLen), rHandY = Math.round(143 + Math.cos(rDeg) * 32 * sLen);
+  const isTshirt = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo");
+  const lDeg = ((def.leftArmAngle || 0) * Math.PI) / 180, rDeg = ((def.rightArmAngle || 0) * Math.PI) / 180;
 
   let mainPath = "", details = "";
   if (category === "dress") {
@@ -215,34 +214,58 @@ export function generateAutoCutoutSvg(category: GarmentCategory, colour: string,
   } else if (category === "accessory") {
     mainPath = "M131 100 L171 100 L171 209 Q172 226 146 239 L111 250 Q85 258 78 238 Q73 220 95 211 L131 194Z M194 83 L234 83 L234 192 Q235 209 209 222 L174 233 Q148 241 141 221 Q136 203 158 194 L194 177Z";
     details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M131 111 H171 M194 94 H234"/></g>`;
+  } else if (isTshirt) {
+    const armLen = 54 * sLen;
+    const lOutX = Math.round(116 - Math.cos(lDeg) * 36 - Math.sin(lDeg) * armLen), lOutY = Math.round(88 - Math.sin(lDeg) * 36 + Math.cos(lDeg) * armLen);
+    const lInX = Math.round(lOutX + Math.cos(lDeg) * 26), lInY = Math.round(lOutY + Math.sin(lDeg) * 26);
+    const rOutX = Math.round(244 + Math.cos(rDeg) * 36 + Math.sin(rDeg) * armLen), rOutY = Math.round(88 - Math.sin(rDeg) * 36 + Math.cos(rDeg) * armLen);
+    const rInX = Math.round(rOutX - Math.cos(rDeg) * 26), rInY = Math.round(rOutY + Math.sin(rDeg) * 26);
+    const bY = 278;
+    mainPath = `M154 68 Q180 88 206 68 L244 88 L${rOutX} ${rOutY} L${rInX} ${rInY} L234 148 L${228 + cOff} ${bY} Q180 ${bY + 10} ${132 - cOff} ${bY} L126 148 L${lInX} ${lInY} L${lOutX} ${lOutY}Z`;
+    details = `<path d="M154 68 Q180 92 206 68" fill="none" stroke="${stroke}" stroke-width="3" stroke-opacity="0.4"/><path d="M${lOutX} ${lOutY} L${lInX} ${lInY} M${rInX} ${rInY} L${rOutX} ${rOutY}" fill="none" stroke="${stroke}" stroke-width="2" stroke-opacity="0.35"/><path d="M${136 - cOff} ${bY - 6} Q180 ${bY + 4} ${224 + cOff} ${bY - 6}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.3"/>`;
   } else {
-    mainPath = `M119 83 L155 63 Q180 82 205 63 L241 83 L${rHandX} ${rHandY} L239 165 L${226 + cOff} 140 L${230 + cOff} 289 Q180 301 ${130 - cOff} 289 L${134 - cOff} 140 L121 165 L${lHandX} ${lHandY}Z`;
-    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M${138 - cOff} 279 Q180 288 ${222 + cOff} 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
+    const armLen = 108 * sLen;
+    const lOutX = Math.round(116 - Math.cos(lDeg) * 34 - Math.sin(lDeg) * armLen), lOutY = Math.round(88 - Math.sin(lDeg) * 34 + Math.cos(lDeg) * armLen);
+    const lInX = Math.round(lOutX + Math.cos(lDeg) * 24), lInY = Math.round(lOutY + Math.sin(lDeg) * 24);
+    const rOutX = Math.round(244 + Math.cos(rDeg) * 34 + Math.sin(rDeg) * armLen), rOutY = Math.round(88 - Math.sin(rDeg) * 34 + Math.cos(rDeg) * armLen);
+    const rInX = Math.round(rOutX - Math.cos(rDeg) * 24), rInY = Math.round(rOutY + Math.sin(rDeg) * 24);
+    const bY = 295;
+    mainPath = `M152 64 L172 100 L180 92 L188 100 L208 64 L244 86 L${rOutX} ${rOutY} L${rInX} ${rInY} L235 152 L${228 + cOff} ${bY} Q180 ${bY + 12} ${132 - cOff} ${bY} L125 152 L${lInX} ${lInY} L${lOutX} ${lOutY}Z`;
+    details = `<path d="M152 64 L180 106 L208 64" fill="none" stroke="${stroke}" stroke-width="2.5" stroke-opacity="0.5"/><line x1="180" y1="106" x2="180" y2="${bY - 4}" stroke="${stroke}" stroke-width="2" stroke-opacity="0.4"/><circle cx="180" cy="125" r="2.5" fill="#f8fafc" stroke="${stroke}" stroke-width="1"/><circle cx="180" cy="155" r="2.5" fill="#f8fafc" stroke="${stroke}" stroke-width="1"/><circle cx="180" cy="185" r="2.5" fill="#f8fafc" stroke="${stroke}" stroke-width="1"/><circle cx="180" cy="215" r="2.5" fill="#f8fafc" stroke="${stroke}" stroke-width="1"/><line x1="${lOutX}" y1="${lOutY}" x2="${lInX}" y2="${lInY}" stroke="${stroke}" stroke-width="3" stroke-opacity="0.45"/><line x1="${rInX}" y1="${rInY}" x2="${rOutX}" y2="${rOutY}" stroke="${stroke}" stroke-width="3" stroke-opacity="0.45"/>`;
   }
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
 export function resolveGarmentCutoutSrc(
-  categoryId: string, colour: string, productName?: string, customOverlay?: string, deform?: GarmentDeform,
+  categoryId: string, colour: string, productName?: string, customOverlay?: string, deform?: GarmentDeform, style?: string,
 ): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
   const normColour = colour.trim().toLowerCase(), category = detectGarmentCategory(categoryId);
-  const hasDeform = deform && (deform.leftArmAngle !== 0 || deform.rightArmAngle !== 0 || deform.sleeveLength !== 100 || deform.chestStretch !== 100);
-  if (!hasDeform && category === "top" && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
-    return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
+  const st = (style || productName || "").toLowerCase();
+  const isTshirt = st.includes("tshirt") || st.includes("polo") || st.includes("t-shirt") || st.includes("crewneck");
+  const hasManualDeform = deform && (
+    Math.abs(deform.leftArmAngle) > 22 ||
+    Math.abs(deform.rightArmAngle) > 22 ||
+    Math.abs(deform.sleeveLength - 100) > 18 ||
+    Math.abs(deform.chestStretch - 100) > 18
+  );
+  if (!hasManualDeform && category === "top") {
+    if (isTshirt && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
+      return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
+    }
+    if (!isTshirt && (normColour.includes("blue") || normColour.includes("navy"))) {
+      return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
+    }
   }
-  if (!hasDeform && category === "top" && (normColour.includes("blue") || normColour.includes("navy"))) {
-    return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
-  }
-  return { src: generateAutoCutoutSvg(category, colour, deform), isRealPhoto: false };
+  return { src: generateAutoCutoutSvg(category, colour, deform, isTshirt ? "tshirt" : "shirt"), isRealPhoto: false };
 }
 
 export function resolveGarmentItemCutoutSrc(
   category: "top" | "bottom", style: string, colour: string, name?: string, customOverlay?: string, deform?: GarmentDeform,
 ): { src: string; isRealPhoto: boolean } {
   if (category === "bottom") return resolveBottomCutoutSrc(style, colour, customOverlay, deform);
-  return resolveGarmentCutoutSrc("top", colour, name, customOverlay, deform);
+  return resolveGarmentCutoutSrc("top", colour, name, customOverlay, deform, style);
 }
 
 export const PRESETS: Record<GarmentCategory, StudioPose> = {

@@ -93,10 +93,15 @@ function parseLandmarks(normLandmarks: LandmarkPoint[], width = 600, height = 80
     visibility: p.visibility,
   }));
 
-  const lS = pts[11] || { x: 230, y: 220 }, rS = pts[12] || { x: 370, y: 220 };
-  const lW = pts[15] || { x: 190, y: 440 }, rW = pts[16] || { x: 410, y: 440 };
-  const lH = pts[23] || { x: 250, y: 430 }, rH = pts[24] || { x: 350, y: 430 };
-  const lA = pts[27] || { x: 240, y: 730 }, rA = pts[28] || { x: 360, y: 730 };
+  // Robust screen-coordinate sorting: ensure Left is screen-left and Right is screen-right
+  const p11 = pts[11] || { x: 230, y: 220 }, p12 = pts[12] || { x: 370, y: 220 };
+  const lS = p11.x <= p12.x ? p11 : p12, rS = p11.x <= p12.x ? p12 : p11;
+  const p15 = pts[15] || { x: 190, y: 440 }, p16 = pts[16] || { x: 410, y: 440 };
+  const lW = p15.x <= p16.x ? p15 : p16, rW = p15.x <= p16.x ? p16 : p15;
+  const p23 = pts[23] || { x: 250, y: 430 }, p24 = pts[24] || { x: 350, y: 430 };
+  const lH = p23.x <= p24.x ? p23 : p24, rH = p23.x <= p24.x ? p24 : p23;
+  const p27 = pts[27] || { x: 240, y: 730 }, p28 = pts[28] || { x: 360, y: 730 };
+  const lA = p27.x <= p28.x ? p27 : p28, rA = p27.x <= p28.x ? p28 : p27;
 
   const lArmDeg = Math.round((Math.atan2(lW.y - lS.y, lW.x - lS.x) * 180) / Math.PI) - 90;
   const rArmDeg = Math.round((Math.atan2(rW.y - rS.y, rW.x - rS.x) * 180) / Math.PI) - 90;
@@ -171,26 +176,32 @@ export function autoAlignGarmentToSkeleton(
   category: "top" | "bottom",
   skeleton: DetectedSkeleton,
   currentPose: StudioPose,
+  style?: string,
 ): { pose: StudioPose; deform: GarmentDeform } {
   const { landmarks, leftArmAngle, rightArmAngle, shoulderWidth, torsoHeight, legLength, stanceWidth } = skeleton;
-  const lS = landmarks[11] || { x: 230, y: 220 }, rS = landmarks[12] || { x: 370, y: 220 };
-  const lH = landmarks[23] || { x: 250, y: 430 }, rH = landmarks[24] || { x: 350, y: 430 };
+  const p11 = landmarks[11] || { x: 230, y: 220 }, p12 = landmarks[12] || { x: 370, y: 220 };
+  const lS = p11.x <= p12.x ? p11 : p12, rS = p11.x <= p12.x ? p12 : p11;
+  const p23 = landmarks[23] || { x: 250, y: 430 }, p24 = landmarks[24] || { x: 350, y: 430 };
+  const lH = p23.x <= p24.x ? p23 : p24, rH = p23.x <= p24.x ? p24 : p23;
 
   if (category === "top") {
+    const isTshirt = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo");
     const centerX = Math.round((lS.x + rS.x) / 2);
-    const centerY = Math.round(((lS.y + rS.y) / 2) + Math.max(70, torsoHeight * 0.44));
-    const sW = Math.max(180, Math.min(340, Math.round(shoulderWidth * 1.65)));
-    const sH = Math.max(220, Math.min(360, Math.round(sW * 1.08)));
+    const sY = (lS.y + rS.y) / 2;
+    const sW = isTshirt
+      ? Math.max(180, Math.min(320, Math.round(shoulderWidth * 1.50)))
+      : Math.max(190, Math.min(340, Math.round(shoulderWidth * 1.55)));
+    const sH = isTshirt
+      ? Math.max(200, Math.min(330, Math.round(torsoHeight * 1.30)))
+      : Math.max(220, Math.min(360, Math.round(torsoHeight * 1.42)));
+    const centerY = Math.round(sY - 8 + 0.38 * sH);
     const tilt = Math.round((Math.atan2(rS.y - lS.y, rS.x - lS.x) * 180) / Math.PI);
 
     const deform: GarmentDeform = {
-      leftArmAngle,
-      rightArmAngle,
-      sleeveLength: Math.max(80, Math.min(130, Math.round((torsoHeight / 210) * 100))),
+      leftArmAngle, rightArmAngle,
+      sleeveLength: isTshirt ? 85 : Math.max(80, Math.min(130, Math.round((torsoHeight / 210) * 100))),
       chestStretch: Math.max(85, Math.min(125, Math.round((shoulderWidth / 150) * 100))),
-      legFlare: 0,
-      legLength: 100,
-      waistStretch: 100,
+      legFlare: 0, legLength: 100, waistStretch: 100,
     };
     return {
       pose: { ...currentPose, x: centerX, y: centerY, width: sW, height: sH, rotation: tilt, deform },
@@ -209,10 +220,7 @@ export function autoAlignGarmentToSkeleton(
 
   const flareVal = Math.round(((stanceWidth - 100) / 100) * 35);
   const deform: GarmentDeform = {
-    leftArmAngle: 0,
-    rightArmAngle: 0,
-    sleeveLength: 100,
-    chestStretch: 100,
+    leftArmAngle: 0, rightArmAngle: 0, sleeveLength: 100, chestStretch: 100,
     legFlare: Math.max(-25, Math.min(35, flareVal)),
     legLength: Math.max(85, Math.min(125, Math.round((legLength / 310) * 100))),
     waistStretch: Math.max(85, Math.min(125, Math.round((hipW / 100) * 100))),
