@@ -10,12 +10,8 @@ import { useAdminShowroomStudioCanvas } from "@/app/frontend_admin/admin_showroo
 import {
   AdminShowroomStudioTryOnControls, DEFAULT_MODEL_TRANSFORM, type ModelTransform,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
-import {
-  AdminShowroomStudioModelSelect, STUDIO_MODELS,
-} from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
-import {
-  detectModelPose, autoAlignGarmentToSkeleton, type DetectedSkeleton,
-} from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
+import { AdminShowroomStudioModelSelect, STUDIO_MODELS } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
+import { detectModelPose, autoAlignGarmentToSkeleton, getPresetSkeleton, type DetectedSkeleton } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
 
 type Point = { x: number; y: number };
 let cachedModel = "male-photo", cachedPhoto = "", cachedModelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM;
@@ -47,22 +43,25 @@ export function AdminShowroomStudioPreview({
     STORE_CATALOG_ITEMS[0], STORE_CATALOG_ITEMS[1], STORE_CATALOG_ITEMS[4], STORE_CATALOG_ITEMS[9],
   ]);
 
-  const [wornGarments, setWornGarments] = useState<WornGarmentItem[]>(() => [
-    {
-      instanceId: "worn-init-top", catalogId: STORE_CATALOG_ITEMS[0].id,
-      name: productName || STORE_CATALOG_ITEMS[0].name, category: "top",
-      colour: colour || "Blue", style: "shirt",
-      src: src || autoCutoutSrc || resolveGarmentItemCutoutSrc("top", "shirt", colour || "Blue", productName).src,
-      pose: getStudioPreset("top", cachedModel), scale: 1.0,
-    },
-    {
-      instanceId: "worn-init-bot", catalogId: STORE_CATALOG_ITEMS[4].id,
-      name: STORE_CATALOG_ITEMS[4].name, category: "bottom",
-      colour: "Blue", style: "jeans",
-      src: resolveGarmentItemCutoutSrc("bottom", "jeans", "Blue").src,
-      pose: getStudioPreset("bottom", cachedModel), scale: 1.0,
-    },
-  ]);
+  const [wornGarments, setWornGarments] = useState<WornGarmentItem[]>(() => {
+    const initSkel = getPresetSkeleton(cachedModel);
+    const { pose: topPose, deform: topDef } = autoAlignGarmentToSkeleton("top", initSkel, getStudioPreset("top", cachedModel));
+    const { pose: botPose, deform: botDef } = autoAlignGarmentToSkeleton("bottom", initSkel, getStudioPreset("bottom", cachedModel));
+    return [
+      {
+        instanceId: "worn-init-top", catalogId: STORE_CATALOG_ITEMS[0].id,
+        name: productName || STORE_CATALOG_ITEMS[0].name, category: "top", colour: colour || "Blue", style: "shirt",
+        src: src || autoCutoutSrc || resolveGarmentItemCutoutSrc("top", "shirt", colour || "Blue", productName, undefined, topDef).src,
+        pose: topPose, scale: 1.0,
+      },
+      {
+        instanceId: "worn-init-bot", catalogId: STORE_CATALOG_ITEMS[4].id,
+        name: STORE_CATALOG_ITEMS[4].name, category: "bottom", colour: "Blue", style: "jeans",
+        src: resolveGarmentItemCutoutSrc("bottom", "jeans", "Blue", undefined, undefined, botDef).src,
+        pose: botPose, scale: 1.0,
+      },
+    ];
+  });
 
   const [activeInstanceId, setActiveInstanceId] = useState<string>("worn-init-top");
   const [anchors, setAnchors] = useState<Point[]>([]), [marking, setMarking] = useState(false);
@@ -83,12 +82,11 @@ export function AdminShowroomStudioPreview({
     const cat = (item.category as "top" | "bottom") || (item.name.toLowerCase().includes("pant") || item.name.toLowerCase().includes("jean") ? "bottom" : "top");
     const style = item.style || (cat === "bottom" ? "jeans" : "shirt");
     const c = chosenColour || item.defaultColour || (cat === "bottom" ? "Blue" : "Black");
-    const { src: cutoutSrc } = resolveGarmentItemCutoutSrc(cat, style, c, item.name);
+    const skel = skeleton || getPresetSkeleton(selectedModel);
+    const { pose: snapPose, deform: snapDeform } = autoAlignGarmentToSkeleton(cat, skel, getStudioPreset(cat, selectedModel));
+    const { src: cutoutSrc } = resolveGarmentItemCutoutSrc(cat, style, c, item.name, undefined, snapDeform);
     const newId = `worn-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-    setWornGarments((prev) => [...prev, {
-      instanceId: newId, catalogId: item.id || newId, name: item.name, category: cat,
-      colour: c, style, src: cutoutSrc, pose: getStudioPreset(cat, selectedModel), scale: 1.0,
-    }]);
+    setWornGarments((prev) => [...prev, { instanceId: newId, catalogId: item.id || newId, name: item.name, category: cat, colour: c, style, src: cutoutSrc, pose: snapPose, scale: 1.0 }]);
     setActiveInstanceId(newId);
     setActiveTab("garment");
   }
@@ -114,12 +112,9 @@ export function AdminShowroomStudioPreview({
 
   function updateActiveDeform(updater: (prev: GarmentDeform) => GarmentDeform) {
     if (!activeGarment) return;
-    const curDef = activeGarment.pose.deform ?? DEFAULT_DEFORM;
-    const nextDef = updater(curDef);
+    const curDef = activeGarment.pose.deform ?? DEFAULT_DEFORM, nextDef = updater(curDef);
     const { src: newSrc } = resolveGarmentItemCutoutSrc(activeGarment.category, activeGarment.style, activeGarment.colour, activeGarment.name, undefined, nextDef);
-    setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? {
-      ...w, src: newSrc, pose: { ...w.pose, deform: nextDef },
-    } : w)));
+    setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, src: newSrc, pose: { ...w.pose, deform: nextDef } } : w)));
   }
 
   async function handleAutoAlignPose() {
@@ -130,10 +125,8 @@ export function AdminShowroomStudioPreview({
       setSkeleton(skel); setShowSkeleton(true);
       const { pose: alignedPose, deform: alignedDeform } = autoAlignGarmentToSkeleton(activeGarment.category, skel, activeGarment.pose);
       const { src: newSrc } = resolveGarmentItemCutoutSrc(activeGarment.category, activeGarment.style, activeGarment.colour, activeGarment.name, undefined, alignedDeform);
-      setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? {
-        ...w, src: newSrc, pose: alignedPose,
-      } : w)));
-    } catch (err) {
+      setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, src: newSrc, pose: alignedPose } : w)));
+    } catch {
       setError("Auto-alignment failed, please adjust manually.");
     } finally {
       setBusy(false);
@@ -279,29 +272,21 @@ export function AdminShowroomStudioPreview({
         <div className="lg:col-span-5">
           <AdminShowroomStudioTryOnControls
             trialRack={trialRack}
-            onAddToTrial={(item) => setTrialRack((prev) => (prev.some((x) => x.id === item.id) ? prev : [...prev, item]))}
-            onRemoveFromTrial={(id) => setTrialRack((prev) => prev.filter((x) => x.id !== id))}
+            onAddToTrial={(item) => setTrialRack((p) => (p.some((x) => x.id === item.id) ? p : [...p, item]))}
+            onRemoveFromTrial={(id) => setTrialRack((p) => p.filter((x) => x.id !== id))}
             onEquipItem={(item) => equipGarment(item)}
-            wornGarments={wornGarments}
-            activeInstanceId={activeInstanceId}
-            setActiveInstanceId={setActiveInstanceId}
-            onRemoveWorn={removeWorn}
-            activeGarment={activeGarment}
-            onUpdateActivePose={updateActivePose}
-            onUpdateActiveScale={(scale) => {
-              if (activeGarment) setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, scale } : w)));
-            }}
+            wornGarments={wornGarments} activeInstanceId={activeInstanceId}
+            setActiveInstanceId={setActiveInstanceId} onRemoveWorn={removeWorn}
+            activeGarment={activeGarment} onUpdateActivePose={updateActivePose}
+            onUpdateActiveScale={(scale) => { if (activeGarment) setWornGarments((p) => p.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, scale } : w))); }}
             onUpdateActiveColour={updateActiveColour}
             onResetActivePose={() => { if (activeGarment) updateActivePose(getStudioPreset(activeGarment.category, selectedModel)); }}
-            tuckedIn={tuckedIn} setTuckedIn={setTuckedIn}
-            blendLighting={blendLighting} setBlendLighting={setBlendLighting}
+            tuckedIn={tuckedIn} setTuckedIn={setTuckedIn} blendLighting={blendLighting} setBlendLighting={setBlendLighting}
             splitRatio={splitRatio} setSplitRatio={setSplitRatio}
             modelTransform={modelTransform} setModelTransform={handleModelTransform}
             onResetModel={() => handleModelTransform(DEFAULT_MODEL_TRANSFORM)}
-            activeTab={activeTab} setActiveTab={setActiveTab}
-            onAutoAlignPose={handleAutoAlignPose}
-            showSkeleton={showSkeleton} setShowSkeleton={setShowSkeleton}
-            onUpdateActiveDeform={updateActiveDeform}
+            activeTab={activeTab} setActiveTab={setActiveTab} onAutoAlignPose={handleAutoAlignPose}
+            showSkeleton={showSkeleton} setShowSkeleton={setShowSkeleton} onUpdateActiveDeform={updateActiveDeform}
           />
         </div>
       </div>

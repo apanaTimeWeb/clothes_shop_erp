@@ -93,23 +93,17 @@ function parseLandmarks(normLandmarks: LandmarkPoint[], width = 600, height = 80
     visibility: p.visibility,
   }));
 
-  const lShoulder = pts[11] || { x: 230, y: 220 };
-  const rShoulder = pts[12] || { x: 370, y: 220 };
-  const lElbow = pts[13] || { x: 200, y: 340 };
-  const rElbow = pts[14] || { x: 400, y: 340 };
-  const lWrist = pts[15] || { x: 190, y: 440 };
-  const rWrist = pts[16] || { x: 410, y: 440 };
-  const lHip = pts[23] || { x: 250, y: 430 };
-  const rHip = pts[24] || { x: 350, y: 430 };
-  const lAnkle = pts[27] || { x: 240, y: 730 };
-  const rAnkle = pts[28] || { x: 360, y: 730 };
+  const lS = pts[11] || { x: 230, y: 220 }, rS = pts[12] || { x: 370, y: 220 };
+  const lW = pts[15] || { x: 190, y: 440 }, rW = pts[16] || { x: 410, y: 440 };
+  const lH = pts[23] || { x: 250, y: 430 }, rH = pts[24] || { x: 350, y: 430 };
+  const lA = pts[27] || { x: 240, y: 730 }, rA = pts[28] || { x: 360, y: 730 };
 
-  const lArmDeg = Math.round((Math.atan2(lWrist.y - lShoulder.y, lWrist.x - lShoulder.x) * 180) / Math.PI) - 90;
-  const rArmDeg = Math.round((Math.atan2(rWrist.y - rShoulder.y, rWrist.x - rShoulder.x) * 180) / Math.PI) - 90;
-  const shoulderWidth = Math.hypot(rShoulder.x - lShoulder.x, rShoulder.y - lShoulder.y);
-  const torsoHeight = ((lHip.y + rHip.y) / 2) - ((lShoulder.y + rShoulder.y) / 2);
-  const legLength = ((lAnkle.y + rAnkle.y) / 2) - ((lHip.y + rHip.y) / 2);
-  const stanceWidth = Math.hypot(rAnkle.x - lAnkle.x, rAnkle.y - lAnkle.y);
+  const lArmDeg = Math.round((Math.atan2(lW.y - lS.y, lW.x - lS.x) * 180) / Math.PI) - 90;
+  const rArmDeg = Math.round((Math.atan2(rW.y - rS.y, rW.x - rS.x) * 180) / Math.PI) - 90;
+  const shoulderWidth = Math.hypot(rS.x - lS.x, rS.y - lS.y);
+  const torsoHeight = ((lH.y + rH.y) / 2) - ((lS.y + rS.y) / 2);
+  const legLength = ((lA.y + rA.y) / 2) - ((lH.y + rH.y) / 2);
+  const stanceWidth = Math.hypot(rA.x - lA.x, rA.y - lA.y);
 
   return {
     landmarks: pts,
@@ -178,28 +172,41 @@ export function autoAlignGarmentToSkeleton(
   skeleton: DetectedSkeleton,
   currentPose: StudioPose,
 ): { pose: StudioPose; deform: GarmentDeform } {
-  const { leftArmAngle, rightArmAngle, shoulderWidth, legLength, stanceWidth } = skeleton;
+  const { landmarks, leftArmAngle, rightArmAngle, shoulderWidth, torsoHeight, legLength, stanceWidth } = skeleton;
+  const lS = landmarks[11] || { x: 230, y: 220 }, rS = landmarks[12] || { x: 370, y: 220 };
+  const lH = landmarks[23] || { x: 250, y: 430 }, rH = landmarks[24] || { x: 350, y: 430 };
 
   if (category === "top") {
-    const sW = Math.max(180, Math.min(320, Math.round(shoulderWidth * 1.65)));
-    const sH = Math.max(220, Math.min(340, Math.round(sW * 1.1)));
+    const centerX = Math.round((lS.x + rS.x) / 2);
+    const centerY = Math.round(((lS.y + rS.y) / 2) + Math.max(70, torsoHeight * 0.44));
+    const sW = Math.max(180, Math.min(340, Math.round(shoulderWidth * 1.65)));
+    const sH = Math.max(220, Math.min(360, Math.round(sW * 1.08)));
+    const tilt = Math.round((Math.atan2(rS.y - lS.y, rS.x - lS.x) * 180) / Math.PI);
+
     const deform: GarmentDeform = {
       leftArmAngle,
       rightArmAngle,
-      sleeveLength: 100,
-      chestStretch: Math.round((shoulderWidth / 150) * 100),
+      sleeveLength: Math.max(80, Math.min(130, Math.round((torsoHeight / 210) * 100))),
+      chestStretch: Math.max(85, Math.min(125, Math.round((shoulderWidth / 150) * 100))),
       legFlare: 0,
       legLength: 100,
       waistStretch: 100,
     };
     return {
-      pose: { ...currentPose, width: sW, height: sH, y: 310, deform },
+      pose: { ...currentPose, x: centerX, y: centerY, width: sW, height: sH, rotation: tilt, deform },
       deform,
     };
   }
 
   // category === "bottom"
-  const legLenFactor = Math.round((legLength / 310) * 100);
+  const centerX = Math.round((lH.x + rH.x) / 2);
+  const hipY = (lH.y + rH.y) / 2;
+  const centerY = Math.round(hipY + Math.max(100, legLength * 0.44));
+  const hipW = Math.hypot(rH.x - lH.x, rH.y - lH.y);
+  const pW = Math.max(180, Math.min(280, Math.round(hipW * 2.15)));
+  const pH = Math.max(240, Math.min(420, Math.round(legLength * 1.06)));
+  const tilt = Math.round((Math.atan2(rH.y - lH.y, rH.x - lH.x) * 180) / Math.PI);
+
   const flareVal = Math.round(((stanceWidth - 100) / 100) * 35);
   const deform: GarmentDeform = {
     leftArmAngle: 0,
@@ -207,11 +214,11 @@ export function autoAlignGarmentToSkeleton(
     sleeveLength: 100,
     chestStretch: 100,
     legFlare: Math.max(-25, Math.min(35, flareVal)),
-    legLength: Math.max(85, Math.min(125, legLenFactor)),
-    waistStretch: Math.round((skeleton.shoulderWidth / 150) * 100),
+    legLength: Math.max(85, Math.min(125, Math.round((legLength / 310) * 100))),
+    waistStretch: Math.max(85, Math.min(125, Math.round((hipW / 100) * 100))),
   };
   return {
-    pose: { ...currentPose, width: 220, height: Math.round(340 * (legLenFactor / 100)), y: 550, deform },
+    pose: { ...currentPose, x: centerX, y: centerY, width: pW, height: pH, rotation: tilt, deform },
     deform,
   };
 }
