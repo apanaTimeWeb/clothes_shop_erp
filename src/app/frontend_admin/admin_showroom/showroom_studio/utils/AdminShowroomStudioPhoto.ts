@@ -10,16 +10,12 @@ export async function loadImage(src: string): Promise<HTMLImageElement> {
 }
 
 export async function readPhoto(file: File, cutout = false): Promise<string> {
-  if (
-    !["image/jpeg", "image/png", "image/webp"].includes(file.type) ||
-    file.size > 10000000
-  )
+  if (!["image/jpeg", "image/png", "image/webp"].includes(file.type) || file.size > 10000000)
     throw Error(t("message134"));
   const url = URL.createObjectURL(file);
   try {
     const image = await loadImage(url);
-    if (!image.width || !image.height || image.width * image.height > 40000000)
-      throw Error(t("message135"));
+    if (!image.width || !image.height || image.width * image.height > 40000000) throw Error(t("message135"));
     const scale = Math.min(1, 1000 / Math.max(image.width, image.height));
     const canvas = document.createElement("canvas");
     canvas.width = Math.round(image.width * scale);
@@ -29,16 +25,12 @@ export async function readPhoto(file: File, cutout = false): Promise<string> {
     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     if (cutout) {
       const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let clear = 0,
-        visible = 0;
+      let clear = 0, visible = 0;
       for (let i = 3; i < pixels.length; i += 4) {
         if (pixels[i] < 10) clear++;
         if (pixels[i] > 100) visible++;
       }
-      if (
-        clear < canvas.width * canvas.height * 0.05 ||
-        visible < canvas.width * canvas.height * 0.01
-      )
+      if (clear < canvas.width * canvas.height * 0.05 || visible < canvas.width * canvas.height * 0.01)
         throw Error(t("message137"));
     }
     const data = canvas.toDataURL(cutout ? "image/png" : "image/jpeg", 0.88);
@@ -92,6 +84,7 @@ const COLOR_MAP: Record<string, { primary: string; secondary: string; stroke: st
   orange: { primary: "#ea580c", secondary: "#c2410c", stroke: "#f97316" },
   purple: { primary: "#7e22ce", secondary: "#581c87", stroke: "#9333ea" },
   maroon: { primary: "#831843", secondary: "#500724", stroke: "#9d174d" },
+  khaki: { primary: "#c3b091", secondary: "#a8977b", stroke: "#8d7e67" },
 };
 
 export function getGarmentColorPalette(colour: string) {
@@ -109,14 +102,43 @@ export interface StoreBottomItem {
   colours: string[];
 }
 
-export const STORE_BOTTOMS: StoreBottomItem[] = [
-  { id: "straight-denim", name: "Straight Denim Jeans", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue", "Black", "Grey"] },
-  { id: "relaxed-chinos", name: "Relaxed Chinos Pant", style: "trouser", defaultColour: "Beige", colours: ["Beige", "Khaki", "Navy", "Olive", "Black"] },
-  { id: "urban-cargo", name: "Urban Utility Cargo", style: "cargo", defaultColour: "Olive", colours: ["Olive", "Black", "Khaki", "Grey"] },
-  { id: "daily-stretch-denim", name: "Daily Stretch Denim", style: "jeans", defaultColour: "Dark Blue", colours: ["Dark Blue", "Blue", "Black"] },
-  { id: "studio-trousers", name: "Studio Formal Trouser", style: "trouser", defaultColour: "Black", colours: ["Black", "Charcoal", "Navy", "Grey"] },
-  { id: "casual-shorts", name: "Casual Half Pant / Shorts", style: "shorts", defaultColour: "Khaki", colours: ["Khaki", "Navy", "Grey", "Blue", "Olive"] },
+export interface StoreGarmentItem {
+  id: string;
+  name: string;
+  category: "top" | "bottom";
+  style: string;
+  defaultColour: string;
+  colours: string[];
+}
+
+export interface WornGarmentItem {
+  instanceId: string;
+  catalogId: string;
+  name: string;
+  category: "top" | "bottom";
+  colour: string;
+  style: string;
+  src: string;
+  pose: StudioPose;
+  scale: number;
+}
+
+export const STORE_CATALOG_ITEMS: StoreGarmentItem[] = [
+  { id: "top-linen-shirt", name: "Casual Linen Shirt", category: "top", style: "shirt", defaultColour: "Blue", colours: ["Blue", "Navy", "White", "Olive"] },
+  { id: "top-crew-tshirt", name: "Cotton Crewneck T-Shirt", category: "top", style: "tshirt", defaultColour: "Black", colours: ["Black", "White", "Charcoal", "Red"] },
+  { id: "top-oxford-shirt", name: "Classic Oxford Shirt", category: "top", style: "shirt", defaultColour: "White", colours: ["White", "Blue", "Pink", "Cream"] },
+  { id: "top-polo-tshirt", name: "Slim Fit Polo T-Shirt", category: "top", style: "tshirt", defaultColour: "Navy", colours: ["Navy", "Olive", "Black", "Red"] },
+  { id: "bot-straight-denim", name: "Straight Denim Jeans", category: "bottom", style: "jeans", defaultColour: "Blue", colours: ["Blue", "Dark Blue", "Black", "Grey"] },
+  { id: "bot-relaxed-chinos", name: "Relaxed Chinos Pant", category: "bottom", style: "trouser", defaultColour: "Beige", colours: ["Beige", "Khaki", "Navy", "Olive", "Black"] },
+  { id: "bot-urban-cargo", name: "Urban Utility Cargo", category: "bottom", style: "cargo", defaultColour: "Olive", colours: ["Olive", "Black", "Khaki", "Grey"] },
+  { id: "bot-daily-denim", name: "Daily Stretch Denim", category: "bottom", style: "jeans", defaultColour: "Dark Blue", colours: ["Dark Blue", "Blue", "Black"] },
+  { id: "bot-formal-trouser", name: "Studio Formal Trouser", category: "bottom", style: "trouser", defaultColour: "Black", colours: ["Black", "Charcoal", "Navy", "Grey"] },
+  { id: "bot-casual-shorts", name: "Casual Half Pant / Shorts", category: "bottom", style: "shorts", defaultColour: "Khaki", colours: ["Khaki", "Navy", "Grey", "Blue", "Olive"] },
 ];
+
+export const STORE_BOTTOMS: StoreBottomItem[] = STORE_CATALOG_ITEMS
+  .filter((i) => i.category === "bottom")
+  .map((i) => ({ id: i.id, name: i.name, style: i.style as BottomStyle, defaultColour: i.defaultColour, colours: i.colours }));
 
 export function generateBottomCutoutSvg(style: BottomStyle, colour: string): string {
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
@@ -174,23 +196,28 @@ export function resolveGarmentCutoutSrc(
 ): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
   const normColour = colour.trim().toLowerCase();
-  const name = (productName || "").toLowerCase();
   const category = detectGarmentCategory(categoryId);
 
-  if (
-    category === "top" &&
-    (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))
-  ) {
+  if (category === "top" && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
     return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
   }
-  if (
-    category === "top" &&
-    (normColour.includes("blue") || normColour.includes("navy"))
-  ) {
+  if (category === "top" && (normColour.includes("blue") || normColour.includes("navy"))) {
     return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
   }
-
   return { src: generateAutoCutoutSvg(category, colour), isRealPhoto: false };
+}
+
+export function resolveGarmentItemCutoutSrc(
+  category: "top" | "bottom",
+  style: string,
+  colour: string,
+  name?: string,
+  customOverlay?: string,
+): { src: string; isRealPhoto: boolean } {
+  if (category === "bottom") {
+    return resolveBottomCutoutSrc(style, colour, customOverlay);
+  }
+  return resolveGarmentCutoutSrc("top", colour, name, customOverlay);
 }
 
 export interface StudioPose {

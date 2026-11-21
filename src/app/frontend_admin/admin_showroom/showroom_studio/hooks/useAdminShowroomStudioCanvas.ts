@@ -1,13 +1,17 @@
 "use client";
 import { studioText as t } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioMessages";
 import { useEffect, useState, type RefObject } from "react";
-import { loadImage } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
+import {
+  loadImage,
+  type StudioPose,
+  type WornGarmentItem,
+} from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 import {
   DEFAULT_MODEL_TRANSFORM,
   type ModelTransform,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 
-type Pose = { x: number; y: number; width: number; height: number; rotation: number };
+type Pose = StudioPose;
 
 function drawGarment(ctx: CanvasRenderingContext2D, img: HTMLImageElement, pose: Pose, scale: number, splitX: number, splitRatio: number, blend: boolean) {
   const w = pose.width * scale, h = pose.height * scale;
@@ -29,7 +33,7 @@ function drawGarment(ctx: CanvasRenderingContext2D, img: HTMLImageElement, pose:
 function drawActiveBox(ctx: CanvasRenderingContext2D, pose: Pose, scale: number) {
   const w = pose.width * scale, h = pose.height * scale;
   ctx.save(); ctx.translate(pose.x, pose.y); ctx.rotate((pose.rotation * Math.PI) / 180);
-  ctx.strokeStyle = "rgba(59, 130, 246, 0.75)"; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
+  ctx.strokeStyle = "rgba(59, 130, 246, 0.85)"; ctx.lineWidth = 1.75; ctx.setLineDash([5, 4]);
   ctx.strokeRect(-w / 2 - 3, -h / 2 - 3, w + 6, h + 6); ctx.restore();
 }
 
@@ -45,40 +49,44 @@ function drawSplitLine(ctx: CanvasRenderingContext2D, splitX: number) {
 }
 
 export function useAdminShowroomStudioCanvas(
-  canvas: RefObject<HTMLCanvasElement | null>, photo: string, src: string | undefined, pose: Pose,
-  show: boolean, anchors: { x: number; y: number }[], marking: boolean, splitRatio = 1, blendLighting = true,
-  sizeScale = 1, modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM, bottomSrc?: string, bottomPose?: Pose,
-  showBottom = true, bottomScale = 1, activeLayer: "top" | "bottom" | "model" = "top", tuckedIn = false,
+  canvas: RefObject<HTMLCanvasElement | null>,
+  photo: string,
+  wornItems: WornGarmentItem[],
+  show = true,
+  anchors: { x: number; y: number }[] = [],
+  marking = false,
+  splitRatio = 1,
+  blendLighting = true,
+  modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM,
+  activeInstanceId = "",
+  tuckedIn = false,
 ) {
   const [bg, setBg] = useState<{ source: string; image: HTMLImageElement } | null>(null);
-  const [item, setItem] = useState<{ source: string; image: HTMLImageElement } | null>(null);
-  const [bottomItem, setBottomItem] = useState<{ source: string; image: HTMLImageElement } | null>(null);
-  const [failure, setFailure] = useState<{ source: string; message: string } | null>(null);
+  const [images, setImages] = useState<Record<string, HTMLImageElement>>({});
+  const [failure, setFailure] = useState<string>("");
 
   const bgSource = photo || "/images/style-mannequin.svg";
   const background = bg?.source === bgSource ? bg.image : null;
-  const garment = item && item.source === src ? item.image : null;
-  const bottomGarment = bottomItem && bottomItem.source === bottomSrc ? bottomItem.image : null;
 
   useEffect(() => {
     let a = true;
-    loadImage(bgSource).then((img) => { if (a) setBg({ source: bgSource, image: img }); }).catch(() => { if (a) setFailure({ source: bgSource, message: t("message127") }); });
+    loadImage(bgSource)
+      .then((img) => { if (a) setBg({ source: bgSource, image: img }); })
+      .catch(() => { if (a) setFailure(t("message127")); });
     return () => { a = false; };
   }, [bgSource]);
 
   useEffect(() => {
     let a = true;
-    if (src) { loadImage(src).then((img) => { if (a) setItem({ source: src, image: img }); }).catch(() => { if (a) setFailure({ source: src, message: t("message128") }); }); }
-    else { setItem(null); }
+    wornItems.forEach((w) => {
+      if (w.src && !images[w.src]) {
+        loadImage(w.src)
+          .then((img) => { if (a) setImages((prev) => ({ ...prev, [w.src]: img })); })
+          .catch(() => { if (a) setFailure(t("message128")); });
+      }
+    });
     return () => { a = false; };
-  }, [src]);
-
-  useEffect(() => {
-    let a = true;
-    if (bottomSrc) { loadImage(bottomSrc).then((img) => { if (a) setBottomItem({ source: bottomSrc, image: img }); }).catch(() => { if (a) setFailure({ source: bottomSrc, message: t("message128") }); }); }
-    else { setBottomItem(null); }
-    return () => { a = false; };
-  }, [bottomSrc]);
+  }, [wornItems]);
 
   useEffect(() => {
     const c = canvas.current, ctx = c?.getContext("2d");
@@ -96,20 +104,22 @@ export function useAdminShowroomStudioCanvas(
     ctx.restore();
 
     const splitX = 600 * splitRatio;
-    const drawTop = () => {
-      if (garment && show) {
-        drawGarment(ctx, garment, pose, sizeScale, splitX, splitRatio, blendLighting);
-        if (activeLayer === "top") drawActiveBox(ctx, pose, sizeScale);
-      }
-    };
-    const drawBottom = () => {
-      if (bottomGarment && showBottom && bottomPose) {
-        drawGarment(ctx, bottomGarment, bottomPose, bottomScale, splitX, splitRatio, blendLighting);
-        if (activeLayer === "bottom") drawActiveBox(ctx, bottomPose, bottomScale);
-      }
-    };
 
-    if (tuckedIn) { drawTop(); drawBottom(); } else { drawBottom(); drawTop(); }
+    if (show && wornItems.length > 0) {
+      const sorted = [...wornItems].sort((a, b) => {
+        if (tuckedIn) return a.category === "top" ? -1 : 1;
+        return a.category === "bottom" ? -1 : 1;
+      });
+
+      sorted.forEach((item) => {
+        const img = images[item.src];
+        if (img) {
+          drawGarment(ctx, img, item.pose, item.scale, splitX, splitRatio, blendLighting);
+          if (item.instanceId === activeInstanceId) drawActiveBox(ctx, item.pose, item.scale);
+        }
+      });
+    }
+
     if (splitRatio < 0.999 && splitRatio > 0.001) drawSplitLine(ctx, splitX);
 
     if (marking) {
@@ -119,10 +129,7 @@ export function useAdminShowroomStudioCanvas(
         ctx.fillStyle = "#fff"; ctx.fillText(String(i + 1), p.x - 5, p.y + 6); ctx.fillStyle = "#1e3a8a";
       });
     }
-  }, [canvas, background, garment, bottomGarment, pose, bottomPose, show, showBottom, anchors, marking, splitRatio, blendLighting, sizeScale, bottomScale, modelTransform, activeLayer, tuckedIn]);
+  }, [canvas, background, wornItems, images, show, anchors, marking, splitRatio, blendLighting, modelTransform, activeInstanceId, tuckedIn]);
 
-  return {
-    background, garment, bottomGarment,
-    renderError: failure && (failure.source === bgSource || failure.source === src || failure.source === bottomSrc) ? failure.message : "",
-  };
+  return { background, renderError: failure };
 }

@@ -2,32 +2,28 @@
 import { Button } from "@/components/ui/Button";
 import {
   getGarmentColorPalette,
-  STORE_BOTTOMS,
-  type StoreBottomItem,
+  STORE_CATALOG_ITEMS,
+  type StoreGarmentItem,
+  type StudioPose,
+  type WornGarmentItem,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 
-export interface StudioPose { x: number; y: number; width: number; height: number; rotation: number; }
+export { type StudioPose };
 export interface ModelTransform { x: number; y: number; zoom: number; width: number; height: number; rotation: number; }
 export const DEFAULT_MODEL_TRANSFORM: ModelTransform = { x: 0, y: 0, zoom: 100, width: 100, height: 100, rotation: 0 };
 
 interface AdminShowroomStudioTryOnControlsProps {
-  pose: StudioPose; setPose: React.Dispatch<React.SetStateAction<StudioPose>>;
-  hasCutout: boolean; sizeScale: number; setSizeScale: (scale: number) => void;
-  splitRatio: number; setSplitRatio: (ratio: number) => void;
+  trialRack: StoreGarmentItem[]; onAddToTrial: (item: StoreGarmentItem) => void;
+  onRemoveFromTrial: (id: string) => void; onEquipItem: (item: StoreGarmentItem, colour?: string) => void;
+  wornGarments: WornGarmentItem[]; activeInstanceId: string; setActiveInstanceId: (id: string) => void;
+  onRemoveWorn: (instanceId: string) => void; activeGarment?: WornGarmentItem;
+  onUpdateActivePose: React.Dispatch<React.SetStateAction<StudioPose>>;
+  onUpdateActiveScale: (scale: number) => void; onUpdateActiveColour: (colour: string) => void;
+  onResetActivePose: () => void; tuckedIn: boolean; setTuckedIn: (val: boolean) => void;
   blendLighting: boolean; setBlendLighting: (val: boolean) => void;
-  tuckedIn: boolean; setTuckedIn: (val: boolean) => void;
-  onReset: () => void; modelTransform: ModelTransform;
-  setModelTransform: React.Dispatch<React.SetStateAction<ModelTransform>>;
-  onResetModel: () => void; activeTab: "top" | "bottom" | "model";
-  setActiveTab: (tab: "top" | "bottom" | "model") => void;
-  products?: Array<{ id: string; name: string }>; productId?: string;
-  onSelectProduct?: (id: string) => void; colours?: string[];
-  selectedColour?: string; onSelectColour?: (colour: string) => void;
-  bottomPose: StudioPose; setBottomPose: React.Dispatch<React.SetStateAction<StudioPose>>;
-  selectedBottom: StoreBottomItem; onSelectBottom: (bottom: StoreBottomItem) => void;
-  bottomColour: string; onSelectBottomColour: (colour: string) => void;
-  bottomScale: number; setBottomScale: (scale: number) => void;
-  onResetBottom: () => void; showBottom: boolean; setShowBottom: (show: boolean) => void;
+  splitRatio: number; setSplitRatio: (ratio: number) => void;
+  modelTransform: ModelTransform; setModelTransform: React.Dispatch<React.SetStateAction<ModelTransform>>;
+  onResetModel: () => void; activeTab: "rack" | "garment" | "model"; setActiveTab: (tab: "rack" | "garment" | "model") => void;
 }
 
 const SIZES = [
@@ -36,188 +32,208 @@ const SIZES = [
   { label: "XXL", scale: 1.18, desc: "Oversized" },
 ];
 const MODEL_FIELDS = [
-  { field: "zoom", label: "Photo Zoom / Scale", min: 40, max: 250, unit: "%" },
-  { field: "rotation", label: "Straighten / Rotation", min: -90, max: 90, unit: "°" },
-  { field: "width", label: "Photo Width (Scale)", min: 50, max: 180, unit: "%" },
-  { field: "height", label: "Photo Height (Scale)", min: 50, max: 180, unit: "%" },
-  { field: "x", label: "Pan Horizontal (X)", min: -300, max: 300, unit: "px" },
-  { field: "y", label: "Pan Vertical (Y)", min: -400, max: 400, unit: "px" },
+  { field: "zoom", label: "Zoom", min: 40, max: 250, unit: "%" },
+  { field: "rotation", label: "Straighten", min: -90, max: 90, unit: "°" },
+  { field: "width", label: "Width Scale", min: 50, max: 180, unit: "%" },
+  { field: "height", label: "Height Scale", min: 50, max: 180, unit: "%" },
+  { field: "x", label: "Pan X", min: -300, max: 300, unit: "px" },
+  { field: "y", label: "Pan Y", min: -400, max: 400, unit: "px" },
 ] as const;
 
-function PoseSliders({ pose, setPose, onReset, label, disabled = false }: {
-  pose: StudioPose; setPose: React.Dispatch<React.SetStateAction<StudioPose>>; onReset: () => void; label: string; disabled?: boolean;
-}) {
-  return (
-    <div className="border-t border-border pt-3">
-      <div className="mb-2 flex items-center justify-between text-sm">
-        <span className="font-medium text-foreground">{label}:</span>
-        <Button className="min-h-8 px-2.5 py-1 text-xs" onClick={onReset}>Reset Position</Button>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {(["x", "y", "width", "height", "rotation"] as const).map((f) => (
-          <label key={f} className="flex flex-col text-xs text-foreground">
-            <span className="flex justify-between">
-              <span className="capitalize">{f === "x" ? "Horizontal (X)" : f === "y" ? "Vertical (Y)" : f}</span>
-              <span className="font-mono text-muted-foreground">{Math.round(pose[f])}{f === "rotation" ? "°" : "px"}</span>
-            </span>
-            <input
-              type="range"
-              min={f === "rotation" ? -180 : f === "width" || f === "height" ? 20 : 0}
-              max={f === "rotation" ? 180 : f === "y" || f === "height" ? 800 : 600}
-              value={pose[f]} disabled={disabled}
-              onChange={(e) => setPose((p) => ({ ...p, [f]: Number(e.target.value) }))}
-              className="mt-1 w-full cursor-pointer accent-primary"
-            />
-          </label>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ColourSwatches({ colours, selected, onSelect, label }: { colours: string[]; selected: string; onSelect?: (c: string) => void; label: string }) {
-  if (!onSelect) return null;
-  return (
-    <div className="space-y-1.5 border-t border-border pt-2.5">
-      <div className="flex items-center justify-between text-xs">
-        <span className="font-medium text-foreground">{label}:</span>
-        <span className="rounded bg-subtle px-1.5 py-0.5 font-medium text-foreground">{selected || "Default"}</span>
-      </div>
-      <div className="flex flex-wrap gap-1.5">
-        {colours.map((c) => {
-          const p = getGarmentColorPalette(c), isSel = selected.trim().toLowerCase() === c.trim().toLowerCase();
-          return (
-            <button
-              key={c} type="button" onClick={() => onSelect(c)}
-              className={`inline-flex items-center gap-1.5 rounded-lg px-2 py-1 text-xs font-medium transition-all ${
-                isSel ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"
-              }`}
-            >
-              <span className="h-2.5 w-2.5 rounded-full border border-black/20 shrink-0" style={{ backgroundColor: p.primary }} />
-              <span>{c}</span>
-            </button>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function FitButtons({ scale, setScale, label }: { scale: number; setScale: (s: number) => void; label: string }) {
-  return (
-    <div className="space-y-2 border-t border-border pt-2.5">
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium text-foreground">{label}:</span>
-        <span className="text-xs text-muted-foreground">{SIZES.find((s) => s.scale === scale)?.desc ?? "Custom"} ({(scale * 100).toFixed(0)}%)</span>
-      </div>
-      <div className="flex flex-wrap gap-2">
-        {SIZES.map((s) => (
-          <button
-            key={s.label} type="button" onClick={() => setScale(s.scale)}
-            className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
-              scale === s.scale ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"
-            }`}
-          >
-            {s.label} <span className="opacity-75">({s.desc})</span>
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function AdminShowroomStudioTryOnControls({
-  pose, setPose, hasCutout, sizeScale, setSizeScale, splitRatio, setSplitRatio,
-  blendLighting, setBlendLighting, tuckedIn, setTuckedIn, onReset, modelTransform, setModelTransform,
-  onResetModel, activeTab, setActiveTab, products = [], productId, onSelectProduct,
-  colours = [], selectedColour = "", onSelectColour,
-  bottomPose, setBottomPose, selectedBottom, onSelectBottom, bottomColour,
-  onSelectBottomColour, bottomScale, setBottomScale, onResetBottom, showBottom, setShowBottom,
+  trialRack, onAddToTrial, onRemoveFromTrial, onEquipItem,
+  wornGarments, activeInstanceId, setActiveInstanceId, onRemoveWorn,
+  activeGarment, onUpdateActivePose, onUpdateActiveScale, onUpdateActiveColour, onResetActivePose,
+  tuckedIn, setTuckedIn, blendLighting, setBlendLighting, splitRatio, setSplitRatio,
+  modelTransform, setModelTransform, onResetModel, activeTab, setActiveTab,
 }: AdminShowroomStudioTryOnControlsProps) {
-  const availableColours = Array.from(new Set([...colours, "Black", "Navy", "Blue", "White", "Olive", "Red"]));
-  const bottomColours = Array.from(new Set([...(selectedBottom.colours || []), "Blue", "Dark Blue", "Black", "Beige", "Olive", "Grey", "White"]));
+  const storeNotTrial = STORE_CATALOG_ITEMS.filter((s) => !trialRack.some((t) => t.id === s.id));
 
   return (
     <div className="space-y-4 rounded-xl border border-border bg-card p-4">
       <div className="flex rounded-lg border border-border bg-subtle p-1 gap-1">
-        {(["top", "bottom", "model"] as const).map((tab) => (
+        {(["rack", "garment", "model"] as const).map((tab) => (
           <button
             key={tab} type="button" onClick={() => setActiveTab(tab)}
             className={`flex-1 rounded-md py-1.5 text-xs font-medium transition-all ${
               activeTab === tab ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
             }`}
           >
-            {tab === "top" ? "👕 Shirt / Top" : tab === "bottom" ? "👖 Pant / Bottom" : "👤 Model / Photo"}
+            {tab === "rack" ? `🛍️ Trial Rack (${trialRack.length})` : tab === "garment" ? `👗 Active Fit (${wornGarments.length})` : "👤 Model / Photo"}
           </button>
         ))}
       </div>
 
-      {activeTab === "top" && (
-        <>
-          {products.length > 0 && onSelectProduct && (
-            <div className="space-y-1">
-              <label htmlFor="garment-select" className="text-xs font-medium text-foreground">Choose Shirt / Top:</label>
-              <select
-                id="garment-select" value={productId} onChange={(e) => onSelectProduct(e.target.value)}
-                className="w-full rounded-lg border border-border bg-background px-2.5 py-1.5 text-xs font-medium text-foreground"
-              >
-                {products.map((p) => (<option key={p.id} value={p.id}>{p.name}</option>))}
-              </select>
+      {activeTab === "rack" && (
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-foreground">Trial Room Rack (Shortlist):</span>
+            <span className="text-[11px] text-muted-foreground">Drag to body or click Try On</span>
+          </div>
+          <div className="space-y-2 max-h-56 overflow-y-auto pr-1">
+            {trialRack.length === 0 ? (
+              <p className="rounded-lg border border-dashed border-border p-3 text-center text-xs text-muted-foreground">
+                Your Trial Rack is empty. Add items from the Store Catalogue below!
+              </p>
+            ) : (
+              trialRack.map((item) => {
+                const isWorn = wornGarments.some((w) => w.catalogId === item.id);
+                return (
+                  <div
+                    key={item.id} draggable={true}
+                    onDragStart={(e) => {
+                      e.dataTransfer.setData("application/json", JSON.stringify(item));
+                      e.dataTransfer.setData("text/plain", JSON.stringify(item));
+                      e.dataTransfer.effectAllowed = "copy";
+                    }}
+                    className={`flex items-center justify-between rounded-lg border p-2 text-xs transition-all ${
+                      isWorn ? "border-primary/50 bg-primary/5" : "border-border bg-subtle hover:bg-muted"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 truncate cursor-grab active:cursor-grabbing">
+                      <span>{item.category === "top" ? "👕" : "👖"}</span>
+                      <div className="truncate">
+                        <span className="font-medium text-foreground block truncate">{item.name}</span>
+                        <span className="text-[10px] text-muted-foreground">{item.style} • {item.defaultColour}</span>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <Button className="min-h-7 px-2 py-0.5 text-[11px]" onClick={() => onEquipItem(item)}>
+                        {isWorn ? "Wearing" : "+ Try On"}
+                      </Button>
+                      <button
+                        type="button" title="Remove from Trial Rack" onClick={() => onRemoveFromTrial(item.id)}
+                        className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-danger"
+                      >✕</button>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
+          {storeNotTrial.length > 0 && (
+            <div className="border-t border-border pt-2.5 space-y-1.5">
+              <span className="text-xs font-medium text-foreground">Add to Trial Rack from Store:</span>
+              <div className="grid grid-cols-2 gap-1.5 max-h-40 overflow-y-auto">
+                {storeNotTrial.map((s) => (
+                  <button
+                    key={s.id} type="button" onClick={() => onAddToTrial(s)}
+                    className="flex items-center justify-between rounded-lg border border-border bg-subtle px-2 py-1.5 text-left text-xs hover:border-primary hover:bg-primary/5"
+                  >
+                    <span className="truncate">{s.category === "top" ? "👕" : "👖"} {s.name}</span>
+                    <span className="text-primary font-bold text-sm shrink-0 ml-1">+</span>
+                  </button>
+                ))}
+              </div>
             </div>
           )}
-          <ColourSwatches colours={availableColours} selected={selectedColour} onSelect={onSelectColour} label="Shirt Colour" />
-          <FitButtons scale={sizeScale} setScale={setSizeScale} label="Shirt Fit / Size" />
-          <PoseSliders pose={pose} setPose={setPose} onReset={onReset} label="Shirt Position & Scale" disabled={!hasCutout} />
-        </>
+        </div>
       )}
 
-      {activeTab === "bottom" && (
-        <>
-          <div className="flex items-center justify-between">
-            <label className="flex cursor-pointer items-center gap-2 text-xs font-medium text-foreground">
-              <input type="checkbox" checked={showBottom} onChange={(e) => setShowBottom(e.target.checked)} className="rounded border-border accent-primary" />
-              <span>👖 Wear Pants on Model</span>
-            </label>
-            <span className="text-xs text-muted-foreground">Drag card to body or click</span>
-          </div>
-          <div className="space-y-1.5">
-            <span className="text-xs font-medium text-foreground">Store Pants & Bottoms:</span>
-            <div className="grid grid-cols-2 gap-2">
-              {STORE_BOTTOMS.map((b) => (
-                <div
-                  key={b.id} draggable={true}
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData("application/json", JSON.stringify(b));
-                    e.dataTransfer.setData("text/plain", JSON.stringify(b));
-                    e.dataTransfer.effectAllowed = "copy";
-                  }}
-                  onClick={() => { onSelectBottom(b); setShowBottom(true); }}
-                  className={`cursor-grab rounded-lg border p-2 text-left transition-all active:cursor-grabbing ${
-                    selectedBottom.id === b.id ? "border-primary bg-primary/10 shadow-sm" : "border-border bg-subtle hover:border-foreground/30 hover:bg-muted"
-                  }`}
-                >
-                  <div className="flex items-center justify-between text-xs font-medium text-foreground">
-                    <span className="truncate">{b.name}</span>
-                    <span className="text-xs opacity-60">✋</span>
-                  </div>
-                  <div className="mt-1 flex items-center gap-1.5 text-[10px] text-muted-foreground">
-                    <span className="rounded bg-background px-1 py-0.5 uppercase tracking-wide font-mono">{b.style}</span>
-                    <span>• Drag or click</span>
-                  </div>
-                </div>
-              ))}
+      {activeTab === "garment" && (
+        <div className="space-y-3">
+          {wornGarments.length === 0 ? (
+            <div className="rounded-lg border border-dashed border-border p-5 text-center space-y-2">
+              <p className="text-xs text-muted-foreground">No garments are currently worn on the model body.</p>
+              <Button onClick={() => setActiveTab("rack")}>Go to Trial Rack</Button>
             </div>
-          </div>
-          <ColourSwatches colours={bottomColours} selected={bottomColour} onSelect={onSelectBottomColour} label="Pants Colour" />
-          <FitButtons scale={bottomScale} setScale={setBottomScale} label="Pants Fit / Size" />
-          <PoseSliders pose={bottomPose} setPose={setBottomPose} onReset={onResetBottom} label="Pants Position & Scale" />
-        </>
+          ) : (
+            <>
+              <div className="space-y-1">
+                <span className="text-xs font-medium text-foreground">Select Garment to Adjust:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {wornGarments.map((w) => (
+                    <button
+                      key={w.instanceId} type="button" onClick={() => setActiveInstanceId(w.instanceId)}
+                      className={`inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${
+                        activeInstanceId === w.instanceId ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground"
+                      }`}
+                    >
+                      <span>{w.category === "top" ? "👕" : "👖"} {w.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {activeGarment && (
+                <>
+                  <div className="space-y-1.5 border-t border-border pt-2.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-foreground">Colour:</span>
+                      <span className="rounded bg-subtle px-1.5 py-0.5 font-medium text-foreground">{activeGarment.colour}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {["Blue", "Black", "Dark Blue", "Navy", "Beige", "Olive", "Grey", "White", "Red"].map((c) => {
+                        const p = getGarmentColorPalette(c), isSel = activeGarment.colour.toLowerCase() === c.toLowerCase();
+                        return (
+                          <button
+                            key={c} type="button" onClick={() => onUpdateActiveColour(c)}
+                            className={`inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium transition-all ${isSel ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"}`}
+                          >
+                            <span className="h-2 w-2 rounded-full border border-black/20" style={{ backgroundColor: p.primary }} />
+                            <span>{c}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  <div className="space-y-1.5 border-t border-border pt-2.5">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-medium text-foreground">Size / Fit:</span>
+                      <span className="text-muted-foreground">{SIZES.find((s) => s.scale === activeGarment.scale)?.desc ?? "Custom"}</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5">
+                      {SIZES.map((s) => (
+                        <button
+                          key={s.label} type="button" onClick={() => onUpdateActiveScale(s.scale)}
+                          className={`rounded-lg px-2.5 py-1 text-xs font-medium transition-all ${activeGarment.scale === s.scale ? "bg-primary text-primary-foreground shadow-sm" : "border border-border bg-subtle text-foreground hover:bg-muted"}`}
+                        >{s.label}</button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-border pt-2.5">
+                    <div className="mb-2 flex items-center justify-between text-xs">
+                      <span className="font-medium text-foreground">Position & Scale:</span>
+                      <Button className="min-h-7 px-2 py-0.5 text-[11px]" onClick={onResetActivePose}>Reset</Button>
+                    </div>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {(["x", "y", "width", "height", "rotation"] as const).map((f) => (
+                        <label key={f} className="flex flex-col text-[11px] text-foreground">
+                          <span className="flex justify-between">
+                            <span className="capitalize">{f}</span>
+                            <span className="font-mono text-muted-foreground">{Math.round(activeGarment.pose[f])}{f === "rotation" ? "°" : "px"}</span>
+                          </span>
+                          <input
+                            type="range" min={f === "rotation" ? -180 : f === "width" || f === "height" ? 20 : 0}
+                            max={f === "rotation" ? 180 : f === "y" || f === "height" ? 800 : 600}
+                            value={activeGarment.pose[f]}
+                            onChange={(e) => onUpdateActivePose((p) => ({ ...p, [f]: Number(e.target.value) }))}
+                            className="mt-1 w-full cursor-pointer accent-primary"
+                          />
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button" onClick={() => onRemoveWorn(activeGarment.instanceId)}
+                    className="mt-2 w-full rounded-lg border border-danger/40 bg-danger/10 py-1.5 text-xs font-medium text-danger hover:bg-danger/20 transition-all"
+                  >
+                    ✖ Take Off {activeGarment.name} from Body
+                  </button>
+                </>
+              )}
+            </>
+          )}
+        </div>
       )}
 
       {activeTab === "model" && (
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-foreground">User Photo / Model Adjustments:</span>
+            <span className="font-medium text-foreground">Model & Photo:</span>
             <Button className="min-h-8 px-2.5 py-1 text-xs" onClick={onResetModel}>Reset Photo</Button>
           </div>
           <div className="grid gap-3 sm:grid-cols-2 border-t border-border pt-3">
@@ -238,26 +254,17 @@ export function AdminShowroomStudioTryOnControls({
         </div>
       )}
 
-      {/* Outfit Layering (Tuck Style) */}
       <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
         <span className="font-medium text-foreground">Tuck Style:</span>
         <div className="flex rounded-lg border border-border bg-subtle p-0.5 text-xs">
           <button
             type="button" onClick={() => setTuckedIn(false)}
-            className={`rounded px-2.5 py-1 font-medium transition-all ${
-              !tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Untucked (Shirt Over)
-          </button>
+            className={`rounded px-2.5 py-1 font-medium transition-all ${!tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+          >Untucked</button>
           <button
             type="button" onClick={() => setTuckedIn(true)}
-            className={`rounded px-2.5 py-1 font-medium transition-all ${
-              tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Tucked In (Pant Over)
-          </button>
+            className={`rounded px-2.5 py-1 font-medium transition-all ${tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+          >Tucked In</button>
         </div>
       </div>
 
@@ -266,15 +273,14 @@ export function AdminShowroomStudioTryOnControls({
           <input type="checkbox" checked={blendLighting} onChange={(e) => setBlendLighting(e.target.checked)} className="rounded border-border accent-primary" />
           <span>Realistic 2.5D Lighting & Body Contour</span>
         </label>
-        <span className="text-xs text-muted-foreground">Depth & Highlights</span>
       </div>
 
       <div className="space-y-2 border-t border-border pt-3">
         <div className="flex items-center justify-between text-sm">
-          <label htmlFor="split-slider" className="font-medium text-foreground">Before / After Comparison:</label>
+          <label htmlFor="split-slider" className="font-medium text-foreground">Before / After:</label>
           <div className="flex items-center gap-2">
             <button type="button" onClick={() => setSplitRatio(splitRatio < 0.99 ? 1.0 : 0.5)} className="text-xs text-primary underline hover:opacity-80">
-              {splitRatio < 0.99 ? "Full Try-On" : "Split 50/50"}
+              {splitRatio < 0.99 ? "Full" : "50/50"}
             </button>
             <span className="text-xs text-muted-foreground">{Math.round(splitRatio * 100)}%</span>
           </div>
@@ -283,9 +289,6 @@ export function AdminShowroomStudioTryOnControls({
           id="split-slider" type="range" min={0} max={100} value={Math.round(splitRatio * 100)}
           onChange={(e) => setSplitRatio(Number(e.target.value) / 100)} className="w-full cursor-pointer accent-primary"
         />
-        <div className="flex justify-between text-[11px] text-muted-foreground">
-          <span>Original Model (0%)</span><span>50/50 Split</span><span>Full Garment (100%)</span>
-        </div>
       </div>
     </div>
   );
