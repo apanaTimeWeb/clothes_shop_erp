@@ -177,46 +177,53 @@ export function autoAlignGarmentToSkeleton(
   skeleton: DetectedSkeleton,
   currentPose: StudioPose,
   style?: string,
+  imageSrc?: string,
 ): { pose: StudioPose; deform: GarmentDeform } {
   const { landmarks, leftArmAngle, rightArmAngle, shoulderWidth, torsoHeight, legLength, stanceWidth } = skeleton;
   const p11 = landmarks[11] || { x: 230, y: 220 }, p12 = landmarks[12] || { x: 370, y: 220 };
   const lS = p11.x <= p12.x ? p11 : p12, rS = p11.x <= p12.x ? p12 : p11;
   const p23 = landmarks[23] || { x: 250, y: 430 }, p24 = landmarks[24] || { x: 350, y: 430 };
   const lH = p23.x <= p24.x ? p23 : p24, rH = p23.x <= p24.x ? p24 : p23;
+  const p27 = landmarks[27] || { x: 240, y: 730 }, p28 = landmarks[28] || { x: 360, y: 730 };
+  const lA = p27.x <= p28.x ? p27 : p28, rA = p27.x <= p28.x ? p28 : p27;
 
   if (category === "top") {
-    const isTshirt = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo");
+    const isT = (style || "").toLowerCase().includes("tshirt") || (style || "").toLowerCase().includes("polo");
+    const isRShirt = (imageSrc || "").includes("real-shirt"), isRTshirt = (imageSrc || "").includes("real-tshirt");
+    const collarR = isRShirt ? 0.217 : isRTshirt ? 0.192 : 0.185;
+    const hemR = isRShirt ? 0.948 : isRTshirt ? 0.998 : isT ? 0.77 : 0.82;
+    const aspect = isRShirt ? 1.0 : isRTshirt ? 1.0 : 1.0;
+
+    const sY = (lS.y + rS.y) / 2, hY = (lH.y + rH.y) / 2;
+    const targetCollarY = sY - (isT ? 6 : 8), targetHemY = hY + (isT ? 12 : 20);
+    const targetH = Math.max(160, targetHemY - targetCollarY);
+    const sH = Math.round(targetH / Math.max(0.4, hemR - collarR)), sW = Math.round(sH * aspect);
+    const centerY = (targetCollarY - Math.round(collarR * sH)) + Math.round(sH / 2);
     const centerX = Math.round((lS.x + rS.x) / 2);
-    const sY = (lS.y + rS.y) / 2;
-    const sW = isTshirt
-      ? Math.max(180, Math.min(320, Math.round(shoulderWidth * 1.50)))
-      : Math.max(190, Math.min(340, Math.round(shoulderWidth * 1.55)));
-    const sH = isTshirt
-      ? Math.max(200, Math.min(330, Math.round(torsoHeight * 1.30)))
-      : Math.max(220, Math.min(360, Math.round(torsoHeight * 1.42)));
-    const centerY = Math.round(sY - 8 + 0.38 * sH);
     const tilt = Math.round((Math.atan2(rS.y - lS.y, rS.x - lS.x) * 180) / Math.PI);
 
     const deform: GarmentDeform = {
       leftArmAngle, rightArmAngle,
-      sleeveLength: isTshirt ? 85 : Math.max(80, Math.min(130, Math.round((torsoHeight / 210) * 100))),
+      sleeveLength: isT ? 85 : Math.max(80, Math.min(130, Math.round((torsoHeight / 210) * 100))),
       chestStretch: Math.max(85, Math.min(125, Math.round((shoulderWidth / 150) * 100))),
       legFlare: 0, legLength: 100, waistStretch: 100,
     };
-    return {
-      pose: { ...currentPose, x: centerX, y: centerY, width: sW, height: sH, rotation: tilt, deform },
-      deform,
-    };
+    return { pose: { ...currentPose, x: centerX, y: centerY, width: sW, height: sH, rotation: tilt, deform }, deform };
   }
 
   // category === "bottom"
   const isShorts = (style || "").toLowerCase().includes("short") || (style || "").toLowerCase().includes("half");
+  const isRJeans = (imageSrc || "").includes("real-jeans");
+  const waistR = isRJeans ? 0.0 : 0.186;
+  const hemR = isRJeans ? 1.0 : isShorts ? 0.556 : 0.825;
+  const aspect = isRJeans ? 0.75 : 1.0;
+
+  const hipY = (lH.y + rH.y) / 2, aY = (lA.y + rA.y) / 2, kY = hipY + legLength * 0.48;
+  const targetWaistY = hipY, targetHemY = isShorts ? kY + 12 : aY + 5;
+  const targetH = Math.max(120, targetHemY - targetWaistY);
+  const pH = Math.round(targetH / Math.max(0.3, hemR - waistR)), pW = Math.round(pH * aspect);
+  const centerY = (targetWaistY - Math.round(waistR * pH)) + Math.round(pH / 2);
   const centerX = Math.round((lH.x + rH.x) / 2);
-  const hipY = (lH.y + rH.y) / 2;
-  const hipW = Math.hypot(rH.x - lH.x, rH.y - lH.y);
-  const pW = isShorts ? Math.max(170, Math.min(270, Math.round(hipW * 2.05))) : Math.max(180, Math.min(290, Math.round(hipW * 2.15)));
-  const pH = isShorts ? Math.max(160, Math.min(240, Math.round(legLength * 0.62))) : Math.max(260, Math.min(420, Math.round(legLength * 1.10)));
-  const centerY = isShorts ? Math.round(hipY - 10 + 0.40 * pH) : Math.round(hipY - 12 + 0.45 * pH);
   const tilt = Math.round((Math.atan2(rH.y - lH.y, rH.x - lH.x) * 180) / Math.PI);
 
   const flareVal = Math.round(((stanceWidth - 100) / 100) * 35);
@@ -224,10 +231,7 @@ export function autoAlignGarmentToSkeleton(
     leftArmAngle: 0, rightArmAngle: 0, sleeveLength: 100, chestStretch: 100,
     legFlare: isShorts ? 0 : Math.max(-25, Math.min(35, flareVal)),
     legLength: isShorts ? 65 : Math.max(85, Math.min(125, Math.round((legLength / 310) * 100))),
-    waistStretch: Math.max(85, Math.min(125, Math.round((hipW / 100) * 100))),
+    waistStretch: Math.max(85, Math.min(125, Math.round((Math.hypot(rH.x - lH.x, rH.y - lH.y) / 100) * 100))),
   };
-  return {
-    pose: { ...currentPose, x: centerX, y: centerY, width: pW, height: pH, rotation: tilt, deform },
-    deform,
-  };
+  return { pose: { ...currentPose, x: centerX, y: centerY, width: pW, height: pH, rotation: tilt, deform }, deform };
 }
