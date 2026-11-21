@@ -14,20 +14,16 @@ function drawGarment(ctx: CanvasRenderingContext2D, img: HTMLImageElement, pose:
   ctx.save();
   if (splitRatio < 0.999) { ctx.beginPath(); ctx.rect(splitX, 0, 600 - splitX, 800); ctx.clip(); }
   ctx.save();
-  ctx.translate(pose.x, pose.y);
-  ctx.rotate((pose.rotation * Math.PI) / 180);
+  ctx.translate(pose.x, pose.y); ctx.rotate((pose.rotation * Math.PI) / 180);
   ctx.drawImage(img, -w / 2, -h / 2, w, h);
   if (blend) {
     const grad = ctx.createLinearGradient(-w / 2, 0, w / 2, 0);
     grad.addColorStop(0, "rgba(0,0,0,0.16)"); grad.addColorStop(0.3, "rgba(255,255,255,0.14)");
     grad.addColorStop(0.5, "rgba(255,255,255,0.20)"); grad.addColorStop(0.7, "rgba(255,255,255,0.10)");
     grad.addColorStop(1, "rgba(0,0,0,0.22)");
-    ctx.globalCompositeOperation = "source-atop";
-    ctx.fillStyle = grad;
-    ctx.fillRect(-w / 2, -h / 2, w, h);
+    ctx.globalCompositeOperation = "source-atop"; ctx.fillStyle = grad; ctx.fillRect(-w / 2, -h / 2, w, h);
   }
-  ctx.restore();
-  ctx.restore();
+  ctx.restore(); ctx.restore();
 }
 
 function drawActiveBox(ctx: CanvasRenderingContext2D, pose: Pose, scale: number) {
@@ -49,22 +45,10 @@ function drawSplitLine(ctx: CanvasRenderingContext2D, splitX: number) {
 }
 
 export function useAdminShowroomStudioCanvas(
-  canvas: RefObject<HTMLCanvasElement | null>,
-  photo: string,
-  src: string | undefined,
-  pose: Pose,
-  show: boolean,
-  anchors: { x: number; y: number }[],
-  marking: boolean,
-  splitRatio = 1,
-  blendLighting = true,
-  sizeScale = 1,
-  modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM,
-  bottomSrc?: string,
-  bottomPose?: Pose,
-  showBottom = true,
-  bottomScale = 1,
-  activeLayer: "top" | "bottom" | "model" = "top",
+  canvas: RefObject<HTMLCanvasElement | null>, photo: string, src: string | undefined, pose: Pose,
+  show: boolean, anchors: { x: number; y: number }[], marking: boolean, splitRatio = 1, blendLighting = true,
+  sizeScale = 1, modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM, bottomSrc?: string, bottomPose?: Pose,
+  showBottom = true, bottomScale = 1, activeLayer: "top" | "bottom" | "model" = "top", tuckedIn = false,
 ) {
   const [bg, setBg] = useState<{ source: string; image: HTMLImageElement } | null>(null);
   const [item, setItem] = useState<{ source: string; image: HTMLImageElement } | null>(null);
@@ -84,28 +68,24 @@ export function useAdminShowroomStudioCanvas(
 
   useEffect(() => {
     let a = true;
-    if (src) {
-      loadImage(src).then((img) => { if (a) setItem({ source: src, image: img }); }).catch(() => { if (a) setFailure({ source: src, message: t("message128") }); });
-    } else { setItem(null); }
+    if (src) { loadImage(src).then((img) => { if (a) setItem({ source: src, image: img }); }).catch(() => { if (a) setFailure({ source: src, message: t("message128") }); }); }
+    else { setItem(null); }
     return () => { a = false; };
   }, [src]);
 
   useEffect(() => {
     let a = true;
-    if (bottomSrc) {
-      loadImage(bottomSrc).then((img) => { if (a) setBottomItem({ source: bottomSrc, image: img }); }).catch(() => { if (a) setFailure({ source: bottomSrc, message: t("message128") }); });
-    } else { setBottomItem(null); }
+    if (bottomSrc) { loadImage(bottomSrc).then((img) => { if (a) setBottomItem({ source: bottomSrc, image: img }); }).catch(() => { if (a) setFailure({ source: bottomSrc, message: t("message128") }); }); }
+    else { setBottomItem(null); }
     return () => { a = false; };
   }, [bottomSrc]);
 
   useEffect(() => {
     const c = canvas.current, ctx = c?.getContext("2d");
-    if (!ctx || !c) return;
+    if (!ctx || !c || !background) { if (ctx && c) ctx.clearRect(0, 0, 600, 800); return; }
     ctx.clearRect(0, 0, 600, 800);
-    if (!background) return;
 
-    const scale = Math.min(600 / background.width, 800 / background.height);
-    const effZoom = (modelTransform.zoom || 100) / 100;
+    const scale = Math.min(600 / background.width, 800 / background.height), effZoom = (modelTransform.zoom || 100) / 100;
     const effW = background.width * scale * effZoom * ((modelTransform.width || 100) / 100);
     const effH = background.height * scale * effZoom * ((modelTransform.height || 100) / 100);
 
@@ -116,17 +96,20 @@ export function useAdminShowroomStudioCanvas(
     ctx.restore();
 
     const splitX = 600 * splitRatio;
+    const drawTop = () => {
+      if (garment && show) {
+        drawGarment(ctx, garment, pose, sizeScale, splitX, splitRatio, blendLighting);
+        if (activeLayer === "top") drawActiveBox(ctx, pose, sizeScale);
+      }
+    };
+    const drawBottom = () => {
+      if (bottomGarment && showBottom && bottomPose) {
+        drawGarment(ctx, bottomGarment, bottomPose, bottomScale, splitX, splitRatio, blendLighting);
+        if (activeLayer === "bottom") drawActiveBox(ctx, bottomPose, bottomScale);
+      }
+    };
 
-    if (bottomGarment && showBottom && bottomPose) {
-      drawGarment(ctx, bottomGarment, bottomPose, bottomScale, splitX, splitRatio, blendLighting);
-      if (activeLayer === "bottom") drawActiveBox(ctx, bottomPose, bottomScale);
-    }
-
-    if (garment && show) {
-      drawGarment(ctx, garment, pose, sizeScale, splitX, splitRatio, blendLighting);
-      if (activeLayer === "top") drawActiveBox(ctx, pose, sizeScale);
-    }
-
+    if (tuckedIn) { drawTop(); drawBottom(); } else { drawBottom(); drawTop(); }
     if (splitRatio < 0.999 && splitRatio > 0.001) drawSplitLine(ctx, splitX);
 
     if (marking) {
@@ -136,12 +119,10 @@ export function useAdminShowroomStudioCanvas(
         ctx.fillStyle = "#fff"; ctx.fillText(String(i + 1), p.x - 5, p.y + 6); ctx.fillStyle = "#1e3a8a";
       });
     }
-  }, [canvas, background, garment, bottomGarment, pose, bottomPose, show, showBottom, anchors, marking, splitRatio, blendLighting, sizeScale, bottomScale, modelTransform, activeLayer]);
+  }, [canvas, background, garment, bottomGarment, pose, bottomPose, show, showBottom, anchors, marking, splitRatio, blendLighting, sizeScale, bottomScale, modelTransform, activeLayer, tuckedIn]);
 
   return {
-    background,
-    garment,
-    bottomGarment,
+    background, garment, bottomGarment,
     renderError: failure && (failure.source === bgSource || failure.source === src || failure.source === bottomSrc) ? failure.message : "",
   };
 }

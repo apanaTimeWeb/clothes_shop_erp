@@ -15,6 +15,7 @@ interface AdminShowroomStudioTryOnControlsProps {
   hasCutout: boolean; sizeScale: number; setSizeScale: (scale: number) => void;
   splitRatio: number; setSplitRatio: (ratio: number) => void;
   blendLighting: boolean; setBlendLighting: (val: boolean) => void;
+  tuckedIn: boolean; setTuckedIn: (val: boolean) => void;
   onReset: () => void; modelTransform: ModelTransform;
   setModelTransform: React.Dispatch<React.SetStateAction<ModelTransform>>;
   onResetModel: () => void; activeTab: "top" | "bottom" | "model";
@@ -127,7 +128,7 @@ function FitButtons({ scale, setScale, label }: { scale: number; setScale: (s: n
 
 export function AdminShowroomStudioTryOnControls({
   pose, setPose, hasCutout, sizeScale, setSizeScale, splitRatio, setSplitRatio,
-  blendLighting, setBlendLighting, onReset, modelTransform, setModelTransform,
+  blendLighting, setBlendLighting, tuckedIn, setTuckedIn, onReset, modelTransform, setModelTransform,
   onResetModel, activeTab, setActiveTab, products = [], productId, onSelectProduct,
   colours = [], selectedColour = "", onSelectColour,
   bottomPose, setBottomPose, selectedBottom, onSelectBottom, bottomColour,
@@ -236,6 +237,29 @@ export function AdminShowroomStudioTryOnControls({
           </div>
         </div>
       )}
+
+      {/* Outfit Layering (Tuck Style) */}
+      <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
+        <span className="font-medium text-foreground">Tuck Style:</span>
+        <div className="flex rounded-lg border border-border bg-subtle p-0.5 text-xs">
+          <button
+            type="button" onClick={() => setTuckedIn(false)}
+            className={`rounded px-2.5 py-1 font-medium transition-all ${
+              !tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Untucked (Shirt Over)
+          </button>
+          <button
+            type="button" onClick={() => setTuckedIn(true)}
+            className={`rounded px-2.5 py-1 font-medium transition-all ${
+              tuckedIn ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            Tucked In (Pant Over)
+          </button>
+        </div>
+      </div>
 
       <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
         <label className="flex cursor-pointer items-center gap-2 text-foreground">

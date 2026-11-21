@@ -59,6 +59,7 @@ export function AdminShowroomStudioPreview({
   const [sizeScale, setSizeScale] = useState(1.0);
   const [splitRatio, setSplitRatio] = useState(1.0);
   const [blendLighting, setBlendLighting] = useState(true);
+  const [tuckedIn, setTuckedIn] = useState(false);
 
   const [bottomPose, setBottomPose] = useState<StudioPose>(() => getStudioPreset("bottom", cachedModel));
   const [selectedBottom, setSelectedBottom] = useState<StoreBottomItem>(STORE_BOTTOMS[0]);
@@ -83,7 +84,7 @@ export function AdminShowroomStudioPreview({
   const { background, garment, bottomGarment, renderError } = useAdminShowroomStudioCanvas(
     canvas, currentBg, effectiveSrc, pose, show, anchors, marking,
     splitRatio, blendLighting, sizeScale, modelTransform,
-    bottomCutout.src, bottomPose, showBottom, bottomScale, activeTab,
+    bottomCutout.src, bottomPose, showBottom, bottomScale, activeTab, tuckedIn,
   );
 
   function position(e: React.PointerEvent<HTMLCanvasElement>): Point {
@@ -154,14 +155,14 @@ export function AdminShowroomStudioPreview({
 
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-2">
-          <span className="font-medium text-foreground">Top Garment:</span>
+          <span className="font-medium text-foreground">Top:</span>
           <span className="rounded bg-subtle px-2 py-0.5 text-foreground">{productName} ({colour})</span>
           <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${src ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : isRealPhoto ? "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400" : "bg-blue-500/10 text-blue-600 dark:text-blue-400"}`}>
             {src ? "Staff Cutout" : isRealPhoto ? "Real Photo" : "Auto Cutout"}
           </span>
           {showBottom && (
             <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
-              👖 {selectedBottom.name} ({bottomColour})
+              👖 {selectedBottom.name} ({bottomColour}) • {tuckedIn ? "Tucked In" : "Untucked"}
             </span>
           )}
         </div>
@@ -266,6 +267,7 @@ export function AdminShowroomStudioPreview({
             sizeScale={sizeScale} setSizeScale={setSizeScale}
             splitRatio={splitRatio} setSplitRatio={setSplitRatio}
             blendLighting={blendLighting} setBlendLighting={setBlendLighting}
+            tuckedIn={tuckedIn} setTuckedIn={setTuckedIn}
             onReset={() => applyPreset(category)}
             modelTransform={modelTransform} setModelTransform={handleModelTransform}
             onResetModel={() => handleModelTransform(DEFAULT_MODEL_TRANSFORM)}
