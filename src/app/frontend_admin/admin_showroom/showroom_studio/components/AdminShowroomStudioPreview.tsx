@@ -22,6 +22,10 @@ import {
 
 type Point = { x: number; y: number };
 
+let cachedModel = "male-photo";
+let cachedPhoto = "";
+let cachedModelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM;
+
 interface AdminShowroomStudioPreviewProps {
   src?: string;
   autoCutoutSrc?: string;
@@ -53,14 +57,16 @@ export function AdminShowroomStudioPreview({
   const canvas = useRef<HTMLCanvasElement>(null);
   const drag = useRef<Point | null>(null);
 
-  const [selectedModel, setSelectedModel] = useState<string>("mannequin");
-  const [photo, setPhoto] = useState<string>("");
+  const [selectedModel, setSelectedModel] = useState<string>(() => cachedModel);
+  const [photo, setPhoto] = useState<string>(() => cachedPhoto);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   const [category, setCategory] = useState<GarmentCategory>(productCategory);
-  const [pose, setPose] = useState<StudioPose>(getStudioPreset(productCategory, "mannequin"));
-  const [modelTransform, setModelTransform] = useState<ModelTransform>(DEFAULT_MODEL_TRANSFORM);
+  const [pose, setPose] = useState<StudioPose>(() =>
+    cachedPhoto ? (PHOTO_PRESETS[productCategory] ?? PHOTO_PRESETS.top) : getStudioPreset(productCategory, cachedModel)
+  );
+  const [modelTransform, setModelTransform] = useState<ModelTransform>(() => cachedModelTransform);
   const [activeTab, setActiveTab] = useState<"garment" | "model">("garment");
   const [sizeScale, setSizeScale] = useState(1.0);
   const [splitRatio, setSplitRatio] = useState(1.0);
@@ -72,10 +78,10 @@ export function AdminShowroomStudioPreview({
 
   useEffect(() => {
     setCategory(productCategory);
-    setPose(getStudioPreset(productCategory, selectedModel));
+    setPose(photo ? (PHOTO_PRESETS[productCategory] ?? PHOTO_PRESETS.top) : getStudioPreset(productCategory, selectedModel));
     setAnchors([]);
     setMarking(false);
-  }, [productCategory, selectedModel]);
+  }, [productCategory]);
 
   const effectiveSrc = src || autoCutoutSrc;
   const currentBg = photo || STUDIO_MODELS.find((m) => m.id === selectedModel)?.path || "/images/style-mannequin.svg";
@@ -123,6 +129,14 @@ export function AdminShowroomStudioPreview({
     setAnchors([]);
   }
 
+  const handleModelTransform: React.Dispatch<React.SetStateAction<ModelTransform>> = (val) => {
+    setModelTransform((prev) => {
+      const next = typeof val === "function" ? val(prev) : val;
+      cachedModelTransform = next;
+      return next;
+    });
+  };
+
   return (
     <section className="space-y-5 rounded-2xl border border-border bg-card/60 p-6 shadow-sm">
       <div className="space-y-1">
@@ -132,10 +146,10 @@ export function AdminShowroomStudioPreview({
 
       <AdminShowroomStudioModelSelect
         selectedModel={selectedModel}
-        onSelectModel={(id) => { setSelectedModel(id); applyPreset(category, id); setModelTransform(DEFAULT_MODEL_TRANSFORM); }}
+        onSelectModel={(id) => { cachedModel = id; setSelectedModel(id); applyPreset(category, id); handleModelTransform(DEFAULT_MODEL_TRANSFORM); }}
         photo={photo}
-        onPhotoLoaded={(d) => { setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); setModelTransform(DEFAULT_MODEL_TRANSFORM); setAnchors([]); setMarking(false); }}
-        onClearPhoto={() => { setPhoto(""); applyPreset(category, selectedModel); setModelTransform(DEFAULT_MODEL_TRANSFORM); }}
+        onPhotoLoaded={(d) => { cachedPhoto = d; setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); handleModelTransform(DEFAULT_MODEL_TRANSFORM); setAnchors([]); setMarking(false); }}
+        onClearPhoto={() => { cachedPhoto = ""; setPhoto(""); applyPreset(category, selectedModel); handleModelTransform(DEFAULT_MODEL_TRANSFORM); }}
         busy={busy}
         setBusy={setBusy}
         onError={setError}
@@ -144,67 +158,35 @@ export function AdminShowroomStudioPreview({
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-2">
           <span className="font-medium text-foreground">Selected Garment:</span>
-          <span className="rounded bg-subtle px-2 py-0.5 text-foreground">
-            {productName} ({colour})
+          <span className="rounded bg-subtle px-2 py-0.5 text-foreground">{productName} ({colour})</span>
+          <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${src ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" : isRealPhoto ? "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400" : "bg-blue-500/10 text-blue-600 dark:text-blue-400"}`}>
+            {src ? "Staff Cutout Active" : isRealPhoto ? "Real Photo Cutout Active" : "Auto Cutout Active"}
           </span>
-          {src ? (
-            <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-emerald-600 dark:text-emerald-400">
-              Staff Cutout Active
-            </span>
-          ) : isRealPhoto ? (
-            <span className="rounded-full bg-indigo-500/10 px-2 py-0.5 font-medium text-indigo-600 dark:text-indigo-400">
-              Real Photo Cutout Active
-            </span>
-          ) : (
-            <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-blue-600 dark:text-blue-400">
-              Auto Transparent Cutout Active
-            </span>
-          )}
         </div>
         <label className="flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={show}
-            onChange={(e) => setShow(e.target.checked)}
-            className="rounded border-border accent-primary"
-          />
+          <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} className="rounded border-border accent-primary" />
           <span className="text-foreground">{t("message078")}</span>
         </label>
       </div>
 
       {(error || renderError) && (
-        <p role="alert" className="text-sm font-medium text-danger">
-          {error || renderError}
-        </p>
+        <p role="alert" className="text-sm font-medium text-danger">{error || renderError}</p>
       )}
 
       <div className="flex flex-wrap items-center gap-3">
         <label className="flex items-center gap-2 text-xs text-foreground">
           <span>{t("message071")}:</span>
-          <select
-            value={category}
-            onChange={(e) => applyPreset(e.target.value as GarmentCategory)}
-            className="rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-foreground"
-          >
+          <select value={category} onChange={(e) => applyPreset(e.target.value as GarmentCategory)} className="rounded-lg border border-border bg-background px-2.5 py-1 text-xs text-foreground">
             <option value="top">{t("message072")}</option>
             <option value="bottom">{t("message073")}</option>
             <option value="dress">Full dress / Gown</option>
             <option value="accessory">{t("message074")}</option>
           </select>
         </label>
-        <Button
-          disabled={!effectiveSrc || !background}
-          onClick={() => {
-            setMarking(!marking);
-            setAnchors([]);
-            setShow(true);
-          }}
-        >
+        <Button disabled={!effectiveSrc || !background} onClick={() => { setMarking(!marking); setAnchors([]); setShow(true); }}>
           {marking ? t("message075") : t("message076")}
         </Button>
-        <Button onClick={() => applyPreset(category)}>
-          {t("message077")}
-        </Button>
+        <Button onClick={() => applyPreset(category)}>{t("message077")}</Button>
       </div>
 
       {marking && (
@@ -241,17 +223,9 @@ export function AdminShowroomStudioPreview({
               if (!drag.current) return;
               const p = position(e), old = drag.current;
               if (activeTab === "model") {
-                setModelTransform((v) => ({
-                  ...v,
-                  x: Math.max(-300, Math.min(300, v.x + p.x - old.x)),
-                  y: Math.max(-400, Math.min(400, v.y + p.y - old.y)),
-                }));
+                handleModelTransform((v) => ({ ...v, x: Math.max(-300, Math.min(300, v.x + p.x - old.x)), y: Math.max(-400, Math.min(400, v.y + p.y - old.y)) }));
               } else {
-                setPose((v) => ({
-                  ...v,
-                  x: Math.max(0, Math.min(600, v.x + p.x - old.x)),
-                  y: Math.max(0, Math.min(800, v.y + p.y - old.y)),
-                }));
+                setPose((v) => ({ ...v, x: Math.max(0, Math.min(600, v.x + p.x - old.x)), y: Math.max(0, Math.min(800, v.y + p.y - old.y)) }));
               }
               drag.current = p;
             }}
@@ -259,16 +233,7 @@ export function AdminShowroomStudioPreview({
             onPointerCancel={() => { drag.current = null; }}
           />
           <div className="mt-3 flex w-full max-w-md justify-between">
-            <Button
-              disabled={!background || !garment || !show || marking || busy}
-              onClick={() => {
-                try {
-                  if (canvas.current) downloadImage(canvas.current);
-                } catch {
-                  setError(t("message095"));
-                }
-              }}
-            >
+            <Button disabled={!background || !garment || !show || marking || busy} onClick={() => { try { if (canvas.current) downloadImage(canvas.current); } catch { setError(t("message095")); } }}>
               {t("message096")}
             </Button>
           </div>
@@ -281,8 +246,8 @@ export function AdminShowroomStudioPreview({
             splitRatio={splitRatio} setSplitRatio={setSplitRatio}
             blendLighting={blendLighting} setBlendLighting={setBlendLighting}
             onReset={() => applyPreset(category)}
-            modelTransform={modelTransform} setModelTransform={setModelTransform}
-            onResetModel={() => setModelTransform(DEFAULT_MODEL_TRANSFORM)}
+            modelTransform={modelTransform} setModelTransform={handleModelTransform}
+            onResetModel={() => handleModelTransform(DEFAULT_MODEL_TRANSFORM)}
             activeTab={activeTab} setActiveTab={setActiveTab}
             products={products} productId={productId} onSelectProduct={onSelectProduct}
             colours={colours} selectedColour={colour} onSelectColour={onSelectColour}

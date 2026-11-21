@@ -104,14 +104,14 @@ export function AdminShowroomStudioMain() {
       </div>
       <AdminShowroomStudioAngles
         canEdit={canEdit}
-        key={"angles-" + product.id + selected}
+        key={"angles-" + product.id}
         images={images.filter((i) => i.colour === selected || !i.colour)}
         order={settings.order}
         onOrder={(order) => save(product.id, { ...settings, order })}
       />
       {canEdit && (
         <AdminShowroomStudioAssets
-          key={"assets-" + product.id + selected}
+          key={"assets-" + product.id}
           colour={selected}
           src={settings.overlays[selected]}
           onSave={(src) =>
@@ -123,7 +123,7 @@ export function AdminShowroomStudioMain() {
         />
       )}
       <AdminShowroomStudioPreview
-        key={"preview-" + product.id + selected}
+        key="showroom-studio-preview"
         src={settings.overlays[selected]}
         autoCutoutSrc={cutoutSrc}
         isRealPhoto={isRealPhoto}
