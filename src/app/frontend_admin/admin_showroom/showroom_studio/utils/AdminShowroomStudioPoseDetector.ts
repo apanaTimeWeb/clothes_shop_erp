@@ -210,19 +210,20 @@ export function autoAlignGarmentToSkeleton(
   }
 
   // category === "bottom"
+  const isShorts = (style || "").toLowerCase().includes("short") || (style || "").toLowerCase().includes("half");
   const centerX = Math.round((lH.x + rH.x) / 2);
   const hipY = (lH.y + rH.y) / 2;
-  const centerY = Math.round(hipY + Math.max(100, legLength * 0.44));
   const hipW = Math.hypot(rH.x - lH.x, rH.y - lH.y);
-  const pW = Math.max(180, Math.min(280, Math.round(hipW * 2.15)));
-  const pH = Math.max(240, Math.min(420, Math.round(legLength * 1.06)));
+  const pW = isShorts ? Math.max(170, Math.min(270, Math.round(hipW * 2.05))) : Math.max(180, Math.min(290, Math.round(hipW * 2.15)));
+  const pH = isShorts ? Math.max(160, Math.min(240, Math.round(legLength * 0.62))) : Math.max(260, Math.min(420, Math.round(legLength * 1.10)));
+  const centerY = isShorts ? Math.round(hipY - 10 + 0.40 * pH) : Math.round(hipY - 12 + 0.45 * pH);
   const tilt = Math.round((Math.atan2(rH.y - lH.y, rH.x - lH.x) * 180) / Math.PI);
 
   const flareVal = Math.round(((stanceWidth - 100) / 100) * 35);
   const deform: GarmentDeform = {
     leftArmAngle: 0, rightArmAngle: 0, sleeveLength: 100, chestStretch: 100,
-    legFlare: Math.max(-25, Math.min(35, flareVal)),
-    legLength: Math.max(85, Math.min(125, Math.round((legLength / 310) * 100))),
+    legFlare: isShorts ? 0 : Math.max(-25, Math.min(35, flareVal)),
+    legLength: isShorts ? 65 : Math.max(85, Math.min(125, Math.round((legLength / 310) * 100))),
     waistStretch: Math.max(85, Math.min(125, Math.round((hipW / 100) * 100))),
   };
   return {

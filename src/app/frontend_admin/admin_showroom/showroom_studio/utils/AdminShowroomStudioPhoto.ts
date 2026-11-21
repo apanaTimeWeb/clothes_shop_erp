@@ -192,8 +192,12 @@ export function generateBottomCutoutSvg(style: BottomStyle, colour: string, defo
 export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: string, customOverlay?: string, deform?: GarmentDeform): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
   const normColour = colour.trim().toLowerCase(), normStyle = (style || "jeans").toLowerCase();
-  const hasDeform = deform && (deform.legFlare !== 0 || deform.legLength !== 100 || deform.waistStretch !== 100);
-  if (!hasDeform && (normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
+  const hasManualDeform = deform && (
+    Math.abs(deform.legFlare) > 15 ||
+    Math.abs(deform.legLength - 100) > 15 ||
+    Math.abs(deform.waistStretch - 100) > 15
+  );
+  if (!hasManualDeform && (normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
     return { src: "/images/real-jeans-blue.png", isRealPhoto: true };
   }
   const s: BottomStyle = normStyle.includes("short") || normStyle.includes("half") ? "shorts" : normStyle.includes("cargo") ? "cargo" : normStyle.includes("trouser") || normStyle.includes("chino") ? "trouser" : "jeans";
