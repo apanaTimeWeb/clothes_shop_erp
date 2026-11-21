@@ -48,6 +48,8 @@ declare module "lucide-react" {
   export const ShoppingCart: LucideIcon;
   export const SlidersHorizontal: LucideIcon;
   export const Sparkles: LucideIcon;
+  export const Sun: LucideIcon;
+  export const Moon: LucideIcon;
   export const Tag: LucideIcon;
   export const Users: LucideIcon;
   export const X: LucideIcon;

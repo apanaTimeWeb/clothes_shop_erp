@@ -1,6 +1,9 @@
 @import "tailwindcss" source(none);
 @source './';
 @source '../components';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --primary: #2563eb;
   --primary-hover: #1d4ed8;
@@ -26,6 +29,33 @@
   --shadow-card: 0 2px 5px rgba(20, 40, 60, 0.025);
   --shadow-dialog: 0 18px 70px rgba(20, 40, 60, 0.22);
 }
+
+.dark {
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --bg-page: #0b0f17;
+  --bg-card: #131a26;
+  --bg-subtle: #1c2536;
+  --bg-sidebar: #0f1622;
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-on-primary: #ffffff;
+  --border: #232e42;
+  --focus: #3b82f6;
+  --success: #34d399;
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --warning: #fbbf24;
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --danger: #f87171;
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --accent: #6ee7b7;
+  --accent-text: #a7f3d0;
+  --muted-inverse: #64748b;
+  --backdrop: rgba(0, 0, 0, 0.7);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-dialog: 0 20px 60px rgba(0, 0, 0, 0.55);
+}
+
 @theme inline {
   --color-brand: var(--primary);
   --color-brand-hover: var(--primary-hover);
@@ -35,6 +65,8 @@
   --color-sidebar: var(--bg-sidebar);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--text-on-primary);
+  --color-foreground: var(--text-primary);
+  --color-background: var(--bg-page);
   --color-secondary: var(--text-secondary);
   --color-on-primary: var(--text-on-primary);
   --color-border: var(--border);

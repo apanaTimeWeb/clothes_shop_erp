@@ -23,6 +23,7 @@ import { STORAGE_KEY } from "@/app/frontend_admin/admin_workspace/workspace_navi
 import type { AdminWorkspaceNavigationMode } from "@/app/frontend_admin/admin_workspace/workspace_navigation/types/AdminWorkspaceNavigationTypes";
 import { Button } from "@/components/ui/Button";
 import { Confirm } from "@/components/ui/Confirm";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 const nav = [
   ["overview", LayoutDashboard],
   ["showroom", Shirt],
@@ -139,22 +140,25 @@ export function AdminWorkspaceNavigationShell({
                 {t("note")}
               </span>
             </div>
-            <label className="flex items-center gap-2">
-              <span className="sr-only">{t("mode")}</span>
-              <select
-                value={mode}
-                onChange={(e) => {
-                  if (requestDiscard())
-                    setMode(e.target.value as AdminWorkspaceNavigationMode);
-                }}
-              >
-                {(["Staff", "Customer", "Admin"] as const).map((m) => (
-                  <option key={m} value={m}>
-                    {t(m)}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <label className="flex items-center gap-2">
+                <span className="sr-only">{t("mode")}</span>
+                <select
+                  value={mode}
+                  onChange={(e) => {
+                    if (requestDiscard())
+                      setMode(e.target.value as AdminWorkspaceNavigationMode);
+                  }}
+                >
+                  {(["Staff", "Customer", "Admin"] as const).map((m) => (
+                    <option key={m} value={m}>
+                      {t(m)}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
           </header>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 md:px-8">
             <div className="flex items-center gap-3">
