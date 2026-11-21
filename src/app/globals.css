@@ -2,8 +2,8 @@
 @source './';
 @source '../components';
 :root {
-  --primary: #263e50;
-  --primary-hover: #1b2c39;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
   --bg-page: #f7f8fa;
   --bg-card: #fff;
   --bg-subtle: #edf1f4;
@@ -12,7 +12,7 @@
   --text-secondary: #62717e;
   --text-on-primary: #fff;
   --border: #e1e6ea;
-  --focus: #23766c;
+  --focus: #2563eb;
   --success: #146349;
   --success-bg: #e2f2e9;
   --warning: #7c5415;
@@ -33,7 +33,8 @@
   --color-card: var(--bg-card);
   --color-subtle: var(--bg-subtle);
   --color-sidebar: var(--bg-sidebar);
-  --color-primary: var(--text-primary);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--text-on-primary);
   --color-secondary: var(--text-secondary);
   --color-on-primary: var(--text-on-primary);
   --color-border: var(--border);
@@ -106,6 +107,14 @@ h2,
 h3,
 p {
   overflow-wrap: anywhere;
+}
+button.bg-brand,
+button.bg-primary,
+a.bg-brand,
+a.bg-primary,
+.bg-brand,
+.bg-primary {
+  color: var(--text-on-primary);
 }
 @media (prefers-reduced-motion: reduce) {
   *,

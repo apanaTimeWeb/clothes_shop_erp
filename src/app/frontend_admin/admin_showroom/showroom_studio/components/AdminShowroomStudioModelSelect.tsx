@@ -64,7 +64,7 @@ export function AdminShowroomStudioModelSelect({
             }}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
               !photo && selectedModel === m.id
-                ? "bg-primary text-primary-foreground shadow-sm"
+                ? "border-2 border-blue-600 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200 font-semibold shadow-sm"
                 : "border border-border bg-background text-foreground hover:bg-muted"
             }`}
           >
