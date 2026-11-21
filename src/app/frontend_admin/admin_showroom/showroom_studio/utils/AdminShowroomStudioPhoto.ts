@@ -111,6 +111,35 @@ export interface StoreGarmentItem {
   colours: string[];
 }
 
+export interface GarmentDeform {
+  leftArmAngle: number;
+  rightArmAngle: number;
+  sleeveLength: number;
+  chestStretch: number;
+  legFlare: number;
+  legLength: number;
+  waistStretch: number;
+}
+
+export const DEFAULT_DEFORM: GarmentDeform = {
+  leftArmAngle: 0,
+  rightArmAngle: 0,
+  sleeveLength: 100,
+  chestStretch: 100,
+  legFlare: 0,
+  legLength: 100,
+  waistStretch: 100,
+};
+
+export interface StudioPose {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  rotation: number;
+  deform?: GarmentDeform;
+}
+
 export interface WornGarmentItem {
   instanceId: string;
   catalogId: string;
@@ -121,6 +150,7 @@ export interface WornGarmentItem {
   src: string;
   pose: StudioPose;
   scale: number;
+  deform?: GarmentDeform;
 }
 
 export const STORE_CATALOG_ITEMS: StoreGarmentItem[] = [
@@ -140,17 +170,18 @@ export const STORE_BOTTOMS: StoreBottomItem[] = STORE_CATALOG_ITEMS
   .filter((i) => i.category === "bottom")
   .map((i) => ({ id: i.id, name: i.name, style: i.style as BottomStyle, defaultColour: i.defaultColour, colours: i.colours }));
 
-export function generateBottomCutoutSvg(style: BottomStyle, colour: string): string {
+export function generateBottomCutoutSvg(style: BottomStyle, colour: string, deform?: GarmentDeform): string {
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
-  const isShorts = style === "shorts";
-  const bottomY = isShorts ? 200 : 297;
-  const crotchY = isShorts ? 148 : 164;
-  const mainPath = `M131 67 L229 67 L236 150 L228 ${bottomY} L184 ${bottomY} L178 ${crotchY} L171 ${bottomY} L126 ${bottomY} L122 150Z`;
-  let details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.38" stroke-width="2"><path d="M133 83 H227 M178 86 V150 M128 ${bottomY - 12} H169 M185 ${bottomY - 12} H228"/></g>`;
+  const isShorts = style === "shorts", def = deform ?? DEFAULT_DEFORM;
+  const legLen = (def.legLength || 100) / 100, waistOff = ((def.waistStretch || 100) - 100) * 0.35, flare = (def.legFlare || 0) * 0.5;
+  const bottomY = Math.round((isShorts ? 200 : 297) * legLen), crotchY = isShorts ? 148 : 164;
+  const wL = 131 - waistOff, wR = 229 + waistOff, rOut = 228 + flare, rIn = 184 + flare * 0.25, lIn = 171 - flare * 0.25, lOut = 126 - flare;
+  const mainPath = `M${wL} 67 L${wR} 67 L236 150 L${rOut} ${bottomY} L${rIn} ${bottomY} L178 ${crotchY} L${lIn} ${bottomY} L${lOut} ${bottomY} L122 150Z`;
+  let details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.38" stroke-width="2"><path d="M${wL + 2} 83 H${wR - 2} M178 86 V150 M${lOut + 2} ${bottomY - 12} H${lIn - 2} M${rIn + 2} ${bottomY - 12} H${rOut - 2}"/></g>`;
   if (style === "cargo") {
     details += `<rect x="114" y="145" width="16" height="34" rx="3" fill="url(#cloth)" stroke="${stroke}" stroke-width="1.5"/><rect x="230" y="145" width="16" height="34" rx="3" fill="url(#cloth)" stroke="${stroke}" stroke-width="1.5"/><path d="M114 153 H130 M230 153 H246" stroke="${stroke}" stroke-width="1.5"/>`;
   } else if (style === "trouser") {
-    details += `<line x1="152" y1="88" x2="150" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/><line x1="208" y1="88" x2="210" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/>`;
+    details += `<line x1="152" y1="88" x2="${(lOut + lIn) / 2}" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/><line x1="208" y1="88" x2="${(rOut + rIn) / 2}" y2="${bottomY - 2}" stroke="${stroke}" stroke-width="1.5" stroke-opacity="0.4"/>`;
   } else if (style === "jeans") {
     details += `<path d="M132 108 Q150 118 168 83 M228 108 Q210 118 192 83" fill="none" stroke="#eab308" stroke-width="1.5" stroke-opacity="0.65"/><circle cx="134" cy="106" r="2" fill="#ca8a04"/><circle cx="226" cy="106" r="2" fill="#ca8a04"/>`;
   }
@@ -158,88 +189,74 @@ export function generateBottomCutoutSvg(style: BottomStyle, colour: string): str
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: string, customOverlay?: string): { src: string; isRealPhoto: boolean } {
+export function resolveBottomCutoutSrc(style: BottomStyle | string, colour: string, customOverlay?: string, deform?: GarmentDeform): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
-  const normColour = colour.trim().toLowerCase();
-  const normStyle = (style || "jeans").toLowerCase();
-  if ((normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
+  const normColour = colour.trim().toLowerCase(), normStyle = (style || "jeans").toLowerCase();
+  const hasDeform = deform && (deform.legFlare !== 0 || deform.legLength !== 100 || deform.waistStretch !== 100);
+  if (!hasDeform && (normStyle.includes("jean") || normStyle.includes("denim")) && (normColour.includes("blue") || normColour.includes("navy") || normColour.includes("dark"))) {
     return { src: "/images/real-jeans-blue.png", isRealPhoto: true };
   }
   const s: BottomStyle = normStyle.includes("short") || normStyle.includes("half") ? "shorts" : normStyle.includes("cargo") ? "cargo" : normStyle.includes("trouser") || normStyle.includes("chino") ? "trouser" : "jeans";
-  return { src: generateBottomCutoutSvg(s, colour), isRealPhoto: false };
+  return { src: generateBottomCutoutSvg(s, colour, deform), isRealPhoto: false };
 }
 
-export function generateAutoCutoutSvg(category: GarmentCategory, colour: string): string {
-  if (category === "bottom") return generateBottomCutoutSvg("trouser", colour);
+export function generateAutoCutoutSvg(category: GarmentCategory, colour: string, deform?: GarmentDeform): string {
+  if (category === "bottom") return generateBottomCutoutSvg("trouser", colour, deform);
   const { primary, secondary, stroke } = getGarmentColorPalette(colour);
-  let mainPath = "";
-  let details = "";
+  const def = deform ?? DEFAULT_DEFORM, cOff = ((def.chestStretch || 100) - 100) * 0.4, sLen = (def.sleeveLength || 100) / 100;
+  const lDeg = (def.leftArmAngle || 0) * (Math.PI / 180), rDeg = (def.rightArmAngle || 0) * (Math.PI / 180);
+  const lHandX = Math.round(82 - Math.sin(lDeg) * 32 * sLen), lHandY = Math.round(143 + Math.cos(lDeg) * 32 * sLen);
+  const rHandX = Math.round(278 + Math.sin(rDeg) * 32 * sLen), rHandY = Math.round(143 + Math.cos(rDeg) * 32 * sLen);
+
+  let mainPath = "", details = "";
   if (category === "dress") {
-    mainPath = "M150 67 Q180 83 210 67 L237 113 L213 128 L204 108 L200 153 L249 281 Q180 307 111 281 L160 153 L156 108 L147 128 L123 113Z";
+    mainPath = `M${150 - cOff} 67 Q180 83 ${210 + cOff} 67 L237 113 L213 128 L204 108 L200 153 L${249 + cOff} 281 Q180 307 ${111 - cOff} 281 L160 153 L156 108 L147 128 L123 113Z`;
     details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M159 153 Q180 162 201 153 M139 268 Q180 283 222 268"/></g>`;
   } else if (category === "accessory") {
     mainPath = "M131 100 L171 100 L171 209 Q172 226 146 239 L111 250 Q85 258 78 238 Q73 220 95 211 L131 194Z M194 83 L234 83 L234 192 Q235 209 209 222 L174 233 Q148 241 141 221 Q136 203 158 194 L194 177Z";
     details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M131 111 H171 M194 94 H234"/></g>`;
   } else {
-    mainPath = "M119 83 L155 63 Q180 82 205 63 L241 83 L278 143 L239 165 L226 140 L230 289 Q180 301 130 289 L134 140 L121 165 L82 143Z";
-    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M138 279 Q180 288 222 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
+    mainPath = `M119 83 L155 63 Q180 82 205 63 L241 83 L${rHandX} ${rHandY} L239 165 L${226 + cOff} 140 L${230 + cOff} 289 Q180 301 ${130 - cOff} 289 L${134 - cOff} 140 L121 165 L${lHandX} ${lHandY}Z`;
+    details = `<g fill="none" stroke="${stroke}" stroke-opacity="0.35" stroke-width="2"><path d="M155 63 L180 105 L205 63 M180 105 V170 M${138 - cOff} 279 Q180 288 ${222 + cOff} 279"/></g><circle cx="180" cy="115" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="135" r="2.5" fill="${stroke}" opacity="0.6"/><circle cx="180" cy="155" r="2.5" fill="${stroke}" opacity="0.6"/>`;
   }
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360"><defs><linearGradient id="cloth" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="${primary}"/><stop offset="100%" stop-color="${secondary}"/></linearGradient><linearGradient id="curv" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#000" stop-opacity="0.18"/><stop offset="25%" stop-color="#fff" stop-opacity="0.14"/><stop offset="50%" stop-color="#fff" stop-opacity="0.22"/><stop offset="75%" stop-color="#fff" stop-opacity="0.12"/><stop offset="100%" stop-color="#000" stop-opacity="0.22"/></linearGradient><filter id="shadow"><feDropShadow dx="0" dy="5" stdDeviation="5" flood-color="#0f172a" flood-opacity="0.35"/></filter></defs><path d="${mainPath}" fill="url(#cloth)" stroke="${stroke}" stroke-width="2" filter="url(#shadow)"/><path d="${mainPath}" fill="url(#curv)"/><g>${details}</g></svg>`;
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
 export function resolveGarmentCutoutSrc(
-  categoryId: string,
-  colour: string,
-  productName?: string,
-  customOverlay?: string,
+  categoryId: string, colour: string, productName?: string, customOverlay?: string, deform?: GarmentDeform,
 ): { src: string; isRealPhoto: boolean } {
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
-  const normColour = colour.trim().toLowerCase();
-  const category = detectGarmentCategory(categoryId);
-
-  if (category === "top" && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
+  const normColour = colour.trim().toLowerCase(), category = detectGarmentCategory(categoryId);
+  const hasDeform = deform && (deform.leftArmAngle !== 0 || deform.rightArmAngle !== 0 || deform.sleeveLength !== 100 || deform.chestStretch !== 100);
+  if (!hasDeform && category === "top" && (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))) {
     return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
   }
-  if (category === "top" && (normColour.includes("blue") || normColour.includes("navy"))) {
+  if (!hasDeform && category === "top" && (normColour.includes("blue") || normColour.includes("navy"))) {
     return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
   }
-  return { src: generateAutoCutoutSvg(category, colour), isRealPhoto: false };
+  return { src: generateAutoCutoutSvg(category, colour, deform), isRealPhoto: false };
 }
 
 export function resolveGarmentItemCutoutSrc(
-  category: "top" | "bottom",
-  style: string,
-  colour: string,
-  name?: string,
-  customOverlay?: string,
+  category: "top" | "bottom", style: string, colour: string, name?: string, customOverlay?: string, deform?: GarmentDeform,
 ): { src: string; isRealPhoto: boolean } {
-  if (category === "bottom") {
-    return resolveBottomCutoutSrc(style, colour, customOverlay);
-  }
-  return resolveGarmentCutoutSrc("top", colour, name, customOverlay);
-}
-
-export interface StudioPose {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  rotation: number;
+  if (category === "bottom") return resolveBottomCutoutSrc(style, colour, customOverlay, deform);
+  return resolveGarmentCutoutSrc("top", colour, name, customOverlay, deform);
 }
 
 export const PRESETS: Record<GarmentCategory, StudioPose> = {
-  top: { x: 300, y: 310, width: 250, height: 280, rotation: 0 },
-  bottom: { x: 300, y: 550, width: 220, height: 340, rotation: 0 },
-  dress: { x: 300, y: 400, width: 270, height: 460, rotation: 0 },
-  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0 },
+  top: { x: 300, y: 310, width: 250, height: 280, rotation: 0, deform: DEFAULT_DEFORM },
+  bottom: { x: 300, y: 550, width: 220, height: 340, rotation: 0, deform: DEFAULT_DEFORM },
+  dress: { x: 300, y: 400, width: 270, height: 460, rotation: 0, deform: DEFAULT_DEFORM },
+  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0, deform: DEFAULT_DEFORM },
 };
 
 export const PHOTO_PRESETS: Record<GarmentCategory, StudioPose> = {
-  top: { x: 300, y: 310, width: 240, height: 270, rotation: 0 },
-  bottom: { x: 300, y: 550, width: 210, height: 340, rotation: 0 },
-  dress: { x: 300, y: 410, width: 260, height: 450, rotation: 0 },
-  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0 },
+  top: { x: 300, y: 310, width: 240, height: 270, rotation: 0, deform: DEFAULT_DEFORM },
+  bottom: { x: 300, y: 550, width: 210, height: 340, rotation: 0, deform: DEFAULT_DEFORM },
+  dress: { x: 300, y: 410, width: 260, height: 450, rotation: 0, deform: DEFAULT_DEFORM },
+  accessory: { x: 300, y: 140, width: 160, height: 90, rotation: 0, deform: DEFAULT_DEFORM },
 };
 
 export function getStudioPreset(cat: GarmentCategory, model: string): StudioPose {

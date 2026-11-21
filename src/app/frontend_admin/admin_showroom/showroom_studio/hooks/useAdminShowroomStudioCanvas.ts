@@ -10,6 +10,10 @@ import {
   DEFAULT_MODEL_TRANSFORM,
   type ModelTransform,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
+import {
+  drawSkeleton,
+  type DetectedSkeleton,
+} from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
 
 type Pose = StudioPose;
 
@@ -30,11 +34,18 @@ function drawGarment(ctx: CanvasRenderingContext2D, img: HTMLImageElement, pose:
   ctx.restore(); ctx.restore();
 }
 
-function drawActiveBox(ctx: CanvasRenderingContext2D, pose: Pose, scale: number) {
+function drawActiveBox(ctx: CanvasRenderingContext2D, pose: Pose, scale: number, isBottom = false) {
   const w = pose.width * scale, h = pose.height * scale;
   ctx.save(); ctx.translate(pose.x, pose.y); ctx.rotate((pose.rotation * Math.PI) / 180);
-  ctx.strokeStyle = "rgba(59, 130, 246, 0.85)"; ctx.lineWidth = 1.75; ctx.setLineDash([5, 4]);
-  ctx.strokeRect(-w / 2 - 3, -h / 2 - 3, w + 6, h + 6); ctx.restore();
+  ctx.strokeStyle = "rgba(37, 99, 235, 0.85)"; ctx.lineWidth = 1.75; ctx.setLineDash([5, 4]);
+  ctx.strokeRect(-w / 2 - 3, -h / 2 - 3, w + 6, h + 6);
+  // Joint / Stretch Handle Dots
+  ctx.setLineDash([]); ctx.fillStyle = "#2563eb"; ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 2;
+  const handles = isBottom
+    ? [{ x: 0, y: -h / 2 }, { x: -w * 0.35, y: h / 2 }, { x: w * 0.35, y: h / 2 }] // Waist, Left Cuff, Right Cuff
+    : [{ x: -w * 0.42, y: -h * 0.1 }, { x: w * 0.42, y: -h * 0.1 }, { x: 0, y: -h * 0.4 }]; // Left Arm, Right Arm, Collar
+  handles.forEach((p) => { ctx.beginPath(); ctx.arc(p.x, p.y, 5.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); });
+  ctx.restore();
 }
 
 function drawSplitLine(ctx: CanvasRenderingContext2D, splitX: number) {
@@ -60,6 +71,8 @@ export function useAdminShowroomStudioCanvas(
   modelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM,
   activeInstanceId = "",
   tuckedIn = false,
+  skeleton: DetectedSkeleton | null = null,
+  showSkeleton = false,
 ) {
   const [bg, setBg] = useState<{ source: string; image: HTMLImageElement } | null>(null);
   const [images, setImages] = useState<Record<string, HTMLImageElement>>({});
@@ -103,6 +116,8 @@ export function useAdminShowroomStudioCanvas(
     ctx.drawImage(background, -effW / 2, -effH / 2, effW, effH);
     ctx.restore();
 
+    if (showSkeleton && skeleton) drawSkeleton(ctx, skeleton);
+
     const splitX = 600 * splitRatio;
 
     if (show && wornItems.length > 0) {
@@ -115,7 +130,7 @@ export function useAdminShowroomStudioCanvas(
         const img = images[item.src];
         if (img) {
           drawGarment(ctx, img, item.pose, item.scale, splitX, splitRatio, blendLighting);
-          if (item.instanceId === activeInstanceId) drawActiveBox(ctx, item.pose, item.scale);
+          if (item.instanceId === activeInstanceId) drawActiveBox(ctx, item.pose, item.scale, item.category === "bottom");
         }
       });
     }
@@ -129,7 +144,7 @@ export function useAdminShowroomStudioCanvas(
         ctx.fillStyle = "#fff"; ctx.fillText(String(i + 1), p.x - 5, p.y + 6); ctx.fillStyle = "#1e3a8a";
       });
     }
-  }, [canvas, background, wornItems, images, show, anchors, marking, splitRatio, blendLighting, modelTransform, activeInstanceId, tuckedIn]);
+  }, [canvas, background, wornItems, images, show, anchors, marking, splitRatio, blendLighting, modelTransform, activeInstanceId, tuckedIn, skeleton, showSkeleton]);
 
   return { background, renderError: failure };
 }
