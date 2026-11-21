@@ -86,6 +86,12 @@ const COLOR_MAP: Record<string, { primary: string; secondary: string; stroke: st
   beige: { primary: "#d4b996", secondary: "#b59a78", stroke: "#a3876a" },
   grey: { primary: "#64748b", secondary: "#475569", stroke: "#94a3b8" },
   brown: { primary: "#78350f", secondary: "#451a03", stroke: "#92400e" },
+  charcoal: { primary: "#27272a", secondary: "#18181b", stroke: "#3f3f46" },
+  green: { primary: "#15803d", secondary: "#14532d", stroke: "#16a34a" },
+  yellow: { primary: "#eab308", secondary: "#ca8a04", stroke: "#facc15" },
+  orange: { primary: "#ea580c", secondary: "#c2410c", stroke: "#f97316" },
+  purple: { primary: "#7e22ce", secondary: "#581c87", stroke: "#9333ea" },
+  maroon: { primary: "#831843", secondary: "#500724", stroke: "#9d174d" },
 };
 
 export function getGarmentColorPalette(colour: string) {
@@ -124,21 +130,21 @@ export function resolveGarmentCutoutSrc(
   if (customOverlay) return { src: customOverlay, isRealPhoto: false };
   const normColour = colour.trim().toLowerCase();
   const name = (productName || "").toLowerCase();
+  const category = detectGarmentCategory(categoryId);
 
   if (
-    (name.includes("polo") || name.includes("tee") || name.includes("t-shirt")) &&
+    category === "top" &&
     (normColour.includes("black") || normColour.includes("dark") || normColour.includes("charcoal"))
   ) {
     return { src: "/images/real-tshirt-black.png", isRealPhoto: true };
   }
   if (
-    (name.includes("shirt") || name.includes("oxford")) &&
+    category === "top" &&
     (normColour.includes("blue") || normColour.includes("navy"))
   ) {
     return { src: "/images/real-shirt-blue.png", isRealPhoto: true };
   }
 
-  const category = detectGarmentCategory(categoryId);
   return { src: generateAutoCutoutSvg(category, colour), isRealPhoto: false };
 }
 

@@ -61,7 +61,6 @@ export function AdminShowroomStudioModelSelect({
             type="button"
             onClick={() => {
               onSelectModel(m.id);
-              if (photo) onClearPhoto();
             }}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-all ${
               !photo && selectedModel === m.id

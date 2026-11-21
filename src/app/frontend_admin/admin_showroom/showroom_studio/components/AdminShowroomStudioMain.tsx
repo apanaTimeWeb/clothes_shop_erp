@@ -45,7 +45,7 @@ export function AdminShowroomStudioMain() {
     (v) => v.productId === product.id && v.status === "active",
   );
   const colours = [...new Set(variants.map((v) => v.colour))];
-  const selected = colours.includes(colour) ? colour : (colours[0] ?? "");
+  const selected = colour || (colours[0] ?? "Black");
   const images = catalogue.images.filter((i) => i.productId === product.id);
   const settings = preferences[product.id] ?? {
     order: [],
@@ -96,7 +96,7 @@ export function AdminShowroomStudioMain() {
         <label>
           {t("message059")}
           <select value={selected} onChange={(e) => setColour(e.target.value)}>
-            {colours.map((c) => (
+            {Array.from(new Set([...colours, selected])).filter(Boolean).map((c) => (
               <option key={c}>{c}</option>
             ))}
           </select>
@@ -141,7 +141,7 @@ export function AdminShowroomStudioMain() {
       />
       <AdminShowroomStudioSizeGuide
         canEdit={canEdit}
-        key={product.id + JSON.stringify(settings.measurements)}
+        key={"sizeguide-" + product.id}
         sizes={[...new Set(variants.map((v) => v.sizeCode))]}
         rows={settings.measurements}
         onSave={(measurements) =>

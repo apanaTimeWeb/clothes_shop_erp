@@ -85,6 +85,17 @@ export function useAdminShowroomStudioCanvas(
       ctx.translate(pose.x, pose.y);
       ctx.rotate((pose.rotation * Math.PI) / 180);
       ctx.drawImage(garment, -effW / 2, -effH / 2, effW, effH);
+      if (blendLighting) {
+        const grad = ctx.createLinearGradient(-effW / 2, 0, effW / 2, 0);
+        grad.addColorStop(0, "rgba(0,0,0,0.16)");
+        grad.addColorStop(0.3, "rgba(255,255,255,0.14)");
+        grad.addColorStop(0.5, "rgba(255,255,255,0.20)");
+        grad.addColorStop(0.7, "rgba(255,255,255,0.10)");
+        grad.addColorStop(1, "rgba(0,0,0,0.22)");
+        ctx.globalCompositeOperation = "source-atop";
+        ctx.fillStyle = grad;
+        ctx.fillRect(-effW / 2, -effH / 2, effW, effH);
+      }
       ctx.restore();
       ctx.restore();
 

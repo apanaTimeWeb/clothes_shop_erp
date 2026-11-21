@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Preferences } from "@/app/frontend_admin/admin_showroom/showroom_studio/schemas/AdminShowroomStudioSchema";
 type Row = Preferences[string]["measurements"][number];
 export function AdminShowroomStudioSizeGuide({
@@ -21,6 +21,10 @@ export function AdminShowroomStudioSizeGuide({
     [ease, setEase] = useState("6");
   const [draft, setDraft] = useState<Row[]>(rows),
     [message, setMessage] = useState("");
+
+  useEffect(() => {
+    setDraft(rows);
+  }, [rows]);
   const factor = unit === "in" ? 2.54 : 1;
   const valid =
     Number(body.chest) > 0 &&

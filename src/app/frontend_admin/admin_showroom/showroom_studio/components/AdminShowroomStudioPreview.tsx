@@ -146,7 +146,7 @@ export function AdminShowroomStudioPreview({
 
       <AdminShowroomStudioModelSelect
         selectedModel={selectedModel}
-        onSelectModel={(id) => { cachedModel = id; setSelectedModel(id); applyPreset(category, id); handleModelTransform(DEFAULT_MODEL_TRANSFORM); }}
+        onSelectModel={(id) => { cachedModel = id; cachedPhoto = ""; setPhoto(""); setSelectedModel(id); applyPreset(category, id); handleModelTransform(DEFAULT_MODEL_TRANSFORM); }}
         photo={photo}
         onPhotoLoaded={(d) => { cachedPhoto = d; setPhoto(d); setPose(PHOTO_PRESETS[category] ?? PHOTO_PRESETS.top); handleModelTransform(DEFAULT_MODEL_TRANSFORM); setAnchors([]); setMarking(false); }}
         onClearPhoto={() => { cachedPhoto = ""; setPhoto(""); applyPreset(category, selectedModel); handleModelTransform(DEFAULT_MODEL_TRANSFORM); }}
