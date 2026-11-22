@@ -235,10 +235,22 @@ export function AdminBillingCheckoutForm({
         {isDirty && (
           <p className="mb-3 rounded bg-warning-bg p-3 text-xs text-warning">{t("dirty")}</p>
         )}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Button type="submit" disabled={stale || !isDirty}>
             {t("save")}
           </Button>
+          {isDirty && (
+            <Button
+              type="button"
+              onClick={() => {
+                reset();
+                onDirtyChange(false);
+              }}
+              className="text-xs"
+            >
+              Revert Changes
+            </Button>
+          )}
           <Confirm
             trigger={
               <Button

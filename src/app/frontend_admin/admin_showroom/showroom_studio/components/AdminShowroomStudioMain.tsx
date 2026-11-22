@@ -70,15 +70,30 @@ export function AdminShowroomStudioMain() {
           <Link
             href="/frontend_admin/admin_showroom/showroom_catalogue"
             className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-subtle transition-all shadow-sm active:scale-95"
+            title="Return to Digital Showroom Catalogue"
           >
             <span>{t("message055")}</span>
           </Link>
           <div>
+            <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase tracking-widest font-semibold mb-0.5">
+              <span>Showroom</span>
+              <span>/</span>
+              <span className="text-blue-600">Virtual Fitting Studio</span>
+            </div>
             <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">{t("message056")}</h1>
             <p className="mt-0.5 text-xs text-muted-foreground">{t("message057")}</p>
           </div>
         </div>
-        {canEdit && <AdminShowroomStudioBackup />}
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/frontend_admin/admin_sessions/sessions_workspace"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-blue-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition-all shadow-sm active:scale-95"
+            title="Go to Sessions & Fitting Rack"
+          >
+            <span>🛍️ Session Picks & Billing →</span>
+          </Link>
+          {canEdit && <AdminShowroomStudioBackup />}
+        </div>
       </div>
       {error && (
         <p role="alert" className="text-danger text-sm font-medium">

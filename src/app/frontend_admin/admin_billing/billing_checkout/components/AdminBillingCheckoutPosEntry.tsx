@@ -82,7 +82,18 @@ export function AdminBillingCheckoutPosEntry({
           </select>
         </label>
         <label className="grid gap-2">
-          {t("sku")}
+          <span className="flex items-center justify-between">
+            <span>{t("sku")}</span>
+            {sku && (
+              <button
+                type="button"
+                onClick={() => { setSku(""); setLocation(""); }}
+                className="text-[11px] text-danger hover:underline font-normal"
+              >
+                Clear ✕
+              </button>
+            )}
+          </span>
           <input
             required
             list={returnId ? "replacement-skus" : "pos-skus"}
@@ -91,6 +102,7 @@ export function AdminBillingCheckoutPosEntry({
               setSku(e.target.value);
               setLocation("");
             }}
+            placeholder="Scan or enter barcode / SKU..."
           />
         </label>
         <datalist id={returnId ? "replacement-skus" : "pos-skus"}>

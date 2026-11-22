@@ -24,6 +24,7 @@ import { AdminShowroomCatalogueFilters } from "@/app/frontend_admin/admin_showro
 import { AdminShowroomCatalogueDetail } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/components/AdminShowroomCatalogueDetail";
 import { AdminShowroomCatalogueCompare } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/components/AdminShowroomCatalogueCompare";
 import { resolveCatalogueProductImage } from "@/lib/product_images";
+import { ROUTES } from "@/lib/routes";
 import {
   getTrialRack,
   addToTrialRack,
@@ -183,7 +184,11 @@ export function AdminShowroomCatalogueMain() {
     <>
       <div className="mb-7 flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5">
         <div>
-          <p className="text-[10px] font-semibold tracking-[.2em] text-secondary uppercase">{t("eyebrow")}</p>
+          <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase tracking-widest font-semibold mb-0.5">
+            <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+            <span>/</span>
+            <span className="text-blue-600">Digital Showroom Catalogue</span>
+          </div>
           <h1 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight text-foreground">{t("title")}</h1>
           <p className="mt-1 text-xs text-secondary">{t("subtitle")}</p>
         </div>
@@ -203,11 +208,22 @@ export function AdminShowroomCatalogueMain() {
         filters={filters} setFilters={(f) => { setFilters(f); setPage(1); }}
       />
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h2 className="text-base font-semibold text-foreground">{debounced ? t("exact") : t("collection")}</h2>
-          <p className="mt-0.5 text-xs text-secondary" aria-live="polite">
-            {t("results", { designs: designs.length, variants: results.exact.length })}
-          </p>
+        <div className="flex items-center gap-3">
+          <div>
+            <h2 className="text-base font-semibold text-foreground">{debounced ? t("exact") : t("collection")}</h2>
+            <p className="mt-0.5 text-xs text-secondary" aria-live="polite">
+              {t("results", { designs: designs.length, variants: results.exact.length })}
+            </p>
+          </div>
+          {(query || Object.keys(filters).length > 0) && (
+            <button
+              type="button"
+              onClick={() => { setQuery(""); setFilters({}); setPage(1); }}
+              className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium"
+            >
+              Reset Filters ✕
+            </button>
+          )}
         </div>
         <label className="flex items-center gap-2 text-xs text-secondary">
           {t("sort")}
@@ -216,10 +232,8 @@ export function AdminShowroomCatalogueMain() {
             onChange={(e) => { setFilters({ ...filters, sort: e.target.value }); setPage(1); }}
             className="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground"
           >
-            <option value="">{t("relevance")}</option>
-            <option value="recent">{t("recent")}</option>
-            <option value="price-asc">{t("priceLow")}</option>
-            <option value="price-desc">{t("priceHigh")}</option>
+            <option value="">{t("relevance")}</option><option value="recent">{t("recent")}</option>
+            <option value="price-asc">{t("priceLow")}</option><option value="price-desc">{t("priceHigh")}</option>
           </select>
         </label>
       </div>
@@ -238,13 +252,9 @@ export function AdminShowroomCatalogueMain() {
 
       {pages > 1 && (
         <div className="mt-6 flex items-center justify-center gap-4">
-          <Button disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)} className="min-h-9 px-3 text-xs">
-            {t("previous")}
-          </Button>
+          <Button disabled={currentPage === 1} onClick={() => setPage(currentPage - 1)} className="min-h-9 px-3 text-xs">{t("previous")}</Button>
           <span className="text-xs">{t("page", { page: currentPage, pages })}</span>
-          <Button disabled={currentPage === pages} onClick={() => setPage(currentPage + 1)} className="min-h-9 px-3 text-xs">
-            {t("next")}
-          </Button>
+          <Button disabled={currentPage === pages} onClick={() => setPage(currentPage + 1)} className="min-h-9 px-3 text-xs">{t("next")}</Button>
         </div>
       )}
 
@@ -261,9 +271,7 @@ export function AdminShowroomCatalogueMain() {
       {compare.length > 0 && (
         <div className="sticky bottom-4 mt-5 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-4 shadow-dialog">
           <span className="text-xs">{t("compareCount", { count: compare.length })}</span>
-          <Button disabled={compare.length < 2} onClick={() => setComparing(true)} className="min-h-8 px-3 text-xs">
-            {t("compare")}
-          </Button>
+          <Button disabled={compare.length < 2} onClick={() => setComparing(true)} className="min-h-8 px-3 text-xs">{t("compare")}</Button>
           <Button onClick={() => setCompare([])} className="min-h-8 px-3 text-xs">{t("clear")}</Button>
         </div>
       )}

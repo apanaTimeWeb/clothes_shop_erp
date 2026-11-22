@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Users, Plus, PackageCheck, ArrowRight } from "lucide-react";
@@ -14,6 +15,7 @@ import { Button } from "@/components/ui/Button";
 import { Confirm } from "@/components/ui/Confirm";
 import { AdminSessionsWorkspaceShortlist } from "@/app/frontend_admin/admin_sessions/sessions_workspace/components/AdminSessionsWorkspaceShortlist";
 import { AdminSessionsWorkspaceTrialRack } from "@/app/frontend_admin/admin_sessions/sessions_workspace/components/AdminSessionsWorkspaceTrialRack";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminSessionsWorkspaceMain() {
   const t = useTranslations("sessions"),
     { state, dispatch, stale } = useAdminSessionsWorkspace(),
@@ -33,10 +35,12 @@ export function AdminSessionsWorkspaceMain() {
   );
   return (
     <>
-      <p className="text-[10px] tracking-widest text-secondary">
-        {t("eyebrow")}
-      </p>
-      <h1 className="mt-3 text-3xl font-semibold">{t("title")}</h1>
+      <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase tracking-widest font-semibold mb-0.5">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-blue-600">Sessions & Picking</span>
+      </div>
+      <h1 className="mt-1 text-3xl font-semibold">{t("title")}</h1>
       <p className="mb-7 mt-2 text-secondary">{t("subtitle")}</p>
       <div className="grid gap-6 xl:grid-cols-[230px_minmax(0,1fr)]">
         <section className="self-start rounded-xl border border-border bg-card p-4">
@@ -49,22 +53,11 @@ export function AdminSessionsWorkspaceMain() {
               <button
                 key={s.id}
                 disabled={s.status === "closed" || stale}
-                onClick={() =>
-                  dispatch({
-                    type: "session-switch",
-                    data: { sessionId: s.id },
-                  })
-                }
+                onClick={() => dispatch({ type: "session-switch", data: { sessionId: s.id } })}
                 className={`flex min-h-11 w-full items-center justify-between rounded-lg p-3 text-left ${s.id === session?.id ? "bg-brand text-on-primary" : "bg-subtle text-primary"} disabled:opacity-50`}
               >
                 <span>{s.name}</span>
-                <span className="text-xs">
-                  {s.status === "closed"
-                    ? t("closed")
-                    : s.id === session?.id
-                      ? t("active")
-                      : t("resume")}
-                </span>
+                <span className="text-xs">{s.status === "closed" ? t("closed") : s.id === session?.id ? t("active") : t("resume")}</span>
               </button>
             ))}
           </div>
@@ -147,118 +140,63 @@ export function AdminSessionsWorkspaceMain() {
                   <p className="py-8 text-secondary">{t("noPicks")}</p>
                 )}
                 <div className="mt-4 space-y-3">
-                  {picks.map((p) => (
-                    <article
-                      key={p.id}
-                      className="rounded-lg border border-border p-4"
-                    >
-                      <div className="flex flex-wrap justify-between gap-2">
-                        <strong className="text-sm">
-                          {labelFor(state, p.variantId)} ·{" "}
-                          {t("count", { count: p.qty })}
-                        </strong>
-                        <span
-                          className={`rounded-full px-3 py-1 text-xs ${["purchased", "returned"].includes(p.status) ? "bg-success-bg text-success" : "bg-subtle text-secondary"}`}
-                        >
-                          {t(p.status)}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm text-secondary">
-                        {locationLabel(state, p.locationId)}
-                      </p>
-                      {p.status === "awaiting" && (
-                        <div className="mt-3 flex flex-wrap gap-2">
-                          <label className="grid gap-1">
-                            {t("source")}
-                            <select
-                              value={p.locationId}
-                              disabled={stale}
-                              onChange={(e) =>
-                                dispatch({
-                                  type: "pick-source",
-                                  data: {
-                                    pickId: p.id,
-                                    locationId: e.target.value,
-                                  },
-                                })
-                              }
-                            >
-                              {state.locations
-                                .filter(
-                                  (l) =>
-                                    l.active &&
-                                    (l.id === p.locationId ||
-                                      sellable(state, p.variantId, l.id) >=
-                                        p.qty),
-                                )
-                                .map((l) => (
-                                  <option key={l.id} value={l.id}>
-                                    {locationLabel(state, l.id)}
-                                  </option>
-                                ))}
-                            </select>
-                          </label>
-                          <Button
-                            className="self-end"
-                            disabled={stale}
-                            onClick={() =>
-                              dispatch({
-                                type: "pick-retrieve",
-                                data: { pickId: p.id },
-                              })
-                            }
+                  {picks.map((p) => {
+                    const v = state.variants.find((x) => x.id === p.variantId);
+                    const prod = state.products.find((x) => x.id === v?.productId);
+                    const imgSrc = resolveCatalogueProductImage(prod?.id || "", prod?.name, prod?.categoryId, v?.colour);
+                    return (
+                      <article key={p.id} className="rounded-lg border border-border p-4">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <div className="flex items-center gap-3">
+                            <Image
+                              src={imgSrc}
+                              alt={labelFor(state, p.variantId)}
+                              width={40}
+                              height={40}
+                              className="size-10 rounded-md object-contain bg-subtle border border-border p-0.5 shrink-0"
+                              onError={(e) => { e.currentTarget.src = "/images/real-shirt-white.png"; }}
+                            />
+                            <strong className="text-sm">
+                              {labelFor(state, p.variantId)} · {t("count", { count: p.qty })}
+                            </strong>
+                          </div>
+                          <span
+                            className={`rounded-full px-3 py-1 text-xs ${["purchased", "returned"].includes(p.status) ? "bg-success-bg text-success" : "bg-subtle text-secondary"}`}
                           >
-                            {t("retrieve")}
-                          </Button>
-                          <Button
-                            className="self-end"
-                            disabled={stale}
-                            onClick={() =>
-                              dispatch({
-                                type: "pick-missing",
-                                data: { pickId: p.id },
-                              })
-                            }
-                          >
-                            {t("missing")}
-                          </Button>
+                            {t(p.status)}
+                          </span>
                         </div>
-                      )}
-                      {p.status === "retrieved" &&
-                        (locked.has(p.id) ? (
-                          <p className="mt-3 text-xs text-secondary">
-                            {t("locked")}
-                          </p>
-                        ) : (
-                          <Button
-                            className="mt-3"
-                            disabled={stale}
-                            onClick={() =>
-                              dispatch({
-                                type: "pick-reject",
-                                data: { pickId: p.id },
-                              })
-                            }
-                          >
-                            {t("reject")}
-                          </Button>
-                        ))}
-                      {p.status === "return-pending" && (
-                        <Button
-                          className="mt-3"
-                          disabled={stale}
-                          onClick={() =>
-                            dispatch({
-                              type: "pick-return",
-                              data: { pickId: p.id },
-                            })
-                          }
-                        >
-                          {t("return")}
-                        </Button>
-                      )}
-                    </article>
-                  ))}
+                        <p className="mt-2 text-sm text-secondary">{locationLabel(state, p.locationId)}</p>
+                        {p.status === "awaiting" && (
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            <label className="grid gap-1">
+                              {t("source")}
+                              <select
+                                value={p.locationId}
+                                disabled={stale}
+                                onChange={(e) => dispatch({ type: "pick-source", data: { pickId: p.id, locationId: e.target.value } })}
+                              >
+                                {state.locations
+                                  .filter((l) => l.active && (l.id === p.locationId || sellable(state, p.variantId, l.id) >= p.qty))
+                                  .map((l) => (<option key={l.id} value={l.id}>{locationLabel(state, l.id)}</option>))}
+                              </select>
+                            </label>
+                            <Button className="self-end" disabled={stale} onClick={() => dispatch({ type: "pick-retrieve", data: { pickId: p.id } })}>{t("retrieve")}</Button>
+                            <Button className="self-end" disabled={stale} onClick={() => dispatch({ type: "pick-missing", data: { pickId: p.id } })}>{t("missing")}</Button>
+                          </div>
+                        )}
+                        {p.status === "retrieved" &&
+                          (locked.has(p.id) ? (
+                            <p className="mt-3 text-xs text-secondary">{t("locked")}</p>
+                          ) : (
+                            <Button className="mt-3" disabled={stale} onClick={() => dispatch({ type: "pick-reject", data: { pickId: p.id } })}>{t("reject")}</Button>
+                          ))}
+                        {p.status === "return-pending" && (
+                          <Button className="mt-3" disabled={stale} onClick={() => dispatch({ type: "pick-return", data: { pickId: p.id } })}>{t("return")}</Button>
+                        )}
+                      </article>
+                    );
+                  })}
                 </div>
                 <div className="mt-5 flex flex-wrap gap-3">
                   <Button
