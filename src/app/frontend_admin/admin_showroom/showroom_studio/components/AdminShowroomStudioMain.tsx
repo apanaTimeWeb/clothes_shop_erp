@@ -71,7 +71,6 @@ export function AdminShowroomStudioMain() {
             href="/frontend_admin/admin_showroom/showroom_catalogue"
             className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-subtle transition-all shadow-sm active:scale-95"
           >
-            <span>←</span>
             <span>{t("message055")}</span>
           </Link>
           <div>
