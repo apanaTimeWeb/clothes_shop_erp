@@ -64,27 +64,38 @@ export function AdminShowroomStudioMain() {
   );
 
   return (
-    <div className="space-y-8">
-      <Link href="/frontend_admin/admin_showroom/showroom_catalogue">
-        {t("message055")}
-      </Link>
-      <h1 className="text-3xl font-semibold">{t("message056")}</h1>
-      {canEdit && <AdminShowroomStudioBackup />}
-      <p>{t("message057")}</p>
+    <div className="space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border pb-5">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link
+            href="/frontend_admin/admin_showroom/showroom_catalogue"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-subtle transition-all shadow-sm active:scale-95"
+          >
+            <span>←</span>
+            <span>{t("message055")}</span>
+          </Link>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground">{t("message056")}</h1>
+            <p className="mt-0.5 text-xs text-muted-foreground">{t("message057")}</p>
+          </div>
+        </div>
+        {canEdit && <AdminShowroomStudioBackup />}
+      </div>
       {error && (
-        <p role="alert" className="text-danger">
+        <p role="alert" className="text-danger text-sm font-medium">
           {error}
         </p>
       )}
-      <div className="flex flex-wrap gap-4">
-        <label>
-          {t("message058")}
+      <div className="flex flex-wrap items-center gap-4 rounded-xl border border-border bg-subtle/50 p-4">
+        <label className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs font-medium text-foreground">
+          <span>{t("message058")}</span>
           <select
             value={product.id}
             onChange={(e) => {
               setProductId(e.target.value);
               setColour("");
             }}
+            className="rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             {products.map((p) => (
               <option key={p.id} value={p.id}>
@@ -93,9 +104,13 @@ export function AdminShowroomStudioMain() {
             ))}
           </select>
         </label>
-        <label>
-          {t("message059")}
-          <select value={selected} onChange={(e) => setColour(e.target.value)}>
+        <label className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs font-medium text-foreground">
+          <span>{t("message059")}</span>
+          <select
+            value={selected}
+            onChange={(e) => setColour(e.target.value)}
+            className="rounded-lg border border-border bg-card px-3 py-1.5 text-xs font-medium text-foreground shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
             {Array.from(new Set([...colours, selected])).filter(Boolean).map((c) => (
               <option key={c}>{c}</option>
             ))}

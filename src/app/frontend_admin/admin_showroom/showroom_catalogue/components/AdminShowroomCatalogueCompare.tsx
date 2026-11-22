@@ -12,6 +12,7 @@ import {
 } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/state/AdminShowroomCatalogueTransactions";
 import { money } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/utils/AdminShowroomCatalogueAmounts";
 import { Button } from "@/components/ui/Button";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminShowroomCatalogueCompare({
   ids,
   onClose,
@@ -51,12 +52,21 @@ export function AdminShowroomCatalogueCompare({
               <thead>
                 <tr>
                   <th>{t("attribute")}</th>
-                  {vs.map((v) => (
-                    <th className="min-w-48 p-3" key={v.id}>
-                      {state.products.find((p) => p.id === v.productId)?.name}
-                      <p className="font-normal">{v.sku}</p>
-                    </th>
-                  ))}
+                  {vs.map((v) => {
+                    const prod = state.products.find((p) => p.id === v.productId);
+                    const imgSrc = resolveCatalogueProductImage(prod?.id || "", prod?.name, prod?.categoryId, v.colour);
+                    return (
+                      <th className="min-w-48 p-3 align-top" key={v.id}>
+                        <div className="flex flex-col items-start gap-2">
+                          <img src={imgSrc} alt={prod?.name || ""} className="size-16 object-contain rounded-lg border border-border bg-subtle p-1" />
+                          <div>
+                            <span className="font-semibold text-foreground block">{prod?.name}</span>
+                            <p className="font-normal text-xs text-muted-foreground">{v.sku}</p>
+                          </div>
+                        </div>
+                      </th>
+                    );
+                  })}
                 </tr>
               </thead>
               <tbody>
