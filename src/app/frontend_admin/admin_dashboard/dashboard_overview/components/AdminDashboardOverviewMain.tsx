@@ -17,6 +17,7 @@ import { useAdminDashboardOverview } from "@/app/frontend_admin/admin_dashboard/
 import { ROUTES } from "@/lib/routes";
 import { sellable } from "@/app/frontend_admin/admin_dashboard/dashboard_overview/state/AdminDashboardOverviewTransactions";
 import { money } from "@/app/frontend_admin/admin_dashboard/dashboard_overview/utils/AdminDashboardOverviewAmounts";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminDashboardOverviewMain() {
   const t = useTranslations("dashboard"),
     state = useAdminDashboardOverview((s) => s.state);
@@ -160,13 +161,17 @@ export function AdminDashboardOverviewMain() {
             className="flex items-center gap-3 overflow-hidden rounded-xl border border-border bg-card p-3"
           >
             <Image
-              src={
-                state.images.find((i) => i.productId === p.id)!.srcOrAssetKey
-              }
+              src={resolveCatalogueProductImage(
+                p.id,
+                p.name,
+                p.categoryId,
+                undefined,
+                state.images.find((i) => i.productId === p.id)?.srcOrAssetKey
+              )}
               width={76}
               height={86}
-              alt={t("illustration")}
-              className="rounded-lg"
+              alt={p.name}
+              className="rounded-lg size-16 object-contain bg-subtle p-1 shrink-0 border border-border"
             />
             <div>
               <p className="text-[10px] text-secondary">

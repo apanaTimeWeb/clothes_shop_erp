@@ -13,6 +13,7 @@ import {
 } from "@/app/frontend_admin/admin_management/management_images/hooks/useAdminManagementImagesUnsaved";
 import { Button } from "@/components/ui/Button";
 import { Confirm } from "@/components/ui/Confirm";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminManagementImagesImages() {
   const t = useTranslations("management"),
     { state, dispatch, stale } = useAdminManagementImages(),
@@ -82,13 +83,19 @@ export function AdminManagementImagesImages() {
               key={index}
               className="rounded-lg border border-border p-3"
             >
-              <Image
-                src={im.srcOrAssetKey}
-                width={240}
-                height={240}
-                alt={im.label}
-                className="aspect-square w-full object-contain"
-              />
+              {(() => {
+                const prod = state.products.find((p) => p.id === id);
+                const imgSrc = resolveCatalogueProductImage(id, prod?.name, prod?.categoryId, im.colour, im.srcOrAssetKey);
+                return (
+                  <Image
+                    src={imgSrc}
+                    width={240}
+                    height={240}
+                    alt={im.label}
+                    className="aspect-square w-full object-contain"
+                  />
+                );
+              })()}
               <p className="my-3 text-sm">
                 {im.colour || t("allColours")} · {im.angle} · {im.kind}
               </p>

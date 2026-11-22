@@ -37,5 +37,10 @@
   "retry": "Try again",
   "management": "Management",
   "reports": "Reports",
-  "settings": "Demo settings"
+  "settings": "Demo settings",
+  "studio": "Virtual fitting studio",
+  "customerPortalTitle": "Customer Showroom Portal",
+  "customerPortalSubtitle": "Explore our digital collection and try on clothes virtually with AI auto-align.",
+  "customerPortalCatalogue": "Browse Catalogue →",
+  "customerPortalStudio": "✨ Open Virtual Studio"
 }

@@ -10,7 +10,7 @@ import { useAdminShowroomStudioCanvas } from "@/app/frontend_admin/admin_showroo
 import { AdminShowroomStudioTryOnControls, DEFAULT_MODEL_TRANSFORM, type ModelTransform } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 import { AdminShowroomStudioModelSelect, STUDIO_MODELS } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
 import { detectModelPose, autoAlignGarmentToSkeleton, getPresetSkeleton, type DetectedSkeleton } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
-import { getTrialRack, saveTrialRack } from "@/lib/trial_rack";
+import { getTrialRack, saveTrialRack, addToTrialRack } from "@/lib/trial_rack";
 
 type Point = { x: number; y: number };
 let cachedModel = "male-photo", cachedPhoto = "", cachedModelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM;
@@ -186,7 +186,18 @@ export function AdminShowroomStudioPreview({ src, autoCutoutSrc, productName = "
           )}
         </div>
         {wornGarments.length > 0 && (
-          <button type="button" onClick={() => setWornGarments([])} className="text-[11px] text-muted-foreground hover:text-danger underline ml-auto">Take Off All</button>
+          <div className="flex items-center gap-2 ml-auto">
+            <button
+              type="button"
+              onClick={() => {
+                wornGarments.forEach((w) => addToTrialRack({ id: w.catalogId, name: w.name, category: w.category, style: w.style, defaultColour: w.colour, colours: [w.colour] }));
+                setTrialRack(getTrialRack());
+              }}
+              className="text-[11px] font-semibold text-blue-600 hover:underline"
+            >+ Save Look to Trial Rack</button>
+            <span className="text-muted-foreground">•</span>
+            <button type="button" onClick={() => setWornGarments([])} className="text-[11px] text-muted-foreground hover:text-danger underline">Take Off All</button>
+          </div>
         )}
       </div>
 

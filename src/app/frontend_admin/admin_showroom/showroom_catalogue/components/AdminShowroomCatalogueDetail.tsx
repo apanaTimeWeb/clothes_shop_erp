@@ -191,6 +191,9 @@ export function AdminShowroomCatalogueDetail({
               </div>
               <form
                 onSubmit={handleSubmit((values) => {
+                  if (!state.activeSessionId) {
+                    dispatch({ type: "session-new" });
+                  }
                   if (
                     dispatch({
                       type: "shortlist-add",
@@ -222,10 +225,10 @@ export function AdminShowroomCatalogueDetail({
                 <Button
                   type="submit"
                   className="mt-4 w-full bg-brand text-on-primary hover:bg-brand-hover"
-                  disabled={!available || !state.activeSessionId || stale}
+                  disabled={!available || stale}
                 >
                   <Plus size={18} />
-                  {t("add")}
+                  {state.activeSessionId ? t("add") : "+ Start Session & Shortlist"}
                 </Button>
                 <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button

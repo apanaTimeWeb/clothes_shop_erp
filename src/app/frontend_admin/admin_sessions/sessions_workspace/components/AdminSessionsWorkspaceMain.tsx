@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Confirm } from "@/components/ui/Confirm";
 import { AdminSessionsWorkspaceShortlist } from "@/app/frontend_admin/admin_sessions/sessions_workspace/components/AdminSessionsWorkspaceShortlist";
+import { AdminSessionsWorkspaceTrialRack } from "@/app/frontend_admin/admin_sessions/sessions_workspace/components/AdminSessionsWorkspaceTrialRack";
 export function AdminSessionsWorkspaceMain() {
   const t = useTranslations("sessions"),
     { state, dispatch, stale } = useAdminSessionsWorkspace(),
@@ -102,6 +103,7 @@ export function AdminSessionsWorkspaceMain() {
                   {t("returnWarning", { count: outstanding })}
                 </div>
               )}
+              <AdminSessionsWorkspaceTrialRack />
               <section className="rounded-xl border border-border bg-card p-5">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <h2 className="text-lg font-semibold">{t("shortlist")}</h2>

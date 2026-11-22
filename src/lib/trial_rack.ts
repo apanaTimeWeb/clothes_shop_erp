@@ -53,6 +53,10 @@ export function removeFromTrialRack(id: string): void {
   saveTrialRack(current.filter((x) => x.id !== id));
 }
 
+export function clearTrialRack(): void {
+  saveTrialRack([]);
+}
+
 export function isInTrialRack(id: string): boolean {
   return getTrialRack().some((x) => x.id === id);
 }

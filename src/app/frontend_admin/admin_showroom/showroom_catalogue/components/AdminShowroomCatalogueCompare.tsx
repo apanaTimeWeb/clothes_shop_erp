@@ -13,6 +13,7 @@ import {
 import { money } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/utils/AdminShowroomCatalogueAmounts";
 import { Button } from "@/components/ui/Button";
 import { resolveCatalogueProductImage } from "@/lib/product_images";
+import { addToTrialRack, convertProductToGarmentItem } from "@/lib/trial_rack";
 export function AdminShowroomCatalogueCompare({
   ids,
   onClose,
@@ -122,7 +123,22 @@ export function AdminShowroomCatalogueCompare({
                   <td />
                   {vs.map((v) => (
                     <td className="p-3" key={v.id}>
-                      <Button onClick={() => onView(v.id)}>{t("view")}</Button>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Button onClick={() => onView(v.id)} className="text-xs min-h-8 px-2.5">
+                          {t("view")}
+                        </Button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const p = state.products.find((prod) => prod.id === v.productId);
+                            if (p) addToTrialRack(convertProductToGarmentItem(p, v.colour));
+                          }}
+                          className="rounded-lg border border-border bg-card hover:bg-subtle px-2.5 py-1.5 text-xs font-semibold text-foreground transition-colors flex items-center gap-1 shadow-sm"
+                        >
+                          <span>🛍️</span>
+                          <span>+ Trial</span>
+                        </button>
+                      </div>
                     </td>
                   ))}
                 </tr>
