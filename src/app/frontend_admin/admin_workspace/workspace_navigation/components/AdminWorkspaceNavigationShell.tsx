@@ -139,10 +139,16 @@ export function AdminWorkspaceNavigationShell({ children }: { children: React.Re
               </label>
 
               {user && (
-                <div className="hidden md:flex items-center gap-1.5 rounded-lg border border-border bg-subtle px-2.5 py-1 text-xs">
-                  <span className="size-2 rounded-full bg-success" />
-                  <span className="font-semibold text-foreground max-w-[120px] truncate" title={user.name}>
+                <div
+                  className="hidden md:flex items-center gap-1.5 rounded-lg border border-border bg-subtle px-2.5 py-1 text-xs"
+                  title={`${user.name} (${user.role}) • ${user.store}`}
+                >
+                  <span className="size-2 rounded-full bg-success shrink-0" />
+                  <span className="font-semibold text-foreground max-w-[120px] truncate">
                     {user.name}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground hidden xl:inline truncate max-w-[100px]">
+                    · {user.role.split(" ")[0]}
                   </span>
                 </div>
               )}

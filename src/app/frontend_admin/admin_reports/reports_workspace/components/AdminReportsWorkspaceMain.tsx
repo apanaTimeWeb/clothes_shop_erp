@@ -108,6 +108,18 @@ export function AdminReportsWorkspaceMain() {
             ))}
           </select>
         </label>
+        {(preset !== "all" || dates.from || dates.to) && (
+          <Button
+            type="button"
+            className="self-end min-h-10 text-xs"
+            onClick={() => {
+              setPreset("all");
+              setDates({ from: "", to: "" });
+            }}
+          >
+            Reset Range ✕
+          </Button>
+        )}
       </div>
       {!valid ? (
         <p role="alert" className="rounded bg-warning-bg p-4 text-warning">

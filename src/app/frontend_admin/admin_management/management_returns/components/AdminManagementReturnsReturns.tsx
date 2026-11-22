@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useAdminManagementReturns } from "@/app/frontend_admin/admin_management/management_returns/state/AdminManagementReturnsStore";
 import { locationLabel } from "@/app/frontend_admin/admin_management/management_returns/state/AdminManagementReturnsTransactions";
@@ -12,11 +13,19 @@ import { AdminManagementReturnsPosEntry } from "@/app/frontend_admin/admin_manag
 import { Button } from "@/components/ui/Button";
 export function AdminManagementReturnsReturns() {
   const t = useTranslations("management"),
-    { state, dispatch, stale } = useAdminManagementReturns(),
-    [id, setId] = useState(state.sales.at(-1)?.id ?? ""),
-    [index, setIndex] = useState(0),
+    { state, dispatch, stale } = useAdminManagementReturns();
+  const searchParams = useSearchParams();
+  const paramSaleId = searchParams.get("saleId");
+  const [id, setId] = useState(() => paramSaleId || (state.sales.at(-1)?.id ?? ""));
+  const [index, setIndex] = useState(0),
     [qty, setQty] = useState(1),
     [replacement, setReplacement] = useState("");
+
+  useEffect(() => {
+    if (paramSaleId && state.sales.some((s) => s.id === paramSaleId)) {
+      setId(paramSaleId);
+    }
+  }, [paramSaleId, state.sales]);
   const sale = state.sales.find((s) => s.id === id),
     line = sale?.lines[index];
   const remaining =

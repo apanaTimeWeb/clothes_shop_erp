@@ -1,7 +1,8 @@
 "use client";
+import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useTranslations } from "next-intl";
-import { Printer } from "lucide-react";
+import { Printer, RotateCcw } from "lucide-react";
 import type { Sale } from "@/app/frontend_admin/admin_sales/sales_history/types/AdminSalesHistoryCommerce";
 import {
   money,
@@ -85,12 +86,21 @@ export function AdminSalesHistoryReceipt({
   return (
     <>
       <section className="mt-6 rounded-xl border border-border bg-card p-6">
-        <div className="mb-5 flex justify-end gap-2">
-          <Button onClick={() => window.print()}>
-            <Printer size={16} />
-            {t("print")}
-          </Button>
-          <Button onClick={onClose}>{t("close")}</Button>
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <Link
+            href={`/frontend_admin/admin_management/management_returns?saleId=${sale.id}`}
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-blue-500/30 bg-blue-50 dark:bg-blue-950/40 px-3.5 py-2 text-xs font-semibold text-blue-700 dark:text-blue-300 hover:bg-blue-100 transition-colors shadow-sm"
+          >
+            <RotateCcw size={14} />
+            <span>Return / Exchange Items</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button onClick={() => window.print()}>
+              <Printer size={16} />
+              {t("print")}
+            </Button>
+            <Button onClick={onClose}>{t("close")}</Button>
+          </div>
         </div>
         <div className="overflow-auto">{receipt}</div>
       </section>

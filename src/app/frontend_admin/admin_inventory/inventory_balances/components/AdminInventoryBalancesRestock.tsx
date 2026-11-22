@@ -1,6 +1,7 @@
 "use client";
 import { useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
@@ -52,6 +53,14 @@ export function AdminInventoryBalancesRestock({
           }}
           className="fixed inset-x-4 top-1/4 z-50 mx-auto max-w-lg rounded-xl bg-card p-6 shadow-dialog"
         >
+          <Dialog.Close asChild>
+            <Button
+              className="absolute right-4 top-4 min-h-8 p-1.5"
+              aria-label={t("cancel")}
+            >
+              <X size={16} />
+            </Button>
+          </Dialog.Close>
           <Dialog.Title className="text-xl font-semibold">
             {t("titleRestock")}
           </Dialog.Title>
