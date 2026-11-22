@@ -5017,30 +5017,30 @@
     {
       "productId": "product-1",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-0.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-polo-navy.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-2",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-1.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-shirt-black.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-3",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-2.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-shirt-white.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-4",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-3.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-jeans-blue.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-5",
@@ -5066,37 +5066,37 @@
     {
       "productId": "product-8",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-3.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-tshirt-black.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-9",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-0.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-shirt-white.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-10",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-1.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-chinos-beige.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-11",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-2.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-shirt-blue.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-12",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-3.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-tshirt-white.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-13",
@@ -5115,16 +5115,16 @@
     {
       "productId": "product-15",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-2.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-joggers-olive.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-16",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-3.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-baggy-jeans.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-17",
@@ -5164,9 +5164,9 @@
     {
       "productId": "product-22",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-1.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-joggers-grey.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-23",
@@ -5178,9 +5178,9 @@
     {
       "productId": "product-24",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-3.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-polo-navy.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-25",
@@ -5192,16 +5192,16 @@
     {
       "productId": "product-26",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/trousers-1.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-jeans-black.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-27",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-2.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-shirt-flannel.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-28",
@@ -5276,16 +5276,16 @@
     {
       "productId": "product-38",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-1.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-tshirt-oversized.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-39",
       "angle": "front",
-      "kind": "placeholder",
-      "srcOrAssetKey": "/images/shirt-2.svg",
-      "label": "Illustrative placeholder — not a product photograph"
+      "kind": "actual",
+      "srcOrAssetKey": "/images/real-polo-navy.png",
+      "label": "Actual product photograph"
     },
     {
       "productId": "product-40",

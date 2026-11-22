@@ -5,6 +5,7 @@ import { useState, useRef } from "react";
 import { useTranslations } from "next-intl";
 import { useAdminShowroomCatalogue } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/state/AdminShowroomCatalogueStore";
 import { Button } from "@/components/ui/Button";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminShowroomCatalogueGallery({
   productId,
   colour,
@@ -34,24 +35,31 @@ export function AdminShowroomCatalogueGallery({
     setSelected((selected + delta + images.length) % images.length);
     setBroken(false);
   }
+  const product = useAdminShowroomCatalogue((s) =>
+    s.state.products.find((p) => p.id === productId),
+  );
+  const resolvedSrc = resolveCatalogueProductImage(
+    productId,
+    product?.name,
+    product?.categoryId,
+    colour,
+    im?.srcOrAssetKey,
+  );
+
   function picture(large = false) {
     return (
       <Image
-        src={
-          broken
-            ? "/images/shirt-0.svg"
-            : (im?.srcOrAssetKey ?? "/images/shirt-0.svg")
-        }
+        src={broken ? "/images/real-shirt-white.png" : resolvedSrc}
         width={1000}
         height={1000}
-        alt={im?.label ?? t("illustration")}
+        alt={product?.name ?? im?.label ?? t("illustration")}
         onError={() => setBroken(true)}
         className={
           zoom
             ? "min-w-[800px] max-w-none"
             : large
               ? "mx-auto max-h-[70dvh] w-auto object-contain"
-              : "w-full"
+              : "mx-auto aspect-square w-full max-h-80 object-contain p-2"
         }
       />
     );

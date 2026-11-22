@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/Button";
 import { useTranslations } from "next-intl";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   downloadImage, getStudioPreset, resolveGarmentItemCutoutSrc, STORE_CATALOG_ITEMS, DEFAULT_DEFORM,
   type GarmentCategory, type StoreGarmentItem, type StudioPose, type WornGarmentItem, type GarmentDeform,
@@ -12,6 +12,7 @@ import {
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 import { AdminShowroomStudioModelSelect, STUDIO_MODELS } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
 import { detectModelPose, autoAlignGarmentToSkeleton, getPresetSkeleton, type DetectedSkeleton } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
+import { getTrialRack, saveTrialRack } from "@/lib/trial_rack";
 
 type Point = { x: number; y: number };
 let cachedModel = "male-photo", cachedPhoto = "", cachedModelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM;
@@ -39,9 +40,17 @@ export function AdminShowroomStudioPreview({
   const [skeleton, setSkeleton] = useState<DetectedSkeleton | null>(null);
   const [showSkeleton, setShowSkeleton] = useState(false);
 
-  const [trialRack, setTrialRack] = useState<StoreGarmentItem[]>(() => [
-    STORE_CATALOG_ITEMS[0], STORE_CATALOG_ITEMS[1], STORE_CATALOG_ITEMS[4], STORE_CATALOG_ITEMS[9],
-  ]);
+  const [trialRack, setTrialRack] = useState<StoreGarmentItem[]>(() => getTrialRack());
+
+  useEffect(() => {
+    saveTrialRack(trialRack);
+  }, [trialRack]);
+
+  useEffect(() => {
+    const onTrialChange = () => setTrialRack(getTrialRack());
+    window.addEventListener("trial-rack-changed", onTrialChange);
+    return () => window.removeEventListener("trial-rack-changed", onTrialChange);
+  }, []);
 
   const [wornGarments, setWornGarments] = useState<WornGarmentItem[]>(() => {
     const initSkel = getPresetSkeleton(cachedModel);

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import {
-  getGarmentColorPalette, STORE_CATALOG_ITEMS, DEFAULT_DEFORM,
+  getGarmentColorPalette, STORE_CATALOG_ITEMS, DEFAULT_DEFORM, resolveGarmentItemCutoutSrc,
   type StoreGarmentItem, type StudioPose, type WornGarmentItem, type GarmentDeform,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 
@@ -76,6 +76,7 @@ export function AdminShowroomStudioTryOnControls({
             ) : (
               trialRack.map((item) => {
                 const isWorn = wornGarments.some((w) => w.catalogId === item.id);
+                const cutout = resolveGarmentItemCutoutSrc(item.category, item.style, item.defaultColour, item.name);
                 return (
                   <div
                     key={item.id} draggable={true}
@@ -84,10 +85,10 @@ export function AdminShowroomStudioTryOnControls({
                       e.dataTransfer.setData("text/plain", JSON.stringify(item));
                       e.dataTransfer.effectAllowed = "copy";
                     }}
-                    className={`flex items-center justify-between rounded-lg border p-2 text-xs transition-all ${isWorn ? "border-blue-400/50 bg-blue-50/50" : "border-border bg-subtle hover:bg-muted"}`}
+                    className={`flex items-center justify-between rounded-lg border p-1.5 text-xs transition-all ${isWorn ? "border-blue-400/50 bg-blue-50/50" : "border-border bg-subtle hover:bg-muted"}`}
                   >
                     <div className="flex items-center gap-2 truncate cursor-grab active:cursor-grabbing">
-                      <span>{item.category === "top" ? "👕" : "👖"}</span>
+                      <img src={cutout.src} alt={item.name} className="size-8 object-contain rounded bg-white/70 border border-border p-0.5 shrink-0" />
                       <div className="truncate"><span className="font-medium text-foreground block truncate">{item.name}</span><span className="text-[10px] text-muted-foreground">{item.style} • {item.defaultColour}</span></div>
                     </div>
                     <div className="flex items-center gap-1.5 shrink-0">
@@ -106,14 +107,21 @@ export function AdminShowroomStudioTryOnControls({
             <div className="border-t border-border pt-2.5 space-y-1.5">
               <span className="text-xs font-medium text-foreground">Add to Trial Rack from Store:</span>
               <div className="grid grid-cols-2 gap-1.5 max-h-40 overflow-y-auto">
-                {storeNotTrial.map((s) => (
-                  <button
-                    key={s.id} type="button" onClick={() => onAddToTrial(s)}
-                    className="flex items-center justify-between rounded-lg border border-border bg-subtle px-2 py-1.5 text-left text-xs hover:border-blue-500 hover:bg-blue-50/40"
-                  >
-                    <span className="truncate">{s.category === "top" ? "👕" : "👖"} {s.name}</span><span className="text-blue-600 font-bold ml-1">+</span>
-                  </button>
-                ))}
+                {storeNotTrial.map((s) => {
+                  const sCutout = resolveGarmentItemCutoutSrc(s.category, s.style, s.defaultColour, s.name);
+                  return (
+                    <button
+                      key={s.id} type="button" onClick={() => onAddToTrial(s)}
+                      className="flex items-center justify-between rounded-lg border border-border bg-subtle p-1.5 text-left text-xs hover:border-blue-500 hover:bg-blue-50/40"
+                    >
+                      <div className="flex items-center gap-1.5 truncate">
+                        <img src={sCutout.src} alt={s.name} className="size-6 object-contain rounded bg-white/60 shrink-0" />
+                        <span className="truncate">{s.name}</span>
+                      </div>
+                      <span className="text-blue-600 font-bold ml-1 shrink-0">+</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -146,10 +154,9 @@ export function AdminShowroomStudioTryOnControls({
               {activeGarment && (
                 <>
                   <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-blue-50/70 p-2 border border-blue-200 dark:border-blue-900/40 dark:bg-blue-950/20">
-                    <button
-                      type="button" onClick={onAutoAlignPose}
-                      className="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 active:scale-95"
-                    ><span>🤖 Auto-Align to Model Pose</span></button>
+                    <button type="button" onClick={onAutoAlignPose} className="inline-flex items-center gap-1.5 rounded-md bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm hover:bg-blue-700 active:scale-95">
+                      <span>🤖 Auto-Align to Model Pose</span>
+                    </button>
                     {setShowSkeleton && (
                       <label className="flex items-center gap-1.5 text-xs text-foreground font-medium cursor-pointer">
                         <input type="checkbox" checked={showSkeleton} onChange={(e) => setShowSkeleton(e.target.checked)} className="rounded accent-blue-600" />
@@ -168,11 +175,11 @@ export function AdminShowroomStudioTryOnControls({
                       {activeGarment.category === "bottom" ? (
                         <>
                           <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Leg Flare / Width:</span><span className="font-mono text-muted-foreground">{curDeform.legFlare > 0 ? `+${curDeform.legFlare}% (Flared)` : curDeform.legFlare < 0 ? `${curDeform.legFlare}% (Skinny)` : "Regular"}</span></span>
+                            <span className="flex justify-between"><span>Leg Flare / Width:</span><span className="font-mono text-muted-foreground">{curDeform.legFlare > 0 ? `+${curDeform.legFlare}%` : curDeform.legFlare < 0 ? `${curDeform.legFlare}%` : "Regular"}</span></span>
                             <input type="range" min={-30} max={40} value={curDeform.legFlare} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legFlare: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
                           </label>
                           <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Leg Length Stretch:</span><span className="font-mono text-muted-foreground">{curDeform.legLength}%</span></span>
+                            <span className="flex justify-between"><span>Leg Length:</span><span className="font-mono text-muted-foreground">{curDeform.legLength}%</span></span>
                             <input type="range" min={75} max={135} value={curDeform.legLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
                           </label>
                           <label className="flex flex-col text-[11px] text-foreground">
@@ -192,14 +199,16 @@ export function AdminShowroomStudioTryOnControls({
                               <input type="range" min={-45} max={45} value={curDeform.rightArmAngle} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, rightArmAngle: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
                             </label>
                           </div>
-                          <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Sleeve Length:</span><span className="font-mono text-muted-foreground">{curDeform.sleeveLength}%</span></span>
-                            <input type="range" min={70} max={140} value={curDeform.sleeveLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, sleeveLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                          </label>
-                          <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Chest Stretch:</span><span className="font-mono text-muted-foreground">{curDeform.chestStretch}%</span></span>
-                            <input type="range" min={80} max={130} value={curDeform.chestStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, chestStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                          </label>
+                          <div className="grid grid-cols-2 gap-2">
+                            <label className="flex flex-col text-[11px] text-foreground">
+                              <span className="flex justify-between"><span>Sleeve:</span><span className="font-mono text-muted-foreground">{curDeform.sleeveLength}%</span></span>
+                              <input type="range" min={70} max={140} value={curDeform.sleeveLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, sleeveLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
+                            </label>
+                            <label className="flex flex-col text-[11px] text-foreground">
+                              <span className="flex justify-between"><span>Chest:</span><span className="font-mono text-muted-foreground">{curDeform.chestStretch}%</span></span>
+                              <input type="range" min={80} max={130} value={curDeform.chestStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, chestStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
+                            </label>
+                          </div>
                         </>
                       )}
                     </div>
@@ -278,14 +287,14 @@ export function AdminShowroomStudioTryOnControls({
       <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
         <span className="font-medium text-foreground">Tuck Style:</span>
         <div className="flex rounded-lg border border-border bg-subtle p-0.5 text-xs">
-          <button type="button" onClick={() => setTuckedIn(false)} className={`rounded px-2.5 py-1 font-semibold transition-all ${!tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground"}`}>Untucked</button>
-          <button type="button" onClick={() => setTuckedIn(true)} className={`rounded px-2.5 py-1 font-semibold transition-all ${tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground"}`}>Tucked In</button>
+          <button type="button" onClick={() => setTuckedIn(false)} className={`rounded px-2.5 py-1 font-semibold ${!tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground"}`}>Untucked</button>
+          <button type="button" onClick={() => setTuckedIn(true)} className={`rounded px-2.5 py-1 font-semibold ${tuckedIn ? "bg-card text-blue-600 shadow-sm border border-border/80" : "text-muted-foreground"}`}>Tucked In</button>
         </div>
       </div>
 
       <div className="flex items-center justify-between border-t border-border pt-3 text-sm">
         <label className="flex cursor-pointer items-center gap-2 text-foreground">
-          <input type="checkbox" checked={blendLighting} onChange={(e) => setBlendLighting(e.target.checked)} className="rounded border-border accent-blue-600" />
+          <input type="checkbox" checked={blendLighting} onChange={(e) => setBlendLighting(e.target.checked)} className="rounded accent-blue-600" />
           <span>Realistic 2.5D Lighting & Body Contour</span>
         </label>
       </div>
@@ -298,10 +307,7 @@ export function AdminShowroomStudioTryOnControls({
             <span className="text-xs text-muted-foreground">{Math.round(splitRatio * 100)}%</span>
           </div>
         </div>
-        <input
-          id="split-slider" type="range" min={0} max={100} value={Math.round(splitRatio * 100)}
-          onChange={(e) => setSplitRatio(Number(e.target.value) / 100)} className="w-full cursor-pointer accent-blue-600"
-        />
+        <input id="split-slider" type="range" min={0} max={100} value={Math.round(splitRatio * 100)} onChange={(e) => setSplitRatio(Number(e.target.value) / 100)} className="w-full cursor-pointer accent-blue-600" />
       </div>
     </div>
   );

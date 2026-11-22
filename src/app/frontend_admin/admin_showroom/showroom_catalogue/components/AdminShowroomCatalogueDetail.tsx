@@ -21,6 +21,11 @@ import {
 } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/state/AdminShowroomCatalogueTransactions";
 import { money } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/utils/AdminShowroomCatalogueAmounts";
 import { Button } from "@/components/ui/Button";
+import {
+  addToTrialRack,
+  isInTrialRack,
+  convertProductToGarmentItem,
+} from "@/lib/trial_rack";
 export function AdminShowroomCatalogueDetail({
   variantId,
   onClose,
@@ -41,6 +46,7 @@ export function AdminShowroomCatalogueDetail({
     variants = state.variants.filter(
       (v) => v.productId === product.id && v.status === "active",
     );
+  const [inTrial, setInTrial] = useState(() => isInTrialRack(product.id));
 
   const offers = useAdminShowroomCatalogueOffers();
   const deal = bestOffer(
@@ -220,13 +226,35 @@ export function AdminShowroomCatalogueDetail({
                   <Plus size={18} />
                   {t("add")}
                 </Button>
-                <Link
-                  href={`/frontend_admin/admin_showroom/showroom_studio?product=${product.id}&colour=${encodeURIComponent(variant.colour)}`}
-                  className="mt-3 flex w-full min-h-11 items-center justify-center gap-2 rounded-lg border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary/10"
-                >
-                  <Sparkles size={18} />
-                  Virtual Try-On & Style Preview
-                </Link>
+                <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const item = convertProductToGarmentItem(product, variant.colour);
+                      addToTrialRack(item);
+                      setInTrial(true);
+                      notify(`Added ${product.name} to Trial Rack!`);
+                    }}
+                    className={`flex w-full min-h-11 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold transition-all ${
+                      inTrial
+                        ? "border-blue-600 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-200"
+                        : "border-border bg-card text-foreground hover:bg-subtle"
+                    }`}
+                  >
+                    <span>🛍️</span>
+                    <span>{inTrial ? "✓ In Trial Rack" : "+ Add to Trial Rack"}</span>
+                  </button>
+                  <Link
+                    href={`/frontend_admin/admin_showroom/showroom_studio?product=${product.id}&colour=${encodeURIComponent(variant.colour)}`}
+                    onClick={() => {
+                      addToTrialRack(convertProductToGarmentItem(product, variant.colour));
+                    }}
+                    className="flex w-full min-h-11 items-center justify-center gap-1.5 rounded-lg bg-blue-600 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-blue-700 shadow-sm"
+                  >
+                    <Sparkles size={15} />
+                    <span>Try in Studio →</span>
+                  </Link>
+                </div>
               </form>
               <p className="mt-3 text-xs leading-5 text-secondary">
                 {!state.activeSessionId ? t("sessionNeeded") : t("notReserved")}
