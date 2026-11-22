@@ -17,8 +17,10 @@ declare module "@/lib/browser_document" {
 }
 declare module "@/lib/routes" {
   export const ROUTES: Record<
+    | "login"
     | "overview"
     | "showroom"
+    | "studio"
     | "sessions"
     | "billing"
     | "inventory"

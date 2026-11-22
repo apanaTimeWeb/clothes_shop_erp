@@ -9,6 +9,7 @@ import { ADMIN_REPORTS_WORKSPACE_ROUTES } from "@/app/frontend_admin/admin_repor
 import { ADMIN_SETTINGS_WORKSPACE_ROUTES } from "@/app/frontend_admin/admin_settings/settings_workspace/config/admin_settings_workspace.url_config";
 import { ADMIN_SHOWROOM_STUDIO_ROUTES } from "@/app/frontend_admin/admin_showroom/showroom_studio/config/admin_showroom_studio.url_config";
 export const ROUTES = {
+  login: "/login",
   settings: ADMIN_SETTINGS_WORKSPACE_ROUTES.root,
   reports: ADMIN_REPORTS_WORKSPACE_ROUTES.root,
   management: ADMIN_MANAGEMENT_STOCK_ROUTES.domain,

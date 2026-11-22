@@ -1,7 +1,7 @@
 "use client";
 import { requestDiscard } from "@/app/frontend_admin/admin_workspace/workspace_navigation/hooks/useAdminWorkspaceNavigationUnsaved";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import {
@@ -16,7 +16,9 @@ import {
   Menu,
   ArrowUpRight,
   X,
+  LogOut,
 } from "lucide-react";
+import { logoutUser, getAuthUser, type AuthUser } from "@/lib/auth";
 import { useAdminWorkspaceNavigation } from "@/app/frontend_admin/admin_workspace/workspace_navigation/state/AdminWorkspaceNavigationStore";
 import { ROUTES } from "@/lib/routes";
 import { STORAGE_KEY } from "@/app/frontend_admin/admin_workspace/workspace_navigation/state/AdminWorkspaceNavigationTransactions";
@@ -42,6 +44,7 @@ export function AdminWorkspaceNavigationShell({
 }) {
   const t = useTranslations("shell"),
     path = usePathname(),
+    router = useRouter(),
     {
       state,
       ready,
@@ -55,6 +58,17 @@ export function AdminWorkspaceNavigationShell({
       notify,
     } = useAdminWorkspaceNavigation();
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState<AuthUser | null>(null);
+
+  useEffect(() => {
+    setUser(getAuthUser());
+  }, []);
+
+  const handleLogout = () => {
+    logoutUser();
+    router.push(`${ROUTES.login}?logged_out=1`);
+  };
+
   useEffect(() => {
     const changed = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY) markStale();
@@ -119,8 +133,23 @@ export function AdminWorkspaceNavigationShell({
               {t("progressDescription")}
             </p>
           </div>
-          <div className="px-6 pb-6 text-xs text-muted-inverse">
+          <div className="px-6 pb-2 text-xs text-muted-inverse">
             {t("local")}
+          </div>
+          <div className="mx-3 mb-4 rounded-xl border border-muted-inverse/40 bg-card/10 p-2.5 flex items-center justify-between gap-2">
+            <div className="min-w-0">
+              <p className="text-xs font-semibold text-on-primary truncate">{user?.name || "Admin"}</p>
+              <p className="text-[10px] text-muted-inverse truncate">{user?.role || "Administrator"}</p>
+            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="rounded-lg p-1.5 text-danger hover:bg-danger/20 transition-colors"
+              title="Log out"
+              aria-label="Log out"
+            >
+              <LogOut size={16} />
+            </button>
           </div>
         </aside>
         <div className="min-w-0">
@@ -140,7 +169,7 @@ export function AdminWorkspaceNavigationShell({
                 {t("note")}
               </span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2.5">
               <ThemeToggle />
               <label className="flex items-center gap-2">
                 <span className="sr-only">{t("mode")}</span>
@@ -150,6 +179,7 @@ export function AdminWorkspaceNavigationShell({
                     if (requestDiscard())
                       setMode(e.target.value as AdminWorkspaceNavigationMode);
                   }}
+                  className="rounded-md border border-border bg-background px-2 py-1 text-xs text-foreground"
                 >
                   {(["Staff", "Customer", "Admin"] as const).map((m) => (
                     <option key={m} value={m}>
@@ -158,6 +188,25 @@ export function AdminWorkspaceNavigationShell({
                   ))}
                 </select>
               </label>
+
+              {user && (
+                <div className="hidden md:flex items-center gap-1.5 rounded-lg border border-border bg-subtle px-2.5 py-1 text-xs">
+                  <span className="size-2 rounded-full bg-success" />
+                  <span className="font-semibold text-foreground max-w-[120px] truncate" title={user.name}>
+                    {user.name}
+                  </span>
+                </div>
+              )}
+
+              <Button
+                onClick={handleLogout}
+                className="flex items-center gap-1.5 min-h-8 px-2.5 py-1 text-xs text-danger hover:bg-danger/10 hover:text-danger hover:border-danger/40 transition-colors"
+                title="Log out"
+                aria-label="Log out"
+              >
+                <LogOut size={14} />
+                <span className="hidden sm:inline">Log out</span>
+              </Button>
             </div>
           </header>
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border bg-card px-4 py-3 md:px-8">
