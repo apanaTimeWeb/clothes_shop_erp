@@ -40,7 +40,7 @@ const MODEL_FIELDS = [
 export function AdminShowroomStudioTryOnControls({
   trialRack, onAddToTrial, onRemoveFromTrial, onEquipItem,
   wornGarments, activeInstanceId, setActiveInstanceId, onRemoveWorn,
-  activeGarment, onUpdateActivePose, onUpdateActiveScale, onUpdateActiveColour, onResetActivePose,
+  activeGarment, onUpdateActivePose, onUpdateActiveColour, onResetActivePose,
   tuckedIn, setTuckedIn, blendLighting, setBlendLighting, splitRatio, setSplitRatio,
   modelTransform, setModelTransform, onResetModel, activeTab, setActiveTab,
   onAutoAlignPose, showSkeleton = false, setShowSkeleton, onUpdateActiveDeform,
@@ -174,60 +174,31 @@ export function AdminShowroomStudioTryOnControls({
                     <div className="space-y-2 border-t border-border pt-2">
                       {activeGarment.category === "bottom" ? (
                         <>
-                          <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Leg Flare / Width:</span><span className="font-mono text-muted-foreground">{curDeform.legFlare > 0 ? `+${curDeform.legFlare}%` : curDeform.legFlare < 0 ? `${curDeform.legFlare}%` : "Regular"}</span></span>
-                            <input type="range" min={-30} max={40} value={curDeform.legFlare} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legFlare: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                          </label>
-                          <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Leg Length:</span><span className="font-mono text-muted-foreground">{curDeform.legLength}%</span></span>
-                            <input type="range" min={75} max={135} value={curDeform.legLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                          </label>
-                          <label className="flex flex-col text-[11px] text-foreground">
-                            <span className="flex justify-between"><span>Waist & Hip Fit:</span><span className="font-mono text-muted-foreground">{curDeform.waistStretch}%</span></span>
-                            <input type="range" min={80} max={130} value={curDeform.waistStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, waistStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                          </label>
+                          <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>Leg Flare / Width:</span><span className="font-mono text-muted-foreground">{curDeform.legFlare > 0 ? `+${curDeform.legFlare}%` : curDeform.legFlare < 0 ? `${curDeform.legFlare}%` : "Regular"}</span></span><input type="range" min={-30} max={40} value={curDeform.legFlare} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legFlare: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
+                          <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>Leg Length:</span><span className="font-mono text-muted-foreground">{curDeform.legLength}%</span></span><input type="range" min={75} max={135} value={curDeform.legLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, legLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
+                          <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>Waist & Hip Fit:</span><span className="font-mono text-muted-foreground">{curDeform.waistStretch}%</span></span><input type="range" min={80} max={130} value={curDeform.waistStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, waistStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
                         </>
                       ) : (
                         <>
                           <div className="grid grid-cols-2 gap-2">
-                            <label className="flex flex-col text-[11px] text-foreground">
-                              <span className="flex justify-between"><span>L-Arm:</span><span className="font-mono text-muted-foreground">{curDeform.leftArmAngle}°</span></span>
-                              <input type="range" min={-45} max={45} value={curDeform.leftArmAngle} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, leftArmAngle: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                            </label>
-                            <label className="flex flex-col text-[11px] text-foreground">
-                              <span className="flex justify-between"><span>R-Arm:</span><span className="font-mono text-muted-foreground">{curDeform.rightArmAngle}°</span></span>
-                              <input type="range" min={-45} max={45} value={curDeform.rightArmAngle} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, rightArmAngle: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                            </label>
+                            <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>L-Arm:</span><span className="font-mono text-muted-foreground">{curDeform.leftArmAngle}°</span></span><input type="range" min={-45} max={45} value={curDeform.leftArmAngle} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, leftArmAngle: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
+                            <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>R-Arm:</span><span className="font-mono text-muted-foreground">{curDeform.rightArmAngle}°</span></span><input type="range" min={-45} max={45} value={curDeform.rightArmAngle} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, rightArmAngle: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
                           </div>
                           <div className="grid grid-cols-2 gap-2">
-                            <label className="flex flex-col text-[11px] text-foreground">
-                              <span className="flex justify-between"><span>Sleeve:</span><span className="font-mono text-muted-foreground">{curDeform.sleeveLength}%</span></span>
-                              <input type="range" min={70} max={140} value={curDeform.sleeveLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, sleeveLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                            </label>
-                            <label className="flex flex-col text-[11px] text-foreground">
-                              <span className="flex justify-between"><span>Chest:</span><span className="font-mono text-muted-foreground">{curDeform.chestStretch}%</span></span>
-                              <input type="range" min={80} max={130} value={curDeform.chestStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, chestStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
-                            </label>
+                            <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>Sleeve:</span><span className="font-mono text-muted-foreground">{curDeform.sleeveLength}%</span></span><input type="range" min={70} max={140} value={curDeform.sleeveLength} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, sleeveLength: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
+                            <label className="flex flex-col text-[11px] text-foreground"><span className="flex justify-between"><span>Chest:</span><span className="font-mono text-muted-foreground">{curDeform.chestStretch}%</span></span><input type="range" min={80} max={130} value={curDeform.chestStretch} onChange={(e) => onUpdateActiveDeform?.((p) => ({ ...p, chestStretch: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" /></label>
                           </div>
                         </>
                       )}
                     </div>
                   ) : (
                     <div className="border-t border-border pt-2 space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-medium text-foreground">Position & Size:</span>
-                        <Button className="min-h-6 px-2 py-0 text-[10px]" onClick={onResetActivePose}>Reset</Button>
-                      </div>
+                      <div className="flex items-center justify-between text-xs"><span className="font-medium text-foreground">Position & Size:</span><Button className="min-h-6 px-2 py-0 text-[10px]" onClick={onResetActivePose}>Reset</Button></div>
                       <div className="grid gap-2 sm:grid-cols-2">
                         {(["x", "y", "width", "height", "rotation"] as const).map((f) => (
                           <label key={f} className="flex flex-col text-[11px] text-foreground">
                             <span className="flex justify-between"><span className="capitalize">{f}</span><span className="font-mono text-muted-foreground">{Math.round(activeGarment.pose[f])}{f === "rotation" ? "°" : "px"}</span></span>
-                            <input
-                              type="range" min={f === "rotation" ? -180 : f === "width" || f === "height" ? 20 : 0}
-                              max={f === "rotation" ? 180 : f === "y" || f === "height" ? 800 : 600}
-                              value={activeGarment.pose[f]} onChange={(e) => onUpdateActivePose((p) => ({ ...p, [f]: Number(e.target.value) }))}
-                              className="mt-1 w-full cursor-pointer accent-blue-600"
-                            />
+                            <input type="range" min={f === "rotation" ? -180 : f === "width" || f === "height" ? 20 : 0} max={f === "rotation" ? 180 : f === "y" || f === "height" ? 800 : 600} value={activeGarment.pose[f]} onChange={(e) => onUpdateActivePose((p) => ({ ...p, [f]: Number(e.target.value) }))} className="mt-1 w-full cursor-pointer accent-blue-600" />
                           </label>
                         ))}
                       </div>
@@ -235,27 +206,18 @@ export function AdminShowroomStudioTryOnControls({
                   )}
 
                   <div className="space-y-1.5 border-t border-border pt-2">
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-medium text-foreground">Colour & Size:</span>
-                      <span className="text-muted-foreground">{activeGarment.colour} • {SIZES.find((s) => s.scale === activeGarment.scale)?.desc ?? "Custom"}</span>
-                    </div>
+                    <div className="flex items-center justify-between text-xs"><span className="font-medium text-foreground">Colour & Size:</span><span className="text-muted-foreground">{activeGarment.colour} • {SIZES.find((s) => s.scale === activeGarment.scale)?.desc ?? "Custom"}</span></div>
                     <div className="flex flex-wrap gap-1">
                       {["Blue", "Black", "Dark Blue", "Navy", "Beige", "Olive", "Grey", "White", "Red"].map((c) => {
                         const p = getGarmentColorPalette(c), isSel = activeGarment.colour.toLowerCase() === c.toLowerCase();
                         return (
-                          <button
-                            key={c} type="button" onClick={() => onUpdateActiveColour(c)}
-                            className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] ${isSel ? "border-2 border-blue-600 bg-blue-50 font-bold" : "border border-border bg-subtle"}`}
-                          ><span className="h-2 w-2 rounded-full border border-black/20" style={{ backgroundColor: p.primary }} /><span>{c}</span></button>
+                          <button key={c} type="button" onClick={() => onUpdateActiveColour(c)} className={`inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[11px] ${isSel ? "border-2 border-blue-600 bg-blue-50 font-bold" : "border border-border bg-subtle"}`}><span className="h-2 w-2 rounded-full border border-black/20" style={{ backgroundColor: p.primary }} /><span>{c}</span></button>
                         );
                       })}
                     </div>
                   </div>
 
-                  <button
-                    type="button" onClick={() => onRemoveWorn(activeGarment.instanceId)}
-                    className="mt-2 w-full rounded-lg border border-danger/40 bg-danger/10 py-1.5 text-xs font-medium text-danger hover:bg-danger/20 transition-all"
-                  >✖ Take Off {activeGarment.name} from Body</button>
+                  <button type="button" onClick={() => onRemoveWorn(activeGarment.instanceId)} className="mt-2 w-full rounded-lg border border-danger/40 bg-danger/10 py-1.5 text-xs font-medium text-danger hover:bg-danger/20 transition-all">✖ Take Off {activeGarment.name} from Body</button>
                 </>
               )}
             </>
@@ -265,19 +227,12 @@ export function AdminShowroomStudioTryOnControls({
 
       {activeTab === "model" && (
         <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span className="font-medium text-foreground">Model & Photo:</span>
-            <Button className="min-h-8 px-2.5 py-1 text-xs" onClick={onResetModel}>Reset Photo</Button>
-          </div>
+          <div className="flex items-center justify-between text-sm"><span className="font-medium text-foreground">Model & Photo:</span><Button className="min-h-8 px-2.5 py-1 text-xs" onClick={onResetModel}>Reset Photo</Button></div>
           <div className="grid gap-3 sm:grid-cols-2 border-t border-border pt-3">
             {MODEL_FIELDS.map(({ field, label, min, max, unit }) => (
               <label key={field} className="flex flex-col text-xs text-foreground">
                 <span className="flex justify-between"><span>{label}</span><span className="font-mono text-muted-foreground">{Math.round(modelTransform[field])}{unit}</span></span>
-                <input
-                  type="range" min={min} max={max} value={modelTransform[field]}
-                  onChange={(e) => setModelTransform({ ...modelTransform, [field]: Number(e.target.value) })}
-                  className="mt-1 w-full cursor-pointer accent-blue-600"
-                />
+                <input type="range" min={min} max={max} value={modelTransform[field]} onChange={(e) => setModelTransform({ ...modelTransform, [field]: Number(e.target.value) })} className="mt-1 w-full cursor-pointer accent-blue-600" />
               </label>
             ))}
           </div>

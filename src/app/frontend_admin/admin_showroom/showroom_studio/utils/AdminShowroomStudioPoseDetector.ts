@@ -126,7 +126,8 @@ export function getPresetSkeleton(modelId = "male-photo"): DetectedSkeleton {
   const isMannequin = modelId.includes("mannequin");
 
   const baseShoulderW = isMannequin ? 150 : isFemale ? 135 : 155;
-  const sY = 220, eY = 330, wY = 430, hY = 410, kY = 560, aY = 720;
+  const isBust = modelId === "female-bust";
+  const sY = isBust ? 330 : 220, eY = isBust ? 450 : 330, wY = isBust ? 560 : 430, hY = isBust ? 540 : 410, kY = 560, aY = 720;
   const centerX = 300;
 
   const pts: LandmarkPoint[] = Array(33).fill({ x: centerX, y: 400 });

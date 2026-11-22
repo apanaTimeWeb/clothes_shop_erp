@@ -96,17 +96,32 @@ export function resolveCatalogueProductImage(
     return "/images/real-chinos-beige.png";
   }
 
+  // Winterwear / Pullovers / Cardigans
+  if (c.includes("winter") || n.includes("pullover") || n.includes("knit") || n.includes("cardigan") || n.includes("warm")) {
+    return col.includes("black") || col.includes("dark") ? "/images/real-shirt-black.png" : "/images/real-tshirt-oversized.png";
+  }
+
+  // Kids Sets / Rompers / Coordinated Sets
+  if (c.includes("set") || n.includes("set") || n.includes("romper")) {
+    return col.includes("navy") || col.includes("blue") ? "/images/real-polo-navy.png" : "/images/real-shirt-white.png";
+  }
+
+  // Ethnic / Kurta / Kurti
+  if (n.includes("kurta") || n.includes("kurti") || c.includes("kurta") || c.includes("kurti")) {
+    if (col.includes("blue") || col.includes("navy")) return "/images/real-shirt-blue.png";
+    if (col.includes("red") || col.includes("maroon")) return "/images/real-shirt-flannel.png";
+    return "/images/real-shirt-white.png";
+  }
+
   // Fallbacks: if fallbackSrc exists and is not an svg placeholder, use it
   if (fallbackSrc && !fallbackSrc.endsWith(".svg")) {
     return fallbackSrc;
   }
 
-  // Specific ethnic or accessories fallbacks
+  // Specific dresses or accessories fallbacks
   if (
-    n.includes("kurti") ||
     n.includes("dress") ||
     n.includes("saree") ||
-    n.includes("kurta") ||
     c.includes("sock") ||
     c.includes("belt") ||
     c.includes("cap")

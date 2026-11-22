@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useState } from "react";
 import type { Catalogue } from "@/app/frontend_admin/admin_showroom/showroom_studio/schemas/AdminShowroomStudioSchema";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminShowroomStudioColours({
   colours,
   images,
@@ -47,7 +48,7 @@ export function AdminShowroomStudioColours({
               {photo ? (
                 <>
                   <Image
-                    src={photo.srcOrAssetKey}
+                    src={resolveCatalogueProductImage(photo.productId || "", undefined, undefined, c, photo.srcOrAssetKey)}
                     width={300}
                     height={300}
                     alt={photo.label}

@@ -7,9 +7,7 @@ import {
   type GarmentCategory, type StoreGarmentItem, type StudioPose, type WornGarmentItem, type GarmentDeform,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 import { useAdminShowroomStudioCanvas } from "@/app/frontend_admin/admin_showroom/showroom_studio/hooks/useAdminShowroomStudioCanvas";
-import {
-  AdminShowroomStudioTryOnControls, DEFAULT_MODEL_TRANSFORM, type ModelTransform,
-} from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
+import { AdminShowroomStudioTryOnControls, DEFAULT_MODEL_TRANSFORM, type ModelTransform } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioTryOnControls";
 import { AdminShowroomStudioModelSelect, STUDIO_MODELS } from "@/app/frontend_admin/admin_showroom/showroom_studio/components/AdminShowroomStudioModelSelect";
 import { detectModelPose, autoAlignGarmentToSkeleton, getPresetSkeleton, type DetectedSkeleton } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPoseDetector";
 import { getTrialRack, saveTrialRack } from "@/lib/trial_rack";
@@ -18,18 +16,13 @@ type Point = { x: number; y: number };
 let cachedModel = "male-photo", cachedPhoto = "", cachedModelTransform: ModelTransform = DEFAULT_MODEL_TRANSFORM;
 
 interface AdminShowroomStudioPreviewProps {
-  src?: string; autoCutoutSrc?: string; isRealPhoto?: boolean;
-  productCategory?: GarmentCategory; productName?: string; colour?: string;
-  products?: Array<{ id: string; name: string }>; productId?: string;
-  onSelectProduct?: (id: string) => void; colours?: string[]; onSelectColour?: (colour: string) => void;
+  src?: string; autoCutoutSrc?: string; isRealPhoto?: boolean; productCategory?: GarmentCategory; productName?: string; colour?: string;
+  products?: Array<{ id: string; name: string }>; productId?: string; onSelectProduct?: (id: string) => void; colours?: string[]; onSelectColour?: (colour: string) => void;
 }
 
-export function AdminShowroomStudioPreview({
-  src, autoCutoutSrc, productName = "Casual Linen Shirt", colour = "Blue",
-}: AdminShowroomStudioPreviewProps) {
+export function AdminShowroomStudioPreview({ src, autoCutoutSrc, productName = "Casual Linen Shirt", colour = "Blue" }: AdminShowroomStudioPreviewProps) {
   const t = useTranslations("studio");
   const canvas = useRef<HTMLCanvasElement>(null), drag = useRef<Point | null>(null);
-
   const [selectedModel, setSelectedModel] = useState<string>(() => cachedModel);
   const [photo, setPhoto] = useState<string>(() => cachedPhoto);
   const [busy, setBusy] = useState(false), [error, setError] = useState("");
@@ -37,15 +30,10 @@ export function AdminShowroomStudioPreview({
   const [activeTab, setActiveTab] = useState<"rack" | "garment" | "model">("rack");
   const [splitRatio, setSplitRatio] = useState(1.0), [blendLighting, setBlendLighting] = useState(true);
   const [tuckedIn, setTuckedIn] = useState(false), [show, setShow] = useState(true);
-  const [skeleton, setSkeleton] = useState<DetectedSkeleton | null>(null);
-  const [showSkeleton, setShowSkeleton] = useState(false);
-
+  const [skeleton, setSkeleton] = useState<DetectedSkeleton | null>(null), [showSkeleton, setShowSkeleton] = useState(false);
   const [trialRack, setTrialRack] = useState<StoreGarmentItem[]>(() => getTrialRack());
 
-  useEffect(() => {
-    saveTrialRack(trialRack);
-  }, [trialRack]);
-
+  useEffect(() => { saveTrialRack(trialRack); }, [trialRack]);
   useEffect(() => {
     const onTrialChange = () => setTrialRack(getTrialRack());
     window.addEventListener("trial-rack-changed", onTrialChange);
@@ -59,27 +47,15 @@ export function AdminShowroomStudioPreview({
     const { pose: topPose } = autoAlignGarmentToSkeleton("top", initSkel, getStudioPreset("top", cachedModel), "shirt", topSrc);
     const { pose: botPose } = autoAlignGarmentToSkeleton("bottom", initSkel, getStudioPreset("bottom", cachedModel), "jeans", botSrc);
     return [
-      {
-        instanceId: "worn-init-top", catalogId: STORE_CATALOG_ITEMS[0].id,
-        name: productName || STORE_CATALOG_ITEMS[0].name, category: "top", colour: colour || "Blue", style: "shirt",
-        src: topSrc, pose: topPose, scale: 1.0,
-      },
-      {
-        instanceId: "worn-init-bot", catalogId: STORE_CATALOG_ITEMS[4].id,
-        name: STORE_CATALOG_ITEMS[4].name, category: "bottom", colour: "Blue", style: "jeans",
-        src: botSrc, pose: botPose, scale: 1.0,
-      },
+      { instanceId: "worn-init-top", catalogId: STORE_CATALOG_ITEMS[0].id, name: productName || STORE_CATALOG_ITEMS[0].name, category: "top", colour: colour || "Blue", style: "shirt", src: topSrc, pose: topPose, scale: 1.0 },
+      { instanceId: "worn-init-bot", catalogId: STORE_CATALOG_ITEMS[4].id, name: STORE_CATALOG_ITEMS[4].name, category: "bottom", colour: "Blue", style: "jeans", src: botSrc, pose: botPose, scale: 1.0 },
     ];
   });
 
   const [activeInstanceId, setActiveInstanceId] = useState<string>("worn-init-top");
   const [anchors, setAnchors] = useState<Point[]>([]), [marking, setMarking] = useState(false);
-
   const currentBg = photo || STUDIO_MODELS.find((m) => m.id === selectedModel)?.path || "/images/style-mannequin.svg";
-  const { background, renderError } = useAdminShowroomStudioCanvas(
-    canvas, currentBg, wornGarments, show, anchors, marking,
-    splitRatio, blendLighting, modelTransform, activeInstanceId, tuckedIn, skeleton, showSkeleton,
-  );
+  const { background, renderError } = useAdminShowroomStudioCanvas(canvas, currentBg, wornGarments, show, anchors, marking, splitRatio, blendLighting, modelTransform, activeInstanceId, tuckedIn, skeleton, showSkeleton);
   const activeGarment = wornGarments.find((w) => w.instanceId === activeInstanceId) || wornGarments[0];
 
   function position(e: React.PointerEvent<HTMLCanvasElement>): Point {
@@ -127,14 +103,18 @@ export function AdminShowroomStudioPreview({
   }
 
   async function handleAutoAlignPose() {
-    if (!activeGarment) return;
+    if (wornGarments.length === 0) return;
     try {
       setBusy(true);
       const skel = await detectModelPose(background || canvas.current || new Image(), selectedModel);
       setSkeleton(skel); setShowSkeleton(true);
-      const { pose: alignedPose } = autoAlignGarmentToSkeleton(activeGarment.category, skel, activeGarment.pose, activeGarment.style, activeGarment.src);
-      const { src: newSrc } = resolveGarmentItemCutoutSrc(activeGarment.category, activeGarment.style, activeGarment.colour, activeGarment.name, undefined, alignedPose.deform);
-      setWornGarments((prev) => prev.map((w) => (w.instanceId === activeGarment.instanceId ? { ...w, src: newSrc, pose: alignedPose } : w)));
+      setWornGarments((prev) =>
+        prev.map((w) => {
+          const { pose: alignedPose } = autoAlignGarmentToSkeleton(w.category, skel, w.pose, w.style, w.src);
+          const { src: newSrc } = resolveGarmentItemCutoutSrc(w.category, w.style, w.colour, w.name, undefined, alignedPose.deform);
+          return { ...w, src: newSrc, pose: alignedPose };
+        })
+      );
     } catch {
       setError("Auto-alignment failed, please adjust manually.");
     } finally {
@@ -148,20 +128,12 @@ export function AdminShowroomStudioPreview({
     const [a, b, end] = next, center = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
     const width = Math.hypot(b.x - a.x, b.y - a.y), height = Math.hypot(end.x - center.x, end.y - center.y);
     if (width < 20 || height < 20) { setError(t("message060")); setAnchors([]); return; }
-    updateActivePose({
-      x: (center.x + end.x) / 2, y: (center.y + end.y) / 2,
-      width: Math.min(600, width * 1.25), height: Math.min(800, height * 1.15),
-      rotation: (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI,
-    });
+    updateActivePose({ x: (center.x + end.x) / 2, y: (center.y + end.y) / 2, width: Math.min(600, width * 1.25), height: Math.min(800, height * 1.15), rotation: (Math.atan2(b.y - a.y, b.x - a.x) * 180) / Math.PI });
     setMarking(false); setAnchors([]); setError("");
   }
 
   const handleModelTransform: React.Dispatch<React.SetStateAction<ModelTransform>> = (val) => {
-    setModelTransform((prev) => {
-      const next = typeof val === "function" ? val(prev) : val;
-      cachedModelTransform = next;
-      return next;
-    });
+    setModelTransform((prev) => { const next = typeof val === "function" ? val(prev) : val; cachedModelTransform = next; return next; });
   };
 
   return (
@@ -173,7 +145,20 @@ export function AdminShowroomStudioPreview({
 
       <AdminShowroomStudioModelSelect
         selectedModel={selectedModel}
-        onSelectModel={(id) => { cachedModel = id; cachedPhoto = ""; setPhoto(""); setSelectedModel(id); handleModelTransform(DEFAULT_MODEL_TRANSFORM); setSkeleton(null); }}
+        onSelectModel={(id) => {
+          cachedModel = id; cachedPhoto = ""; setPhoto(""); setSelectedModel(id);
+          handleModelTransform(DEFAULT_MODEL_TRANSFORM);
+          const newSkel = getPresetSkeleton(id);
+          setSkeleton(null);
+          setWornGarments((prev) =>
+            prev.map((w) => {
+              const presetPose = getStudioPreset(w.category, id);
+              const { pose: snappedPose } = autoAlignGarmentToSkeleton(w.category, newSkel, presetPose, w.style, w.src);
+              const { src: newSrc } = resolveGarmentItemCutoutSrc(w.category, w.style, w.colour, w.name, undefined, snappedPose.deform);
+              return { ...w, src: newSrc, pose: snappedPose };
+            })
+          );
+        }}
         photo={photo}
         onPhotoLoaded={(d) => { cachedPhoto = d; setPhoto(d); handleModelTransform(DEFAULT_MODEL_TRANSFORM); setAnchors([]); setMarking(false); setSkeleton(null); }}
         onClearPhoto={() => { cachedPhoto = ""; setPhoto(""); handleModelTransform(DEFAULT_MODEL_TRANSFORM); setSkeleton(null); }}
@@ -190,18 +175,12 @@ export function AdminShowroomStudioPreview({
               <div
                 key={w.instanceId} onClick={() => { setActiveInstanceId(w.instanceId); setActiveTab("garment"); }}
                 className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium cursor-pointer transition-all ${
-                  activeInstanceId === w.instanceId
-                    ? "border-2 border-blue-600 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200 font-semibold shadow-sm"
-                    : "border border-border bg-card text-foreground hover:bg-muted"
+                  activeInstanceId === w.instanceId ? "border-2 border-blue-600 bg-blue-50 text-blue-800 dark:bg-blue-950/40 dark:text-blue-200 font-semibold shadow-sm" : "border border-border bg-card text-foreground hover:bg-muted"
                 }`}
               >
                 <span>{w.category === "top" ? "👕" : "👖"}</span>
                 <span>{w.name} ({w.colour})</span>
-                <button
-                  type="button" title={`Remove ${w.name} from body`}
-                  onClick={(e) => { e.stopPropagation(); removeWorn(w.instanceId); }}
-                  className="ml-1 rounded-full p-0.5 text-danger hover:bg-danger/20 font-bold text-xs"
-                >✖</button>
+                <button type="button" title={`Remove ${w.name} from body`} onClick={(e) => { e.stopPropagation(); removeWorn(w.instanceId); }} className="ml-1 rounded-full p-0.5 text-danger hover:bg-danger/20 font-bold text-xs">✖</button>
               </div>
             ))
           )}
@@ -214,11 +193,9 @@ export function AdminShowroomStudioPreview({
       {(error || renderError) && (<p role="alert" className="text-sm font-medium text-danger">{error || renderError}</p>)}
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button disabled={wornGarments.length === 0 || !background} onClick={() => { setMarking(!marking); setAnchors([]); setShow(true); }}>
-          {marking ? t("message075") : t("message076")}
-        </Button>
+        <Button disabled={wornGarments.length === 0 || !background} onClick={() => { setMarking(!marking); setAnchors([]); setShow(true); }}>{marking ? t("message075") : t("message076")}</Button>
         <Button onClick={() => { if (activeGarment) updateActivePose(getStudioPreset(activeGarment.category, selectedModel)); }}>{t("message077")}</Button>
-        <label className="ml-auto flex items-center gap-1.5 text-xs text-foreground">
+        <label className="ml-auto flex items-center gap-1.5 text-xs text-foreground cursor-pointer">
           <input type="checkbox" checked={show} onChange={(e) => setShow(e.target.checked)} className="rounded border-border accent-blue-600" />
           <span>Show Garments</span>
         </label>
@@ -267,7 +244,6 @@ export function AdminShowroomStudioPreview({
               onPointerCancel={() => { drag.current = null; }}
             />
           </div>
-
           <div className="mt-3 flex w-full max-w-md justify-between">
             <Button
               disabled={!background || wornGarments.length === 0 || !show || marking || busy}

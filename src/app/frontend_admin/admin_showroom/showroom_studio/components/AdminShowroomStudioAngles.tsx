@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import type { Catalogue } from "@/app/frontend_admin/admin_showroom/showroom_studio/schemas/AdminShowroomStudioSchema";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminShowroomStudioAngles({
   canEdit,
   images,
@@ -69,7 +70,7 @@ export function AdminShowroomStudioAngles({
       >
         <Image
           draggable={false}
-          src={current.srcOrAssetKey}
+          src={resolveCatalogueProductImage(current.productId || "", undefined, undefined, current.colour, current.srcOrAssetKey)}
           alt={current.label}
           width={600}
           height={600}

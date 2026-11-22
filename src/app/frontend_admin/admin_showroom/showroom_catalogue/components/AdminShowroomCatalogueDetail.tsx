@@ -23,6 +23,7 @@ import { money } from "@/app/frontend_admin/admin_showroom/showroom_catalogue/ut
 import { Button } from "@/components/ui/Button";
 import {
   addToTrialRack,
+  removeFromTrialRack,
   isInTrialRack,
   convertProductToGarmentItem,
 } from "@/lib/trial_rack";
@@ -231,9 +232,14 @@ export function AdminShowroomCatalogueDetail({
                     type="button"
                     onClick={() => {
                       const item = convertProductToGarmentItem(product, variant.colour);
-                      addToTrialRack(item);
-                      setInTrial(true);
-                      notify(`Added ${product.name} to Trial Rack!`);
+                      if (inTrial) {
+                        removeFromTrialRack(item.id);
+                        setInTrial(false);
+                      } else {
+                        addToTrialRack(item);
+                        setInTrial(true);
+                        notify(`Added ${product.name} to Trial Rack!`);
+                      }
                     }}
                     className={`flex w-full min-h-11 items-center justify-center gap-1.5 rounded-lg border px-3 py-2 text-xs font-semibold transition-all ${
                       inTrial

@@ -11,7 +11,8 @@ export const STUDIO_MODELS = [
   { id: "male-streetwear", label: "Male (Streetwear)", path: "/images/model-male-streetwear.jpg" },
   { id: "male-formal", label: "Male (Formal)", path: "/images/model-male-formal.jpg" },
   { id: "male-casual", label: "Male (Casual Standing)", path: "/images/model-male-casual.jpg" },
-  { id: "female-photo", label: "Female (Real Full Body)", path: "/images/model-female-photo.jpg" },
+  { id: "female-photo", label: "Female (Studio Standing)", path: "/images/model-female-fullbody.jpg" },
+  { id: "female-bust", label: "Female (Portrait / Bust)", path: "/images/model-female-photo.jpg" },
   { id: "male", label: "Male (Silhouette)", path: "/images/model-male.svg" },
   { id: "female", label: "Female (Silhouette)", path: "/images/model-female.svg" },
 ];
