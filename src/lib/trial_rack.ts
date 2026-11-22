@@ -3,6 +3,8 @@ import {
   type StoreGarmentItem,
 } from "@/app/frontend_admin/admin_showroom/showroom_studio/utils/AdminShowroomStudioPhoto";
 
+export { type StoreGarmentItem };
+
 const STORAGE_KEY = "clothes-shop.trial-rack";
 
 export function getDefaultTrialRack(): StoreGarmentItem[] {
