@@ -27,6 +27,7 @@ export function AdminDashboardOverviewMain() {
       value: state.products.length,
       hint: t("catalogue", { count: state.departments.length }),
       Icon: Shirt,
+      href: ROUTES.showroom,
     },
     {
       key: "units",
@@ -36,12 +37,14 @@ export function AdminDashboardOverviewMain() {
       ),
       hint: t("stock"),
       Icon: Boxes,
+      href: ROUTES.inventory,
     },
     {
       key: "sales",
       value: money(state.sales.reduce((n, s) => n + s.totalPaise, 0)),
       hint: t("salesHint"),
       Icon: Receipt,
+      href: ROUTES.sales,
     },
     {
       key: "pending",
@@ -50,6 +53,7 @@ export function AdminDashboardOverviewMain() {
         .reduce((sum, p) => sum + p.qty, 0),
       hint: t("pendingHint"),
       Icon: PackageOpen,
+      href: ROUTES.sessions,
     },
   ];
   const low = state.variants.filter(
@@ -110,20 +114,21 @@ export function AdminDashboardOverviewMain() {
         />
       </section>
       <div className="mb-7 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map(({ key, value, hint, Icon }) => (
-          <section
+        {stats.map(({ key, value, hint, Icon, href }) => (
+          <Link
             key={key}
-            className="rounded-xl border border-border bg-card p-5 shadow-card"
+            href={href}
+            className="group rounded-xl border border-border bg-card p-5 shadow-card hover:border-blue-500/50 hover:shadow-md transition-all block"
           >
             <div className="flex items-center justify-between gap-2">
-              <p className="text-xs text-secondary">{t(key)}</p>
-              <Icon size={18} className="text-secondary" />
+              <p className="text-xs text-secondary group-hover:text-foreground">{t(key)}</p>
+              <Icon size={18} className="text-secondary group-hover:text-blue-600 transition-colors" />
             </div>
             <strong className="mt-4 block text-3xl font-semibold tracking-tight">
               {value}
             </strong>
-            <p className="mt-2 text-[11px] text-secondary">{hint}</p>
-          </section>
+            <p className="mt-2 text-[11px] text-secondary">{hint} →</p>
+          </Link>
         ))}
       </div>
       <section className="mb-7 rounded-xl border border-border bg-card p-6">
@@ -132,13 +137,22 @@ export function AdminDashboardOverviewMain() {
           <p className="text-xs text-secondary">{t("flowNote")}</p>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {[Search, Heart, MapPin, CheckCheck].map((Icon, index) => (
-            <div key={index} className="flex gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-subtle text-primary">
+          {[
+            { Icon: Search, stepHref: ROUTES.showroom },
+            { Icon: Heart, stepHref: ROUTES.studio },
+            { Icon: MapPin, stepHref: ROUTES.sessions },
+            { Icon: CheckCheck, stepHref: ROUTES.billing },
+          ].map(({ Icon, stepHref }, index) => (
+            <Link
+              key={index}
+              href={stepHref}
+              className="flex gap-3 group rounded-lg p-1.5 -m-1.5 hover:bg-subtle/60 transition-colors"
+            >
+              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-subtle text-primary group-hover:bg-blue-600 group-hover:text-white transition-colors">
                 <Icon size={18} />
               </span>
               <div>
-                <h3 className="text-sm font-semibold">
+                <h3 className="text-sm font-semibold group-hover:text-blue-600 transition-colors">
                   <span className="mr-1 text-secondary">0{index + 1}</span>{" "}
                   {t(`step${index + 1}`)}
                 </h3>
@@ -146,7 +160,7 @@ export function AdminDashboardOverviewMain() {
                   {t(`step${index + 1}Body`)}
                 </p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </section>

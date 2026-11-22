@@ -68,16 +68,31 @@ export function AdminManagementPlanningMain() {
           />
         </label>
       </div>
-      <label>
-        {t("message8")}
-        <input
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setLimit(25);
-          }}
-        />
-      </label>
+      <div className="flex items-end gap-2">
+        <label className="grow">
+          {t("message8")}
+          <input
+            className="w-full"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setLimit(25);
+            }}
+          />
+        </label>
+        {query && (
+          <Button
+            type="button"
+            className="min-h-11 px-3 text-xs"
+            onClick={() => {
+              setQuery("");
+              setLimit(25);
+            }}
+          >
+            Clear ✕
+          </Button>
+        )}
+      </div>
       <label>
         <input
           type="checkbox"

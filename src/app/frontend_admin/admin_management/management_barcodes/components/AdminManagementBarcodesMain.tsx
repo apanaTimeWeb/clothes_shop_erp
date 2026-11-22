@@ -54,16 +54,17 @@ export function AdminManagementBarcodesMain() {
         </p>
       )}
       <form
-        className="flex flex-wrap gap-3"
+        className="flex flex-wrap items-end gap-3"
         onSubmit={(e) => {
           e.preventDefault();
           scan(input);
         }}
       >
-        <label>
+        <label className="grow">
           {t("message19")}
           <input
             autoComplete="off"
+            className="w-full"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             list="barcode-skus"
@@ -79,14 +80,39 @@ export function AdminManagementBarcodesMain() {
         <Button type="submit" disabled={!ready}>
           {t("message20")}
         </Button>
+        {input && (
+          <Button
+            type="button"
+            className="min-h-11 px-3 text-xs"
+            onClick={() => {
+              setInput("");
+              setSelected("");
+              setMessage("");
+            }}
+          >
+            Clear ✕
+          </Button>
+        )}
       </form>
       <AdminManagementBarcodesCamera onScan={scan} />
       <p role="status">{message}</p>
       {variant && product && (
         <section className="space-y-3 rounded-xl border border-border bg-card p-4">
-          <h2>
-            {product.name} · {variant.colour} / {variant.sizeCode}
-          </h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-base font-semibold">
+              {product.name} · {variant.colour} / {variant.sizeCode}
+            </h2>
+            <Button
+              type="button"
+              className="min-h-8 px-2.5 py-1 text-xs"
+              onClick={() => {
+                setSelected("");
+                setMessage("");
+              }}
+            >
+              ✕ Close
+            </Button>
+          </div>
           <p>
             {variant.sku} · {money(variant.priceOverridePaise ?? product.defaultPricePaise)}
           </p>

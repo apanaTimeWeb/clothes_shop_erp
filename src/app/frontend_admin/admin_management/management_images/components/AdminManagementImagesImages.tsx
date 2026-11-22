@@ -57,24 +57,38 @@ export function AdminManagementImagesImages() {
           setDirty(true);
         }}
       />
-      <Button
-        disabled={busy || stale || !id || !photos.length}
-        onClick={() => {
-          if (
-            dispatch({
-              type: "manage-images",
-              data: {
-                operation: photos.map((photo) => ({ ...photo, productId: id })),
-              },
-            })
-          ) {
-            setPhotos([]);
-            setDirty(false);
-          }
-        }}
-      >
-        {t("upload")}
-      </Button>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button
+          disabled={busy || stale || !id || !photos.length}
+          onClick={() => {
+            if (
+              dispatch({
+                type: "manage-images",
+                data: {
+                  operation: photos.map((photo) => ({ ...photo, productId: id })),
+                },
+              })
+            ) {
+              setPhotos([]);
+              setDirty(false);
+            }
+          }}
+        >
+          {t("upload")}
+        </Button>
+        {photos.length > 0 && (
+          <Button
+            type="button"
+            className="min-h-11 px-3 text-xs"
+            onClick={() => {
+              setPhotos([]);
+              setDirty(false);
+            }}
+          >
+            Clear Staged ({photos.length}) ✕
+          </Button>
+        )}
+      </div>
       <div className="grid gap-4 sm:grid-cols-3">
         {state.images
           .filter((i) => i.productId === id)

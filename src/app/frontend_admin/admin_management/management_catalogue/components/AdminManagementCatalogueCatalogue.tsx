@@ -25,37 +25,64 @@ export function AdminManagementCatalogueCatalogue() {
     variants = state.variants.filter((v) => v.productId === id);
   return (
     <div className="space-y-5">
-      <label className="grid gap-2">
-        {t("search")}
-        <input value={query} onChange={(e) => setQuery(e.target.value)} />
-      </label>
-      <label className="grid gap-2">
-        {t("selectDesign")}
-        <select
-          value={id}
-          onChange={(e) => {
-            if (requestDiscard()) {
-              setId(e.target.value);
-              setFormError("");
-            }
-          }}
-        >
-          <option value="">{t("newDesign")}</option>
-          {state.products
-            .filter(
-              (p) =>
-                p.id === id ||
-                ` ${p.name} ${p.designCode}`
-                  .toLowerCase()
-                  .includes(query.toLowerCase()),
-            )
-            .map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.designCode} · {p.name} ({p.status})
-              </option>
-            ))}
-        </select>
-      </label>
+      <div className="flex items-end gap-2">
+        <label className="grow grid gap-1">
+          {t("search")}
+          <input className="w-full" value={query} onChange={(e) => setQuery(e.target.value)} />
+        </label>
+        {query && (
+          <Button
+            type="button"
+            className="min-h-10 px-3 text-xs"
+            onClick={() => setQuery("")}
+          >
+            Clear ✕
+          </Button>
+        )}
+      </div>
+      <div className="flex items-end gap-2">
+        <label className="grow grid gap-1">
+          {t("selectDesign")}
+          <select
+            value={id}
+            onChange={(e) => {
+              if (requestDiscard()) {
+                setId(e.target.value);
+                setFormError("");
+              }
+            }}
+          >
+            <option value="">{t("newDesign")}</option>
+            {state.products
+              .filter(
+                (p) =>
+                  p.id === id ||
+                  ` ${p.name} ${p.designCode}`
+                    .toLowerCase()
+                    .includes(query.toLowerCase()),
+              )
+              .map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.designCode} · {p.name} ({p.status})
+                </option>
+              ))}
+          </select>
+        </label>
+        {id && (
+          <Button
+            type="button"
+            className="min-h-10 px-3 text-xs whitespace-nowrap"
+            onClick={() => {
+              if (requestDiscard()) {
+                setId("");
+                setFormError("");
+              }
+            }}
+          >
+            + {t("newDesign")}
+          </Button>
+        )}
+      </div>
       {formError && (
         <p
           role="alert"

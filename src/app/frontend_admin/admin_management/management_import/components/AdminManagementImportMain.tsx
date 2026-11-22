@@ -121,29 +121,42 @@ export function AdminManagementImportMain() {
               </tbody>
             </table>
           </div>
-          {!preview.errors.length && (
-            <Confirm
-              trigger={<Button>{t("upgrade18")}</Button>}
-              title={t("upgrade19")}
-              description={t("upgrade20")}
-              confirmLabel={t("upgrade21")}
-              cancelLabel={t("upgrade22")}
-              onConfirm={() => {
-                if (
-                  save((s) => {
-                    if (JSON.stringify(s) !== base) throw Error(t("upgrade23"));
-                    const result = prepareImport(s, csv);
-                    if (result.errors.length) throw Error(result.errors.join("\n"));
-                    Object.assign(s, result.next);
-                  })
-                ) {
-                  setPreview(null);
-                  setCsv("");
-                  setMessage(t("upgrade24"));
-                }
+          <div className="flex flex-wrap items-center gap-3">
+            {!preview.errors.length && (
+              <Confirm
+                trigger={<Button>{t("upgrade18")}</Button>}
+                title={t("upgrade19")}
+                description={t("upgrade20")}
+                confirmLabel={t("upgrade21")}
+                cancelLabel={t("upgrade22")}
+                onConfirm={() => {
+                  if (
+                    save((s) => {
+                      if (JSON.stringify(s) !== base) throw Error(t("upgrade23"));
+                      const result = prepareImport(s, csv);
+                      if (result.errors.length) throw Error(result.errors.join("\n"));
+                      Object.assign(s, result.next);
+                    })
+                  ) {
+                    setPreview(null);
+                    setCsv("");
+                    setMessage(t("upgrade24"));
+                  }
+                }}
+              />
+            )}
+            <Button
+              type="button"
+              className="text-xs"
+              onClick={() => {
+                setPreview(null);
+                setCsv("");
+                setMessage("");
               }}
-            />
-          )}
+            >
+              ✕ Dismiss Preview
+            </Button>
+          </div>
         </section>
       )}
       <p role="status">{error || message}</p>
