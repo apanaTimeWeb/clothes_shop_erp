@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, SearchX, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -37,6 +38,16 @@ export function AdminShowroomCatalogueMain() {
   const [filters, setFilters] = useState<SearchFilters>({}), [selected, setSelected] = useState<string | null>(null);
   const [page, setPage] = useState(1), [compare, setCompare] = useState<string[]>([]), [comparing, setComparing] = useState(false);
   const [trialItems, setTrialItems] = useState<StoreGarmentItem[]>(() => getTrialRack());
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const q = searchParams.get("query"), prodId = searchParams.get("product");
+    if (q) setQuery(q);
+    if (prodId) {
+      const v = state.variants.find((x) => x.productId === prodId && x.status === "active");
+      if (v) setSelected(v.id);
+    }
+  }, [searchParams, state.variants]);
 
   useEffect(() => {
     const timer = setTimeout(() => setDebounced(query), 300);

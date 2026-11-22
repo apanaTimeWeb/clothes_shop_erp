@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { AdminBillingCheckoutRewards } from "@/app/frontend_admin/admin_billing/billing_checkout/components/AdminBillingCheckoutRewards";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,6 +8,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useAdminBillingCheckout } from "@/app/frontend_admin/admin_billing/billing_checkout/state/AdminBillingCheckoutStore";
 import { ROUTES } from "@/lib/routes";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 import type { Draft } from "@/app/frontend_admin/admin_billing/billing_checkout/types/AdminBillingCheckoutCommerce";
 import {
   labelFor,
@@ -112,20 +114,34 @@ export function AdminBillingCheckoutForm({
         })}
       >
         <div className="space-y-4">
-          {bill.lines.map((line, index) => (
-            <div
-              key={line.pickId}
-              className="grid gap-3 border-b border-border pb-4 sm:grid-cols-[1fr_100px]"
-            >
-              <div>
-                <h3 className="font-semibold">{labelFor(state, line.variantId)}</h3>
-                <p className="mt-1 text-xs text-secondary">
-                  {locationLabel(state, line.locationId)}
-                </p>
-                <p className="mt-2 text-sm">
-                  {t("price")}: {money(line.pricePaise)}
-                </p>
-              </div>
+          {bill.lines.map((line, index) => {
+            const v = state.variants.find((x) => x.id === line.variantId);
+            const p = state.products.find((prod) => prod.id === v?.productId);
+            const imgSrc = resolveCatalogueProductImage(p?.id || "", p?.name, p?.categoryId, v?.colour);
+            return (
+              <div
+                key={line.pickId}
+                className="grid gap-3 border-b border-border pb-4 sm:grid-cols-[1fr_100px]"
+              >
+                <div className="flex items-center gap-3">
+                  <Image
+                    src={imgSrc}
+                    alt={p?.name || labelFor(state, line.variantId)}
+                    width={48}
+                    height={48}
+                    className="size-12 rounded-lg border border-border bg-subtle p-1 object-contain shrink-0"
+                    onError={(e) => { e.currentTarget.src = "/images/real-shirt-white.png"; }}
+                  />
+                  <div>
+                    <h3 className="font-semibold text-foreground text-sm">{labelFor(state, line.variantId)}</h3>
+                    <p className="mt-0.5 text-xs text-secondary">
+                      {locationLabel(state, line.locationId)}
+                    </p>
+                    <p className="mt-1 text-xs font-semibold">
+                      {t("price")}: {money(line.pricePaise)}
+                    </p>
+                  </div>
+                </div>
               <Confirm
                 title={t("removeLine")}
                 description={t("removeLineNote")}
@@ -159,7 +175,8 @@ export function AdminBillingCheckoutForm({
                 />
               </label>
             </div>
-          ))}
+          );
+        })}
         </div>
         <p className="mt-3 text-xs leading-5 text-secondary">{t("remaining")}</p>
         <div className="mt-6 grid gap-4 sm:grid-cols-3">

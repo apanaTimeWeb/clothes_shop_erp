@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { PackagePlus } from "lucide-react";
 import { useAdminInventoryBalances } from "@/app/frontend_admin/admin_inventory/inventory_balances/state/AdminInventoryBalancesStore";
@@ -12,6 +13,7 @@ import {
 import { money } from "@/app/frontend_admin/admin_inventory/inventory_balances/utils/AdminInventoryBalancesAmounts";
 import { Button } from "@/components/ui/Button";
 import { AdminInventoryBalancesRestock } from "@/app/frontend_admin/admin_inventory/inventory_balances/components/AdminInventoryBalancesRestock";
+import { resolveCatalogueProductImage } from "@/lib/product_images";
 export function AdminInventoryBalancesMain() {
   const t = useTranslations("inventory"),
     { state, mode } = useAdminInventoryBalances();
@@ -108,12 +110,24 @@ export function AdminInventoryBalancesMain() {
                   >
                     <th
                       scope="row"
-                      className="sticky start-0 bg-card px-4 py-4 font-normal"
+                      className="sticky start-0 bg-card px-4 py-3 font-normal"
                     >
-                      <strong className="block min-w-36 text-xs">
-                        {v.sku}
-                      </strong>
-                      <span className="text-xs text-secondary">{p.name}</span>
+                      <div className="flex items-center gap-2.5">
+                        <Image
+                          src={resolveCatalogueProductImage(p.id, p.name, p.categoryId, v.colour)}
+                          alt={p.name}
+                          width={36}
+                          height={36}
+                          className="size-9 rounded-md object-contain bg-subtle border border-border p-0.5 shrink-0"
+                          onError={(e) => { e.currentTarget.src = "/images/real-shirt-white.png"; }}
+                        />
+                        <div>
+                          <strong className="block text-xs text-foreground font-semibold">
+                            {v.sku}
+                          </strong>
+                          <span className="text-xs text-secondary truncate block max-w-[140px]">{p.name}</span>
+                        </div>
+                      </div>
                     </th>
                     <td className="px-4 py-4">
                       {v.colour}

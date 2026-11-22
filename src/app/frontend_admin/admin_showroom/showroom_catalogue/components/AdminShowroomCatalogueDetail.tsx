@@ -266,7 +266,7 @@ export function AdminShowroomCatalogueDetail({
                 </div>
               </form>
               <p className="mt-3 text-xs leading-5 text-secondary">
-                {!state.activeSessionId ? t("sessionNeeded") : t("notReserved")}
+                {!state.activeSessionId ? "Starting shortlist will automatically create an active customer session." : t("notReserved")}
               </p>
             </div>
           </div>

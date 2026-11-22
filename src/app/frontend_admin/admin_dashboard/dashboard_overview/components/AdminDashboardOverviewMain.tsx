@@ -78,13 +78,19 @@ export function AdminDashboardOverviewMain() {
           <p className="mt-5 max-w-md text-sm leading-6 text-muted-inverse">
             {t("heroBody")}
           </p>
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-7 flex flex-wrap items-center gap-3">
             <Link
               href={ROUTES.showroom}
               className="inline-flex min-h-11 items-center gap-3 rounded-lg bg-card px-5 py-3 text-sm font-semibold text-primary"
             >
               {t("browse")}
               <ArrowRight size={16} />
+            </Link>
+            <Link
+              href={ROUTES.studio}
+              className="inline-flex min-h-11 items-center gap-1.5 rounded-lg border border-white/30 bg-white/10 px-4 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
+            >
+              <span>✨ Style Studio</span>
             </Link>
             <Link
               href={ROUTES.sessions}
@@ -156,9 +162,9 @@ export function AdminDashboardOverviewMain() {
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {state.products.slice(0, 4).map((p) => (
           <Link
-            href={ROUTES.showroom}
+            href={`/frontend_admin/admin_showroom/showroom_catalogue?product=${p.id}`}
             key={p.id}
-            className="flex items-center gap-3 overflow-hidden rounded-xl border border-border bg-card p-3"
+            className="flex items-center gap-3 overflow-hidden rounded-xl border border-border bg-card p-3 hover:border-blue-500/50 hover:shadow-card transition-all"
           >
             <Image
               src={resolveCatalogueProductImage(
