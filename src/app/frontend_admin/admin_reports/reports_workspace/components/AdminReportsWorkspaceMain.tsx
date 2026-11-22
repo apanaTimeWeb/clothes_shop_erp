@@ -1,7 +1,9 @@
 "use client";
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAdminReportsWorkspace } from "@/app/frontend_admin/admin_reports/reports_workspace/state/AdminReportsWorkspaceStore";
+import { ROUTES } from "@/lib/routes";
 import { salesReport } from "@/app/frontend_admin/admin_reports/reports_workspace/state/AdminReportsWorkspaceReports";
 import { dateRange } from "@/app/frontend_admin/admin_reports/reports_workspace/utils/AdminReportsWorkspaceDates";
 import { money } from "@/app/frontend_admin/admin_reports/reports_workspace/utils/AdminReportsWorkspaceAmounts";
@@ -55,6 +57,11 @@ export function AdminReportsWorkspaceMain() {
     );
   return (
     <>
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-1.5 text-xs text-secondary">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-foreground font-medium">Reports & Analytics</span>
+      </nav>
       <h1 className="text-3xl font-semibold">{t("title")}</h1>
       <p className="my-3 text-secondary">{t("subtitle")}</p>
       <div className="my-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

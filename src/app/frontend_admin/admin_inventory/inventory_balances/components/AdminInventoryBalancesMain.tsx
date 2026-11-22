@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { PackagePlus } from "lucide-react";
 import { useAdminInventoryBalances } from "@/app/frontend_admin/admin_inventory/inventory_balances/state/AdminInventoryBalancesStore";
+import { ROUTES } from "@/lib/routes";
 import {
   productFor,
   variantFor,
@@ -42,6 +44,11 @@ export function AdminInventoryBalancesMain() {
     current = Math.min(page, pages);
   return (
     <>
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-1.5 text-xs text-secondary">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-foreground font-medium">Inventory Balances</span>
+      </nav>
       <p className="text-[10px] tracking-widest text-secondary">
         {t("eyebrow")}
       </p>

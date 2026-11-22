@@ -50,16 +50,31 @@ export function AdminManagementCustomersMain() {
           }
         />
       )}
-      <label>
-        {t("message13")}
-        <input
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setLimit(20);
-          }}
-        />
-      </label>
+      <div className="flex items-end gap-2">
+        <label className="grow">
+          {t("message13")}
+          <input
+            className="w-full"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setLimit(20);
+            }}
+          />
+        </label>
+        {query && (
+          <Button
+            type="button"
+            className="min-h-10 px-3 text-xs"
+            onClick={() => {
+              setQuery("");
+              setLimit(20);
+            }}
+          >
+            Clear ✕
+          </Button>
+        )}
+      </div>
       <div className="flex flex-wrap gap-3">
         {customers.slice(0, limit).map((c) => (
           <Button
@@ -79,7 +94,16 @@ export function AdminManagementCustomersMain() {
       {!customers.length && <p>{t("message16")}</p>}
       {customer && summary && (
         <section className="space-y-4 rounded-xl border border-border bg-card p-5">
-          <h2 className="text-xl font-semibold">{customer.name}</h2>
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold">{customer.name}</h2>
+            <Button
+              type="button"
+              className="min-h-8 px-2.5 py-1 text-xs"
+              onClick={() => setSelected("")}
+            >
+              ✕ Close
+            </Button>
+          </div>
           <p>
             {customer.phone} · {customer.email}
           </p>

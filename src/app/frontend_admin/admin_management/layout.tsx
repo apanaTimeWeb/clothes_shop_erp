@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ROUTES } from "@/lib/routes";
 import { ADMIN_MANAGEMENT_IMPORT_ROUTES } from "@/app/frontend_admin/admin_management/management_import/config/admin_management_import.url_config";
 import { ADMIN_MANAGEMENT_PERFORMANCE_ROUTES } from "@/app/frontend_admin/admin_management/management_performance/config/admin_management_performance.url_config";
 import { ADMIN_MANAGEMENT_PLANNING_ROUTES } from "@/app/frontend_admin/admin_management/management_planning/config/admin_management_planning.url_config";
@@ -39,6 +40,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      <nav aria-label="Breadcrumb" className="mb-3 flex items-center gap-1.5 text-xs text-secondary">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-foreground font-medium">Store Management</span>
+      </nav>
       <nav aria-label="Shop operations" className="mb-6 flex flex-wrap gap-2 sm:gap-2.5">
         {tabs.map(([name, href]) => {
           const isActive = path === href || (path.startsWith(href) && href !== "/frontend_admin/admin_management/");

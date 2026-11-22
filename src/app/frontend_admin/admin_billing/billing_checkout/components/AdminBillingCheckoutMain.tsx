@@ -62,6 +62,11 @@ export function AdminBillingCheckoutMain() {
   }
   return (
     <>
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-1.5 text-xs text-secondary">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-foreground font-medium">Billing & POS</span>
+      </nav>
       <p className="text-[10px] tracking-widest text-secondary">{t("eyebrow")}</p>
       <h1 className="mt-3 text-3xl font-semibold">{t("title")}</h1>
       <p className="mb-7 mt-2 text-secondary">{t("subtitle")}</p>

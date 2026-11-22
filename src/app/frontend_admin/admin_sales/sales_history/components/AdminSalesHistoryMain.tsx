@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useAdminSalesHistory } from "@/app/frontend_admin/admin_sales/sales_history/state/AdminSalesHistoryStore";
 import { ROUTES } from "@/lib/routes";
+import { ADMIN_MANAGEMENT_RETURNS_ROUTES } from "@/app/frontend_admin/admin_management/management_returns/config/admin_management_returns.url_config";
 import {
   money,
   dateTime,
@@ -56,6 +57,11 @@ export function AdminSalesHistoryMain() {
   ] as const;
   return (
     <>
+      <nav aria-label="Breadcrumb" className="mb-2 flex items-center gap-1.5 text-xs text-secondary">
+        <Link href={ROUTES.overview} className="hover:underline">Overview</Link>
+        <span>/</span>
+        <span className="text-foreground font-medium">Sales & Insights</span>
+      </nav>
       <p className="text-[10px] tracking-widest text-secondary">
         {t("eyebrow")}
       </p>
@@ -81,7 +87,7 @@ export function AdminSalesHistoryMain() {
             state.saleReturns.reduce((n, r) => n + r.refundPaise, 0),
         )}{" "}
         ·{" "}
-        <Link href={ROUTES.management} className="underline">
+        <Link href={ADMIN_MANAGEMENT_RETURNS_ROUTES.root} className="underline">
           {t("manageReturns")}
         </Link>
       </p>

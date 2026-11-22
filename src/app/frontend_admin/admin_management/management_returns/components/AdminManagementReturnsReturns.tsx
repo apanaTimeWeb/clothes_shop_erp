@@ -175,10 +175,21 @@ export function AdminManagementReturnsReturns() {
           ))}
       </div>
       {replacement && (
-        <AdminManagementReturnsPosEntry
-          key={replacement}
-          returnId={replacement}
-        />
+        <div className="mt-4 rounded-xl border border-border bg-card p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold">{t("replacement")}</h3>
+            <Button
+              className="min-h-8 px-2.5 py-1 text-xs"
+              onClick={() => setReplacement("")}
+            >
+              ✕ {t("cancel")}
+            </Button>
+          </div>
+          <AdminManagementReturnsPosEntry
+            key={replacement}
+            returnId={replacement}
+          />
+        </div>
       )}
     </div>
   );
